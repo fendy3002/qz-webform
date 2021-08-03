@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 let construct = (template) => {
-    let webForm = ({ elements, data }) => {
+    let WebForm = ({ elements, data }) => {
         let elementDoms = [];
         for (let each of elements) {
             let Tag = template[each.tagName];
@@ -12,8 +12,6 @@ let construct = (template) => {
         return elementDoms;
     };
 
-    return <>
-        {webForm}
-    </>;
+    return WebForm;
 }
 export default construct;
