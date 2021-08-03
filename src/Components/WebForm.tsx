@@ -1,22 +1,22 @@
 import * as React from 'react';
 
 let construct = (template) => {
-    let WebForm = ({ elements, data }) => {
+    let WebForm = ({ elements, data, parentKey = "" }) => {
         let elementDoms = [];
-        let rowIndex = 0;
-        let colIndex = 0;
-
+        let keyIndex = 0;
         for (let each of elements) {
+            let key = parentKey + "_" + keyIndex;
             let Tag = template[each.tagName];
             if (each.children) {
-                elementDoms.push(<Tag data={data}>
-                    <WebForm elements={each.children} data={data} />
+                elementDoms.push(<Tag data={data} key={key}>
+                    <WebForm elements={each.children} data={data} parentKey={parentKey + "x"}/>
                 </Tag>);
             } else {
                 elementDoms.push(
-                    <Tag data={data} {...each.props} />
+                    <Tag data={data} {...each.props} key={key}/>
                 );
             }
+            keyIndex++;
         }
         return elementDoms;
     };
