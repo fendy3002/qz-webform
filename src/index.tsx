@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 import constructor from './Components/WebForm';
+import staticConstructor from './Components/WebForm';
 import elementToJson from './helper/elementToJson';
 import arrangeElements from './helper/arrangeElements';
 const webform = (template, option?: any) => {
@@ -12,12 +13,17 @@ const webform = (template, option?: any) => {
         readOnly: false,
         ...(option ?? {}),
     };
-    const render = (element, value) => {
+    let processElement = (element, value) => {
         return elementToJson(element, useOption).then((elementsJson) => {
             let elementToRender = elementsJson;
             if (useOption.autoGrid) {
                 elementToRender = arrangeElements(elementToRender);
             }
+            return elementToRender
+        });
+    }
+    const render = (element, value) => {
+        return processElement(element, value).then((elementToRender) => {
             let WebForm = constructor(template);
             ReactDOM.render(
                 <WebForm elements={elementToRender} data={value} />,
@@ -25,8 +31,21 @@ const webform = (template, option?: any) => {
             );
         });
     };
+    const renderStatic = (element, value) => {
+        return processElement(element, value).then((elementToRender) => {
+            let WebForm = staticConstructor(template);
+            ReactDOM.render(
+                <WebForm elements={elementToRender} data={value} />,
+                element
+            );
+        });
+    };
     return {
-        render
+        WebForm: constructor(template),
+
+        processElement,
+        render,
+        renderStatic
     };
 };
 

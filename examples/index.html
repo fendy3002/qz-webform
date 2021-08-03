@@ -28,7 +28,9 @@
     <script>
         let qzForms = document.getElementsByTagName("QzForm");
         for (let qzForm of qzForms) {
-            QzWebForm.render(qzForm, {},
+            QzWebForm.render(qzForm, {
+                name: "Initial Name"
+            },
             {
                 readOnly: true
             });
