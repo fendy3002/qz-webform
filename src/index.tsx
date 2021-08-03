@@ -3,15 +3,24 @@ import * as ReactDOM from 'react-dom';
 
 import constructor from './Components/WebForm';
 import elementToJson from './helper/elementToJson';
-const webform = (template) => {
+import arrangeElements from './helper/arrangeElements';
+const webform = (template, option?: any) => {
+    let useOption = {
+        autoGrid: true,
+        ...(option ?? {}),
+    };
     const render = (element, value) => {
-        elementToJson(element).then((elementsJson) => {
+        return elementToJson(element).then((elementsJson) => {
+            let elementToRender = elementsJson;
+            if (useOption.autoGrid) {
+                elementToRender = arrangeElements(elementToRender);
+            }
             let WebForm = constructor(template);
             ReactDOM.render(
-                <WebForm elements={elementsJson} data={value} />,
+                <WebForm elements={elementToRender} data={value} />,
                 element
             );
-        })
+        });
     };
     return {
         render

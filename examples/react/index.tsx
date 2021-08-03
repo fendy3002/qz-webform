@@ -2,23 +2,37 @@ import * as React from 'react';
 
 import WebFormConstruct from '../../src/index';
 let WebForm = WebFormConstruct({
-    "text": ({name, value}) => {
-        return <input type="text" name={name} />
+    "text": ({ name, value }) => {
+        return <input type="text" className="form-control" name={name} />
     },
-    "textarea": ({name, value}) => {
-        return <textarea value={value}></textarea>
+    "textarea": ({ name, value }) => {
+        return <textarea name={name} className="form-control" value={value} ></textarea>
     },
-    "number": ({name, value}) => {
-        return <input type="text" name={name} />
+    "number": ({ name, value }) => {
+        return <input type="text" className="form-control" name={name} />
     },
     "checkbox": () => {
-        return  <></>;
+        return <></>;
     },
-    "select": ({}) => {
-        return  <></>;
+    "select": ({ }) => {
+        return <></>;
     },
-    "column": ({}) => {
-        return  <></>;
+    "row": ({ children }) => {
+        return <div className="row mb-2">
+            {children}
+        </div>;
+    },
+    "fullcolumn": ({ children }) => {
+        return <div className="row mb-2">
+            <div className="col">
+                {children}
+            </div>
+        </div>;
+    },
+    "column": ({ children }) => {
+        return <div className="col-sm-6">
+            {children}
+        </div>;
     }
 });
 
