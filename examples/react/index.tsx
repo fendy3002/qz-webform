@@ -4,9 +4,10 @@ import WebFormConstruct from '../../src/index';
 
 let render = (element, value, option?: any) => {
     let WebForm = WebFormConstruct({
-        "text": ({ name, readonly, value, label, placeholder }) => {
+        "text": ({ name, readonly, value, label, placeholder, onChange }) => {
             return <div className="form-floating">
                 <input type="text" className="form-control" name={name}
+                    onChange={onChange}
                     value={value} readOnly={readonly} placeholder={placeholder} />
                 {label &&
                     <label>{label}</label>
@@ -48,7 +49,7 @@ let render = (element, value, option?: any) => {
         }
     });
 
-    return WebForm.render(element, value);
+    return WebForm.renderStatic(element, value);
 };
 export {
     render

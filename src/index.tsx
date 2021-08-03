@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 import constructor from './Components/WebForm';
-import staticConstructor from './Components/WebForm';
+import staticConstructor from './Components/StaticWebForm';
 import elementToJson from './helper/elementToJson';
 import arrangeElements from './helper/arrangeElements';
 const webform = (template, option?: any) => {

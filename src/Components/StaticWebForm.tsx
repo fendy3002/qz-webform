@@ -17,7 +17,7 @@ let construct = (template) => {
         }
         onChange(evt) {
             this.setState((prev) => {
-                const { name, value } = evt.currentTarget;
+                const { name, value } = evt.currentTarget ?? evt.target ?? {};
                 return {
                     ...prev,
                     data: {
