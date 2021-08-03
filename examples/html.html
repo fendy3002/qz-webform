@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <QzForm>
+        <Text name="name"></Text>
+        <Text ></Text>
+        <Number name=""></Number>
+        <Textarea name="address"></Textarea>
+        <Checkbox></Checkbox>
+        <Select name="nationality"></Select>
+        <Text name=""></Text>
+        <Column>
+            <Text name="name"></Text>
+            <Text name="name"></Text>
+        </Column>
+    </QzForm>
+
+    <script src="js/qz_webform.js"></script>
+    <script>
+        let qzForms = document.getElementsByTagName("QzForm");
+        for (let qzForm of qzForms) {
+            QzWebform.render(qzForm);
+        }
+    </script>
+</body>
+
+</html>
