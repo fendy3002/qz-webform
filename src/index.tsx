@@ -7,6 +7,8 @@ import arrangeElements from './helper/arrangeElements';
 const webform = (template, option?: any) => {
     let useOption = {
         autoGrid: true,
+        autoPlaceholder: true,
+        autoLabel: true,
         readOnly: false,
         ...(option ?? {}),
     };

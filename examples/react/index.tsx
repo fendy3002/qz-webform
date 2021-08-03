@@ -2,16 +2,26 @@ import * as React from 'react';
 
 import WebFormConstruct from '../../src/index';
 
-let render = (element, value, option ?: any) => {
+let render = (element, value, option?: any) => {
     let WebForm = WebFormConstruct({
-        "text": ({ name, readonly, value }) => {
-            return <input type="text" className="form-control" name={name} readOnly={readonly} />
+        "text": ({ name, readonly, value, label, placeholder }) => {
+            return <div className="form-floating">
+                <input type="text" className="form-control" name={name}
+                    value={value} readOnly={readonly} placeholder={placeholder} />
+                {label &&
+                    <label>{label}</label>
+                }
+            </div>;
         },
-        "textarea": ({ name, readonly, value }) => {
-            return <textarea name={name} className="form-control" value={value} readOnly={readonly}></textarea>
+        "textarea": ({ name, readonly, value, placeholder }) => {
+            return <textarea name={name} className="form-control"
+                value={value} readOnly={readonly}
+                placeholder={placeholder}></textarea>
         },
-        "number": ({ name, readonly, value }) => {
-            return <input type="text" className="form-control" name={name} readOnly={readonly} />
+        "number": ({ name, readonly, value, placeholder }) => {
+            return <input type="text" className="form-control"
+                name={name} readOnly={readonly}
+                placeholder={placeholder} />
         },
         "checkbox": ({ name, readOnly, value }) => {
             return <></>;
@@ -37,7 +47,7 @@ let render = (element, value, option ?: any) => {
             </div>;
         }
     });
-    
+
     return WebForm.render(element, value);
 };
 export {

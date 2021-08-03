@@ -15,6 +15,10 @@ const elementToJson = (element, option) => {
             result.readonly = true;
         } if (result.hasOwnProperty("checked")) {
             result.checked = true;
+        } if (option.autoLabel && !result.label) {
+            result.label = result.name ?? "";
+        } if (option.autoPlaceholder && !result.placeholder) {
+            result.placeholder = result.label ?? result.name;
         }
 
         return result;
