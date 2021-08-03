@@ -5,13 +5,25 @@ let xmlParser = new Parser({
     explicitChildren: true,
     preserveChildrenOrder: true
 });
+let propToBoolean = (prop) => {
+    let result: any = {
+        ...prop,
+    };
+    if (result.hasOwnProperty("readonly")) {
+        result.readonly = true;
+    } if (result.hasOwnProperty("checked")) {
+        result.checked = true;
+    }
+
+    return result;
+};
 const formObject = (each) => {
     let tagName = each['#name'];
     let result: any = {
         tagName: tagName,
     };
     if (each["$"]) {
-        result.props = each["$"];
+        result.props = propToBoolean(each["$"]);
     }
     if (each["$$"]) {
         result.children = each["$$"].map(k => formObject(k));
