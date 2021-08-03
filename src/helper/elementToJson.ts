@@ -5,32 +5,34 @@ let xmlParser = new Parser({
     explicitChildren: true,
     preserveChildrenOrder: true
 });
-let propToBoolean = (prop) => {
-    let result: any = {
-        ...prop,
-    };
-    if (result.hasOwnProperty("readonly")) {
-        result.readonly = true;
-    } if (result.hasOwnProperty("checked")) {
-        result.checked = true;
-    }
+const elementToJson = (element, option) => {
 
-    return result;
-};
-const formObject = (each) => {
-    let tagName = each['#name'];
-    let result: any = {
-        tagName: tagName,
+    let propToBoolean = (prop) => {
+        let result: any = {
+            ...prop,
+        };
+        if (result.hasOwnProperty("readonly") || option.readOnly) {
+            result.readonly = true;
+        } if (result.hasOwnProperty("checked")) {
+            result.checked = true;
+        }
+
+        return result;
     };
-    if (each["$"]) {
-        result.props = propToBoolean(each["$"]);
-    }
-    if (each["$$"]) {
-        result.children = each["$$"].map(k => formObject(k));
-    }
-    return result;
-};
-const elementToJson = (element) => {
+    const formObject = (each) => {
+        let tagName = each['#name'];
+        let result: any = {
+            tagName: tagName,
+        };
+        if (each["$"]) {
+            result.props = propToBoolean(each["$"]);
+        }
+        if (each["$$"]) {
+            result.children = each["$$"].map(k => formObject(k));
+        }
+        return result;
+    };
+
     let xmlString = `<root>${element.innerHTML.trim()}</root>`;
     return xmlParser.parseStringPromise(xmlString).then(xml => {
         let formStructure = xml?.root.$$;

@@ -7,10 +7,11 @@ import arrangeElements from './helper/arrangeElements';
 const webform = (template, option?: any) => {
     let useOption = {
         autoGrid: true,
+        readOnly: false,
         ...(option ?? {}),
     };
     const render = (element, value) => {
-        return elementToJson(element).then((elementsJson) => {
+        return elementToJson(element, useOption).then((elementsJson) => {
             let elementToRender = elementsJson;
             if (useOption.autoGrid) {
                 elementToRender = arrangeElements(elementToRender);
