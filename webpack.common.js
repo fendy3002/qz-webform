@@ -15,9 +15,13 @@ let webpackModule = {
                         loader: "babel-loader",
                         options: {
                             presets: [
+                                "@babel/preset-react",
                                 "@babel/preset-typescript",
                                 ['@babel/preset-env', { modules: false }]
                             ],
+                            plugins: [
+                                ["@babel/plugin-proposal-decorators", { "legacy": true }],
+                            ]
                         }
                     }
                 ]

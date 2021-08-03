@@ -4,11 +4,11 @@ const common = require('./webpack.common.js');
 
 let entryOutput = {
     entry: {
-        "qz_webform": path.resolve(__dirname, "src/index.tsx"),
+        "qz_webform": path.resolve(__dirname, "examples/react/index.tsx"),
     },
     output: {
         path: path.resolve(__dirname, 'examples/js'),
-        library: 'QzWebform',
+        library: 'QzWebForm',
         filename: "[name].js",
     }
 };
