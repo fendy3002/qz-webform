@@ -11,7 +11,6 @@ const webform = (template, option?: any) => {
     };
     const render = (element, value) => {
         return elementToJson(element).then((elementsJson) => {
-            console.log(elementsJson);
             let elementToRender = elementsJson;
             if (useOption.autoGrid) {
                 elementToRender = arrangeElements(elementToRender);
