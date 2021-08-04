@@ -12,23 +12,29 @@ const construct = (lang?: any) => {
             [name]: ''
         };
         if (tagName == "text") {
+            let validateMaxlength = currentTarget.dataset["validateMaxlength"] * 1;
+            let validateMinlength = currentTarget.dataset["validateMinlength"] * 1;
             if (currentTarget.dataset["validateRequired"] && !value) {
                 error[name] = useLang.required;
-            }
-            if (currentTarget.dataset["validateMaxlength"] > 0 
-                && value?.length > currentTarget.dataset["validateMaxlength"]) {
-                error[name] = useLang.maxlength_over.replace("{length}", currentTarget.dataset["validateMaxlength"]);
-            }
-            if (currentTarget.dataset["validateMinlength"] > 0 
-                && value?.length < currentTarget.dataset["validateMinlength"]) {
-                error[name] = useLang.minlength_lower.replace("{length}", currentTarget.dataset["validateMinlength"]);
+            } else if (validateMaxlength > 0
+                && value?.length > validateMaxlength) {
+                error[name] = useLang.maxlength_over.replace("{length}", validateMaxlength);
+            } else if (validateMinlength > 0
+                && value?.length < validateMinlength) {
+                error[name] = useLang.minlength_lower.replace("{length}", validateMinlength);
             }
         }
         else if (tagName == "number") {
+            const validateMax = currentTarget.dataset["validateMax"] * 1;
+            const validateMin = currentTarget.dataset["validateMin"] * 1;
             if (!isNumeric(value)) {
                 error[name] = useLang.not_number;
-            } else {
-                error[name] = null;
+            } else if (validateMax > 0
+                && value > validateMax) {
+                error[name] = useLang.max_over.replace("{value}", validateMax);
+            } else if (validateMin > 0
+                && value < validateMin) {
+                error[name] = useLang.min_lower.replace("{value}", validateMin);
             }
         }
 

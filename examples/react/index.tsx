@@ -27,10 +27,23 @@ let render = (element, value, option?: any) => {
                 value={value} readOnly={readonly}
                 placeholder={placeholder} onChange={onChange}></textarea>;
         },
-        "number": ({ name, readonly, value, placeholder, onChange }) => {
-            return <input type="text" className="form-control"
-                name={name} readOnly={readonly} value={value}
-                placeholder={placeholder} onChange={onChange} />;
+        "number": ({ name, readonly, value, label, error, placeholder, dataset,
+            onChange }) => {
+            let requiredSign = dataset["data-validate-required"] ? <span className="text-danger">*</span> : <></>;
+
+            return <div className="form-floating">
+                <input type="text" className={"form-control rounded-0 " + (error ? "is-invalid" : "")} name={name}
+                    onChange={onChange} {...dataset}
+                    value={value} readOnly={readonly} placeholder={placeholder} />
+                {label &&
+                    <label>{label}&nbsp;{requiredSign}</label>
+                }
+                {error &&
+                    <div className="invalid-feedback">
+                        {error}
+                    </div>
+                }
+            </div>;
         },
         "checkbox": ({ name, readOnly, value }) => {
             return <></>;
