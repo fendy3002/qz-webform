@@ -12,16 +12,16 @@ const construct = (lang?: any) => {
             [name]: ''
         };
         if (tagName == "text") {
-            if (currentTarget.dataset.required && !value) {
+            if (currentTarget.dataset["validateRequired"] && !value) {
                 error[name] = useLang.required;
             }
-            if (currentTarget.dataset.maxlength > 0 
-                && value?.length > currentTarget.dataset.maxlength) {
-                error[name] = useLang.maxlength_over.replace("{length}", currentTarget.dataset.maxlength);
+            if (currentTarget.dataset["validateMaxlength"] > 0 
+                && value?.length > currentTarget.dataset["validateMaxlength"]) {
+                error[name] = useLang.maxlength_over.replace("{length}", currentTarget.dataset["validateMaxlength"]);
             }
-            if (currentTarget.dataset.minlength > 0 
-                && value?.length < currentTarget.dataset.minlength) {
-                error[name] = useLang.minlength_lower.replace("{length}", currentTarget.dataset.minlength);
+            if (currentTarget.dataset["validateMinlength"] > 0 
+                && value?.length < currentTarget.dataset["validateMinlength"]) {
+                error[name] = useLang.minlength_lower.replace("{length}", currentTarget.dataset["validateMinlength"]);
             }
         }
         else if (tagName == "number") {

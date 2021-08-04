@@ -4,14 +4,19 @@ import WebFormConstruct from '../../src/index';
 
 let render = (element, value, option?: any) => {
     let WebForm = WebFormConstruct({
-        "text": ({ name, readonly, value, label, placeholder, dataset,
-                onChange }) => {
+        "text": ({ name, readonly, value, label, error, placeholder, dataset,
+            onChange }) => {
             return <div className="form-floating">
-                <input type="text" className="form-control" name={name}
+                <input type="text" className={"form-control rounded-0 " + (error ? "is-invalid" : "")} name={name}
                     onChange={onChange} {...dataset}
                     value={value} readOnly={readonly} placeholder={placeholder} />
                 {label &&
                     <label>{label}</label>
+                }
+                {error &&
+                    <div className="invalid-feedback">
+                        {error}
+                    </div>
                 }
             </div>;
         },

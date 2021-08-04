@@ -2,7 +2,7 @@
 let modifyProp = (element, propName) => {
     if (element.props?.[propName]) {
         element.props.dataset = element.props.dataset || {};
-        element.props.dataset["data-validation-" + propName.toLowerCase()] = element.props[propName];
+        element.props.dataset["data-validate-" + propName.toLowerCase()] = element.props[propName];
         delete element.props[propName];
     }
 }

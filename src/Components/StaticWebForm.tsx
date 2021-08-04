@@ -21,7 +21,6 @@ let construct = (template, lang) => {
         onChange(evt) {
             const { name, value } = evt.currentTarget ?? evt.target ?? {};
             let validateResult = validateInput.validate(evt);
-
             this.setState((prev) => {
                 return {
                     ...prev,
