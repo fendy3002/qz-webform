@@ -8,15 +8,17 @@ const groupAsRow = (elements) => {
 const groupAsColumn = (elements) => {
     return {
         tagName: "column",
-        children: elements
+        children: elements.map(elem => {
+            return {
+                ...elem,
+                props: {
+                    ...elem.props,
+                    columnWidth: 50
+                }
+            };
+        }),
     };
 };
-const asFullColumn = (elements) => {
-    return {
-        tagName: "fullcolumn",
-        children: elements
-    };
-}
 // exceptions:
 // fullcolumn
 // rowbreak
@@ -45,7 +47,18 @@ const arrangeElements = (elements, options?: any) => {
             }
             if (each.tagName == "fullcolumn") {
                 pushRow();
-                result.push(each);
+                result.push({
+                    ...each,
+                    children: each.children.map(child => {
+                        return {
+                            ...child,
+                            props: {
+                                ...child.props,
+                                columnWidth: 100
+                            }
+                        };
+                    })
+                });
                 continue;
             }
             if (each.children) {

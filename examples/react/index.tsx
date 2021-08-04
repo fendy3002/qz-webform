@@ -4,7 +4,7 @@ import WebFormConstruct from '../../src/index';
 
 let render = (element, value, option?: any) => {
     let WebForm = WebFormConstruct({
-        "text": ({ name, readonly, value, label, placeholder, onChange }) => {
+        "text": ({ name, readonly, value, label, placeholder, columnWidth, onChange }) => {
             return <div className="form-floating">
                 <input type="text" className="form-control" name={name}
                     onChange={onChange}

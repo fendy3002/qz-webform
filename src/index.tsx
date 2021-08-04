@@ -5,6 +5,7 @@ import constructor from './Components/WebForm';
 import staticConstructor from './Components/StaticWebForm';
 import elementToJson from './helper/elementToJson';
 import arrangeElements from './helper/arrangeElements';
+import prepareValue from './helper/prepareValue';
 const webform = (template, option?: any) => {
     let useOption = {
         autoGrid: true,
@@ -13,29 +14,34 @@ const webform = (template, option?: any) => {
         readOnly: false,
         ...(option ?? {}),
     };
-    let processElement = (element, value) => {
+    let preprocess = (element, value) => {
         return elementToJson(element, useOption).then((elementsJson) => {
             let elementToRender = elementsJson;
             if (useOption.autoGrid) {
                 elementToRender = arrangeElements(elementToRender);
             }
-            return elementToRender
+            return {
+                elements: elementToRender,
+                value: prepareValue(elementToRender, value, useOption)
+            };
         });
     }
     const render = (element, value) => {
-        return processElement(element, value).then((elementToRender) => {
+        return preprocess(element, value).then((result) => {
+            let { elements, value } = result;
             let WebForm = constructor(template);
             ReactDOM.render(
-                <WebForm elements={elementToRender} data={value} />,
+                <WebForm elements={elements} data={value} />,
                 element
             );
         });
     };
     const renderStatic = (element, value) => {
-        return processElement(element, value).then((elementToRender) => {
+        return preprocess(element, value).then((result) => {
+            let { elements, value } = result;
             let WebForm = staticConstructor(template);
             ReactDOM.render(
-                <WebForm elements={elementToRender} data={value} />,
+                <WebForm elements={elements} data={value} />,
                 element
             );
         });
@@ -43,7 +49,7 @@ const webform = (template, option?: any) => {
     return {
         WebForm: constructor(template),
 
-        processElement,
+        preprocess,
         render,
         renderStatic
     };
