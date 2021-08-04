@@ -9,7 +9,8 @@ let construct = (template, lang) => {
         constructor(prop) {
             super(prop);
             this.state = {
-                data: this.props.data
+                data: this.props.data,
+                error: {}
             };
             [
                 "onChange",
@@ -37,7 +38,10 @@ let construct = (template, lang) => {
         }
         render() {
             let { elements } = this.props;
-            return <WebForm elements={elements} onChange={this.onChange} data={this.state.data} />
+            return <WebForm elements={elements}
+                data={this.state.data}
+                error={this.state.error}
+                onChange={this.onChange} />
         }
     };
 }
