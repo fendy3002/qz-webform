@@ -4,7 +4,7 @@ import WebFormConstruct from '../../src/index';
 
 let render = (element, value, option?: any) => {
     let WebForm = WebFormConstruct({
-        "text": ({ name, readonly, value, label, placeholder, columnWidth, onChange }) => {
+        "text": ({ name, readonly, value, label, placeholder, onChange }) => {
             return <div className="form-floating">
                 <input type="text" className="form-control" name={name}
                     onChange={onChange}
@@ -14,15 +14,15 @@ let render = (element, value, option?: any) => {
                 }
             </div>;
         },
-        "textarea": ({ name, readonly, value, placeholder }) => {
+        "textarea": ({ name, readonly, value, placeholder, onChange }) => {
             return <textarea name={name} className="form-control"
                 value={value} readOnly={readonly}
-                placeholder={placeholder}></textarea>
+                placeholder={placeholder} onChange={onChange}></textarea>;
         },
-        "number": ({ name, readonly, value, placeholder }) => {
+        "number": ({ name, readonly, value, placeholder, onChange }) => {
             return <input type="text" className="form-control"
-                name={name} readOnly={readonly}
-                placeholder={placeholder} />
+                name={name} readOnly={readonly} value={value}
+                placeholder={placeholder} onChange={onChange} />;
         },
         "checkbox": ({ name, readOnly, value }) => {
             return <></>;
