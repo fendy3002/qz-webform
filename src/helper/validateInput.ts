@@ -11,7 +11,7 @@ const construct = (lang?: any) => {
         let error = {
             [name]: ''
         };
-        if (tagName == "text") {
+        if (tagName == "text" || tagName == "textarea") {
             let validateMaxlength = currentTarget.dataset["validateMaxlength"] * 1;
             let validateMinlength = currentTarget.dataset["validateMinlength"] * 1;
             if (currentTarget.dataset["validateRequired"] && !value) {

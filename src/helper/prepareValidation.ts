@@ -9,7 +9,8 @@ let modifyProp = (element, propName) => {
     }
 }
 let prepare = (element, option) => {
-    if (element.tagName == "text") {
+    if (element.tagName == "text" ||
+        element.tagName == "textarea") {
         for (let propName of [
             "maxlength",
             "minlength",

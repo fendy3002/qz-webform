@@ -41,7 +41,36 @@ const elementToJson = (element, option) => {
             };
         }
         if (each["$$"]) {
-            result.children = each["$$"].map(k => formObject(k));
+            // select options
+            if (tagName == "select") {
+                if (each["$$"].some(k => k['#name'] == "optgroup")) {
+                    result.groupedOptions = [];
+                    let currentGroup = null;
+                    for (let eachopts of each["$$"]) {
+                        if (eachopts['#name'] == "optgroup") {
+                            currentGroup = {
+                                label: eachopts.$?.label,
+                                options: []
+                            };
+                            result.groupedOptions.push(currentGroup);
+                        } else {
+                            currentGroup.options.push({
+                                label: eachopts._,
+                                value: eachopts["$"]?.value
+                            });
+                        }
+                    }
+                } else {
+                    result.options = each["$$"].map(k => {
+                        return {
+                            label: k._,
+                            value: k["$"]?.value
+                        };
+                    });
+                }
+            } else {
+                result.children = each["$$"].map(k => formObject(k));
+            }
         }
         if (option.autoValidation) {
             prepareValidation(result, option);
