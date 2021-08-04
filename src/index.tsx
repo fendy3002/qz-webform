@@ -6,6 +6,7 @@ import staticConstructor from './Components/StaticWebForm';
 import elementToJson from './helper/elementToJson';
 import arrangeElements from './helper/arrangeElements';
 import prepareValue from './helper/prepareValue';
+import enlang from './lang/en';
 const webform = (template, option?: any) => {
     let useOption = {
         autoGrid: true,
@@ -13,6 +14,7 @@ const webform = (template, option?: any) => {
         autoLabel: true,
         autoValidation: true,
         readOnly: false,
+        lang: enlang,
         ...(option ?? {}),
     };
     let preprocess = (element, value) => {
@@ -40,7 +42,7 @@ const webform = (template, option?: any) => {
     const renderStatic = (element, value) => {
         return preprocess(element, value).then((result) => {
             let { elements, value } = result;
-            let WebForm = staticConstructor(template);
+            let WebForm = staticConstructor(template, useOption.lang);
             ReactDOM.render(
                 <WebForm elements={elements} data={value} />,
                 element

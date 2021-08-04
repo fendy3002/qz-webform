@@ -1,8 +1,10 @@
 import * as React from 'react';
 import WebFormConstruct from './WebForm';
+import validateInputConstruct from '../helper/validateInput';
 
-let construct = (template) => {
+let construct = (template, lang) => {
     const WebForm = WebFormConstruct(template);
+    const validateInput = validateInputConstruct(lang);
     return class StaticWebForm extends React.Component {
         constructor(prop) {
             super(prop);
@@ -17,14 +19,18 @@ let construct = (template) => {
         }
         onChange(evt) {
             const { name, value } = evt.currentTarget ?? evt.target ?? {};
-            let tagName = evt.currentTarget.dataset["tagname"];
+            let validateResult = validateInput.validate(evt);
 
             this.setState((prev) => {
                 return {
                     ...prev,
                     data: {
                         ...prev.data,
-                        [name]: value
+                        [name]: validateResult.value,
+                    },
+                    error: {
+                        ...prev.error,
+                        ...validateResult.error
                     }
                 };
             });

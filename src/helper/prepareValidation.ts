@@ -11,6 +11,7 @@ let prepare = (element, option) => {
         for (let propName of [
             "maxlength",
             "minlength",
+            "required"
         ]) {
             modifyProp(element, propName);
         }
@@ -18,6 +19,7 @@ let prepare = (element, option) => {
         [
             "max",
             "min",
+            "required"
         ].map(propName => modifyProp(element, propName));
     }
     return;
