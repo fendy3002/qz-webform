@@ -11,6 +11,7 @@ const webform = (template, option?: any) => {
         autoGrid: true,
         autoPlaceholder: true,
         autoLabel: true,
+        autoValidation: true,
         readOnly: false,
         ...(option ?? {}),
     };

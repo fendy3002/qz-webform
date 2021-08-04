@@ -1,4 +1,5 @@
 import { Parser } from 'xml2js';
+import prepareValidation from './prepareValidation';
 
 let xmlParser = new Parser({
     explicitArray: true,
@@ -27,12 +28,23 @@ const elementToJson = (element, option) => {
         let tagName = each['#name'];
         let result: any = {
             tagName: tagName,
+            props: {
+                dataset: {
+                    "data-tagname": tagName
+                }
+            }
         };
         if (each["$"]) {
-            result.props = propToBoolean(each["$"]);
+            result.props = {
+                ...result.props,
+                ...propToBoolean(each["$"])
+            };
         }
         if (each["$$"]) {
             result.children = each["$$"].map(k => formObject(k));
+        }
+        if (option.autoValidation) {
+            prepareValidation(result, option);
         }
         return result;
     };

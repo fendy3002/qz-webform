@@ -16,8 +16,10 @@ let construct = (template) => {
             });
         }
         onChange(evt) {
+            const { name, value } = evt.currentTarget ?? evt.target ?? {};
+            let tagName = evt.currentTarget.dataset["tagname"];
+
             this.setState((prev) => {
-                const { name, value } = evt.currentTarget ?? evt.target ?? {};
                 return {
                     ...prev,
                     data: {
