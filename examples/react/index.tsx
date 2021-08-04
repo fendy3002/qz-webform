@@ -6,12 +6,14 @@ let render = (element, value, option?: any) => {
     let WebForm = WebFormConstruct({
         "text": ({ name, readonly, value, label, error, placeholder, dataset,
             onChange }) => {
+            let requiredSign = dataset["data-validate-required"] ? <span className="text-danger">*</span> : <></>;
+
             return <div className="form-floating">
                 <input type="text" className={"form-control rounded-0 " + (error ? "is-invalid" : "")} name={name}
                     onChange={onChange} {...dataset}
                     value={value} readOnly={readonly} placeholder={placeholder} />
                 {label &&
-                    <label>{label}</label>
+                    <label>{label}&nbsp;{requiredSign}</label>
                 }
                 {error &&
                     <div className="invalid-feedback">

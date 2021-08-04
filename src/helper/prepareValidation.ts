@@ -1,8 +1,10 @@
 
 let modifyProp = (element, propName) => {
-    if (element.props?.[propName]) {
+    if (element.props?.hasOwnProperty(propName)) {
         element.props.dataset = element.props.dataset || {};
-        element.props.dataset["data-validate-" + propName.toLowerCase()] = element.props[propName];
+        element.props.dataset["data-validate-" + propName.toLowerCase()] = (propName == "required") ?
+            true :
+            element.props[propName];
         delete element.props[propName];
     }
 }
