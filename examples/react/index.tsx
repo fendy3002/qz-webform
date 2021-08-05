@@ -64,9 +64,13 @@ let render = (element, value, option?: any) => {
         },
         "select": ({ name, options, groupedOptions, readOnly, value,
             onChange }) => {
-            return <select className="form-control rounded-0" name={name} value={value} onChange={onChange}>
-                {options.map(k => <option value={k.value} key={k.value ?? k.label}>{k.label}</option>)}
-            </select>;
+            if (readOnly) {
+                
+            } else {
+                return <select className="form-control rounded-0" name={name} value={value} onChange={onChange}>
+                    {options.map(k => <option value={k.value} key={k.value ?? k.label}>{k.label}</option>)}
+                </select>;
+            }
         },
         "row": ({ children }) => {
             return <div className="row mb-2">

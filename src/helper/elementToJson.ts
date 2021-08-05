@@ -24,7 +24,7 @@ const elementToJson = (element, option) => {
 
         return result;
     };
-    const formObject = (each) => {
+    const formObject = (each, elemMap) => {
         let tagName = each['#name'];
         let result: any = {
             tagName: tagName,
@@ -39,6 +39,10 @@ const elementToJson = (element, option) => {
                 ...result.props,
                 ...propToBoolean(each["$"])
             };
+            if (result.props.name) {
+                elemMap[result.props.name] = elemMap[result.props.name] ?? [];
+                elemMap[result.props.name].push(result);
+            }
         }
         if (each["$$"]) {
             // select options
@@ -69,7 +73,7 @@ const elementToJson = (element, option) => {
                     });
                 }
             } else {
-                result.children = each["$$"].map(k => formObject(k));
+                result.children = each["$$"].map(k => formObject(k, elemMap));
             }
         }
         if (option.autoValidation) {
@@ -81,11 +85,18 @@ const elementToJson = (element, option) => {
     let xmlString = `<root>${element.innerHTML.trim()}</root>`;
     return xmlParser.parseStringPromise(xmlString).then(xml => {
         let formStructure = xml?.root.$$;
+
         let result = [];
+        let elemMap: {
+            [key: string]: []
+        } = {};
         for (let each of formStructure) {
-            result.push(formObject(each));
+            result.push(formObject(each, elemMap));
         }
-        return result;
+        return {
+            elemJSON: result,
+            elemMap: elemMap
+        };
     });
 };
 

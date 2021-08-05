@@ -19,12 +19,13 @@ const webform = (template, option?: any) => {
     };
     let preprocess = (element, value) => {
         return elementToJson(element, useOption).then((elementsJson) => {
-            let elementToRender = elementsJson;
+            let elementToRender = elementsJson.elemJSON;
             if (useOption.autoGrid) {
                 elementToRender = arrangeElements(elementToRender);
             }
             return {
                 elements: elementToRender,
+                elemMap: elementsJson.elemMap,
                 value: prepareValue(elementToRender, value, useOption)
             };
         });
