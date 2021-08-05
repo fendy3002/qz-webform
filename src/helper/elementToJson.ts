@@ -46,7 +46,7 @@ const elementToJson = (element, option) => {
         }
         if (each["$$"]) {
             // select options
-            if (tagName == "select") {
+            if (tagName == "select" || tagName == "reactselect") {
                 if (each["$$"].some(k => k['#name'] == "optgroup")) {
                     result.groupedOptions = [];
                     let currentGroup = null;
@@ -60,7 +60,7 @@ const elementToJson = (element, option) => {
                         } else {
                             currentGroup.options.push({
                                 label: eachopts._,
-                                value: eachopts["$"]?.value
+                                value: eachopts["$"]?.value ?? ""
                             });
                         }
                     }
@@ -68,7 +68,7 @@ const elementToJson = (element, option) => {
                     result.options = each["$$"].map(k => {
                         return {
                             label: k._,
-                            value: k["$"]?.value
+                            value: k["$"]?.value ?? ""
                         };
                     });
                 }

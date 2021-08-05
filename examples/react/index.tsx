@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import ReactSelect from 'react-select';
 import WebFormConstruct from '../../src/index';
 
 let render = (element, value, option?: any) => {
@@ -65,11 +66,27 @@ let render = (element, value, option?: any) => {
         "select": ({ name, options, groupedOptions, readOnly, value,
             onChange }) => {
             if (readOnly) {
-                
+
             } else {
                 return <select className="form-control rounded-0" name={name} value={value} onChange={onChange}>
                     {options.map(k => <option value={k.value} key={k.value ?? k.label}>{k.label}</option>)}
                 </select>;
+            }
+        },
+        "reactselect": ({ name, options, groupedOptions, readOnly, value,
+            onChange }) => {
+            if (readOnly) {
+
+            } else {
+                let label = options.find(k => k.value == value)?.label;
+                return <ReactSelect
+                    value={{
+                        value: value,
+                        label: label
+                    }}
+                    onChange={onChange}
+                    options={options}
+                />;
             }
         },
         "row": ({ children }) => {
