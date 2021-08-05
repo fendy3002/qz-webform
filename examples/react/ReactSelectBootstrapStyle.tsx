@@ -8,7 +8,7 @@ export default {
         return {
             ...provided,
             boxShadow: "none",
-            paddingTop: "24px",            
+            paddingTop: "18px",
             borderRadius: 0
         };
     },
