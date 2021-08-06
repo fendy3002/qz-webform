@@ -61,8 +61,14 @@ let render = (element, value, option?: any) => {
                 }
             </div>;
         },
-        "checkbox": ({ name, readOnly, value }) => {
-            return <></>;
+        "checkbox": ({ name, readonly, value, label, error, placeholder, dataset,
+            onChange }) => {
+            return <div className="form-check form-switch">
+                <label className="form-check-label" >
+                    <input className="form-check-input" type="checkbox" name={name} checked={value} onChange={onChange} {...dataset} />
+                    {label}
+                </label>
+            </div>;
         },
         "select": ({ name, readonly, value, label, error, placeholder, dataset, options, groupedOptions,
             onChange }) => {

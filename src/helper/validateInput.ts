@@ -6,7 +6,7 @@ const construct = (lang?: any) => {
     let useLang = lang ?? enLang;
     const validate = (evt) => {
         const { currentTarget } = evt;
-        const { name, value } = currentTarget;
+        let { name, value } = currentTarget;
         const tagName = currentTarget.dataset.tagname;
         let error = {
             [name]: ''
@@ -37,7 +37,9 @@ const construct = (lang?: any) => {
                 error[name] = useLang.min_lower.replace("{value}", validateMin);
             }
         }
-
+        else if (tagName == "checkbox") {
+            value = currentTarget.checked;
+        }
         return {
             value: value,
             error: error
