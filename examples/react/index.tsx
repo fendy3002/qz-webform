@@ -64,10 +64,19 @@ let render = (element, value, option?: any) => {
         "checkbox": ({ name, readOnly, value }) => {
             return <></>;
         },
-        "select": ({ name, readonly, value, label, error, placeholder, dataset, options, groupedOptions, readOnly,
+        "select": ({ name, readonly, value, label, error, placeholder, dataset, options, groupedOptions,
             onChange }) => {
-            if (readOnly) {
-
+            if (readonly) {
+                let selectText = options.find(k => k.value == value)?.label;
+                return <div className="form-floating">
+                    <input type="text" className={"form-control rounded-0 "}
+                        value={selectText} readOnly={true} placeholder={placeholder} {...dataset}
+                        onChange={onChange} />
+                    <input type="hidden" name={name} value={value} />
+                    {label &&
+                        <label>{label}</label>
+                    }
+                </div>;
             } else {
                 let requiredSign = dataset["data-validate-required"] ? <span className="text-danger">*</span> : <></>;
                 return <div className="form-floating">
@@ -80,9 +89,18 @@ let render = (element, value, option?: any) => {
                 </div>;
             }
         },
-        "reactselect": ({ name, readonly, value, label, error, placeholder, dataset, options, groupedOptions, readOnly, onChange }) => {
-            if (readOnly) {
-
+        "reactselect": ({ name, readonly, value, label, error, placeholder, dataset, options, groupedOptions, onChange }) => {
+            if (readonly) {
+                let selectText = options.find(k => k.value == value)?.label;
+                return <div className="form-floating">
+                    <input type="text" className={"form-control rounded-0 "}
+                        value={selectText} readOnly={true} placeholder={placeholder} {...dataset}
+                        onChange={onChange} />
+                    <input type="hidden" name={name} value={value} />
+                    {label &&
+                        <label>{label}</label>
+                    }
+                </div>;
             } else {
                 let requiredSign = dataset["data-validate-required"] ? <span className="text-danger">*</span> : <></>;
                 let selectText = options.find(k => k.value == value)?.label;

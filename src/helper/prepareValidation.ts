@@ -24,6 +24,11 @@ let prepare = (element, option) => {
             "min",
             "required"
         ].map(propName => modifyProp(element, propName));
+    } else if (element.tagName == "select" ||
+        element.tagName == "reactselect") {
+        [
+            "required"
+        ].map(propName => modifyProp(element, propName));
     }
     return;
 };
