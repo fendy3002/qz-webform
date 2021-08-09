@@ -1,13 +1,15 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as MobxReact from 'mobx-react';
-import { prepareStructure } from '../../../src/index';
+import structureConstruct from './structure';
 import template from './template';
 import store from './store';
 
 let render = (element, userid, option?: any) => {
-    
     let storeInstance = new store(userid);
+
+    let structure = structureConstruct(option);
+    
     ReactDOM.render(
         <MobxReact.Provider store={storeInstance}>
             <App />

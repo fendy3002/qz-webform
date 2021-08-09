@@ -62,9 +62,14 @@ const webform = (template, option?: any) => {
     const renderStatic = (element, value) => {
         return preprocessWithValue(element, value).then((result) => {
             let { elements, value } = result;
-            let WebForm = staticConstructor(template, useOption.lang);
+            let WebForm = staticConstructor({
+                template,
+                elements: elements,
+                language: useOption.lang,
+                data: value
+            });
             ReactDOM.render(
-                <WebForm elements={elements} data={value} />,
+                <WebForm />,
                 element
             );
         });

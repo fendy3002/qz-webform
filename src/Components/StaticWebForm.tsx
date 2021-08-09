@@ -2,14 +2,14 @@ import * as React from 'react';
 import WebFormConstruct from './WebForm';
 import validateInputConstruct from '../helper/validateInput';
 
-let construct = (template, lang) => {
+let construct = ({template, elements, data, language}) => {
     const WebForm = WebFormConstruct(template);
-    const validateInput = validateInputConstruct(lang);
+    const validateInput = validateInputConstruct(language);
     return class StaticWebForm extends React.Component {
         constructor(prop) {
             super(prop);
             this.state = {
-                data: this.props.data,
+                data: data,
                 error: {}
             };
             [
@@ -36,7 +36,6 @@ let construct = (template, lang) => {
             });
         }
         render() {
-            let { elements } = this.props;
             return <WebForm elements={elements}
                 data={this.state.data}
                 error={this.state.error}
