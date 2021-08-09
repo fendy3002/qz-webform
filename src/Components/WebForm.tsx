@@ -26,7 +26,6 @@ let construct = (template) => {
         });
         render() {
             const { structure, data, error, parentKey = "", onChange } = this.props;
-            console.log("structure", structure)
             let elementDoms = [];
             let keyIndex = 0;
             for (let each of structure) {
