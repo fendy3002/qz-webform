@@ -4,7 +4,7 @@ import validateInputConstruct from '../helper/validateInput';
 
 let construct = ({ template, structure, context, language }) => {
     const WebForm = WebFormConstruct(template);
-    const validateInput = validateInputConstruct(language);
+    const validateInput = validateInputConstruct(context, language);
     return class ReactWebForm extends React.Component {
         constructor(prop) {
             super(prop);

@@ -2,19 +2,21 @@ import enLang from '../lang/en';
 const isNumeric = (value) => {
     return !isNaN(value - parseFloat(value));
 };
-const construct = (lang?: any) => {
+const construct = (context: any, lang?: any) => {
     let useLang = lang ?? enLang;
     const validate = (evt) => {
         const { currentTarget } = evt;
         let { name, value } = currentTarget;
         const tagName = currentTarget.dataset.tagname;
+        const validation = context[name][tagName]?.validation;
+
         let error = {
             [name]: ''
         };
         if (tagName == "text" || tagName == "textarea") {
-            let validateMaxlength = currentTarget.dataset["validateMaxlength"] * 1;
-            let validateMinlength = currentTarget.dataset["validateMinlength"] * 1;
-            if (currentTarget.dataset["validateRequired"] && !value) {
+            let validateMaxlength = validation.maxlength * 1;
+            let validateMinlength = validation.minlength * 1;
+            if (validation.required && !value) {
                 error[name] = useLang.required;
             } else if (validateMaxlength > 0
                 && value?.length > validateMaxlength) {
