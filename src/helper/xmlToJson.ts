@@ -7,7 +7,13 @@ let xmlParser = new Parser({
     preserveChildrenOrder: true
 });
 const xmlToJson = (xml, option) => {
-
+    let lowercasePropName = (prop) => {
+        let result: any = {};
+        for (let key of Object.keys(prop)) {
+            result[key.toLowerCase()] = prop[key];
+        }
+        return result;
+    }
     let propToBoolean = (prop) => {
         let result: any = {
             ...prop,
@@ -37,7 +43,7 @@ const xmlToJson = (xml, option) => {
         if (each["$"]) {
             result.props = {
                 ...result.props,
-                ...propToBoolean(each["$"])
+                ...propToBoolean(lowercasePropName(each["$"]))
             };
             if (result.props.name) {
                 elemMap[result.props.name] = elemMap[result.props.name] ?? [];
