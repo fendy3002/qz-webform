@@ -25,15 +25,16 @@ let construct = (template) => {
             };
         });
         render() {
-            const { elements, data, error, parentKey = "", onChange } = this.props;
+            const { structure, data, error, parentKey = "", onChange } = this.props;
+            console.log("structure", structure)
             let elementDoms = [];
             let keyIndex = 0;
-            for (let each of elements) {
+            for (let each of structure) {
                 let key = parentKey + "_" + keyIndex;
                 let Tag = template[each.tagName];
                 if (each.children) {
                     elementDoms.push(<Tag data={data} key={key}>
-                        <WebForm elements={each.children} error={error} data={data} parentKey={parentKey + "x"}
+                        <WebForm structure={each.children} error={error} data={data} parentKey={parentKey + "x"}
                             onChange={onChange} />
                     </Tag>);
                 } else {

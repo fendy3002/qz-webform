@@ -13,43 +13,6 @@
             <hr />
             <div class="mb-4"></div>
             <div id="qzform">
-                <Text name="name" label="Name (Text)" minLength="3" required></Text>
-                <Text name="city" label="City (Text)" readOnly></Text>
-                <Text name="province"></Text>
-                <RowBreak></RowBreak>
-                <Number name="height" min="100" label="Height (Number)" required></Number>
-                <Textarea name="address" label="Address (Textarea)" required></Textarea>
-                <Checkbox name="hasJob" label="Has Job?"></Checkbox>
-                <RowBreak></RowBreak>
-                <Select name="nationality" label="Nationality (Select)">
-                    <option>-- SELECT ONE --</option>
-                    <option value="id">Indonesia</option>
-                    <option value="my">Malaysia</option>
-                    <option value="us">United States</option>
-                </Select>
-                <Select name="nationality" label="Nationality (Select)" readOnly>
-                    <option>-- SELECT ONE --</option>
-                    <option value="id">Indonesia</option>
-                    <option value="my">Malaysia</option>
-                    <option value="us">United States</option>
-                </Select>
-                <ReactSelect name="nationality" label="Nationality (React Select)">
-                    <option>-- SELECT ONE --</option>
-                    <option value="id">Indonesia</option>
-                    <option value="my">Malaysia</option>
-                    <option value="us">United States</option>
-                </ReactSelect>
-                <ReactSelect name="nationality" label="Nationality (React Select)" readOnly>
-                    <option>-- SELECT ONE --</option>
-                    <option value="id">Indonesia</option>
-                    <option value="my">Malaysia</option>
-                    <option value="us">United States</option>
-                </ReactSelect>
-                <Text name="note"></Text>
-                <FullColumn>
-                    <Text name="fullcolumntext"></Text>
-                </FullColumn>
-                <Text name="text"></Text>
             </div>
             <div class="pb-4"></div>
         </div>
@@ -59,16 +22,10 @@
     <script src="js/reactform.js"></script>
     <script>
         let qzForm = document.getElementById("qzform");
-        QzWebForm.render(qzForm, {
-            name: "Initial Name",
-            city: "Okinawa",
-            province: "Southampton",
-            height: "100",
-            hasJob: true
-        },
-            {
-                readOnly: true
-            });
+        let userid = "1";
+        QzWebForm.render(qzForm, userid, {
+            readOnly: true
+        });
     </script>
 </body>
 

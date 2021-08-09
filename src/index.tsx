@@ -3,6 +3,7 @@ import * as ReactDOM from 'react-dom';
 
 import constructor from './Components/WebForm';
 import staticConstructor from './Components/StaticWebForm';
+import reactWebForm from './Components/ReactWebForm';
 import xmlToJson from './helper/xmlToJson';
 import arrangeElements from './helper/arrangeElements';
 import prepareValue from './helper/prepareValue';
@@ -64,7 +65,7 @@ const webform = (template, option?: any) => {
             let { elements, value } = result;
             let WebForm = staticConstructor({
                 template,
-                elements: elements,
+                structure: elements,
                 language: useOption.lang,
                 data: value
             });
@@ -82,8 +83,15 @@ const webform = (template, option?: any) => {
         renderStatic
     };
 };
-
+const language = {
+    en: enlang
+};
+const react = {
+    prepareStructure,
+    webForm: reactWebForm
+};
 export {
     webform,
-    prepareStructure
+    language,
+    react
 };

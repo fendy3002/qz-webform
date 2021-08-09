@@ -20,6 +20,8 @@ export default class store {
     userid = "";
     @observable
     user: any = {};
+    @observable
+    error: any = {};
     
     onFormChange(newUser, evt) {
         this.user = newUser;

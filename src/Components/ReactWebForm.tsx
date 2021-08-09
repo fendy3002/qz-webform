@@ -2,9 +2,9 @@ import * as React from 'react';
 import WebFormConstruct from './WebForm';
 import validateInputConstruct from '../helper/validateInput';
 
-let construct = ({ template, elements, language }) => {
+let construct = ({ template, structure, language }) => {
     const WebForm = WebFormConstruct(template);
-    const validateInput = validateInputConstruct(lang);
+    const validateInput = validateInputConstruct(language);
     return class ReactWebForm extends React.Component {
         constructor(prop) {
             super(prop);
@@ -31,7 +31,7 @@ let construct = ({ template, elements, language }) => {
         }
         render() {
             let { data, error } = this.props;
-            return <WebForm elements={elements}
+            return <WebForm structure={structure}
                 data={data}
                 error={error}
                 onChange={this.onChange} />
