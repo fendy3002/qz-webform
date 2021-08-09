@@ -3,9 +3,9 @@ import ReactSelect from 'react-select';
 import ReactSelectBootstrapStyle from './ReactSelectBootstrapStyle';
 
 export default {
-    "text": ({ name, readonly, value, label, error, placeholder, dataset,
+    "text": ({ name, readonly, value, label, error, placeholder, dataset, validation,
         onChange }) => {
-        let requiredSign = dataset["data-validate-required"] ? <span className="text-danger">*</span> : <></>;
+        let requiredSign = validation.required ? <span className="text-danger">*</span> : <></>;
         return <div className="form-floating">
             <input type="text" className={"form-control rounded-0 " + (error ? "is-invalid" : "")} name={name}
                 value={value} readOnly={readonly} placeholder={placeholder} {...dataset}
@@ -20,9 +20,9 @@ export default {
             }
         </div>;
     },
-    "textarea": ({ name, readonly, value, label, error, placeholder, dataset,
+    "textarea": ({ name, readonly, value, label, error, placeholder, dataset, validation,
         onChange }) => {
-        let requiredSign = dataset["data-validate-required"] ? <span className="text-danger">*</span> : <></>;
+        let requiredSign = validation.required ? <span className="text-danger">*</span> : <></>;
         return <div className="form-floating">
             <textarea className={"form-control rounded-0 " + (error ? "is-invalid" : "")} name={name}
                 value={value} readOnly={readonly} placeholder={placeholder} {...dataset}
@@ -40,9 +40,9 @@ export default {
             }
         </div>;
     },
-    "number": ({ name, readonly, value, label, error, placeholder, dataset,
+    "number": ({ name, readonly, value, label, error, placeholder, dataset, validation,
         onChange }) => {
-        let requiredSign = dataset["data-validate-required"] ? <span className="text-danger">*</span> : <></>;
+        let requiredSign = validation.required ? <span className="text-danger">*</span> : <></>;
         return <div className="form-floating">
             <input type="text" className={"form-control rounded-0 " + (error ? "is-invalid" : "")} name={name}
                 value={value} readOnly={readonly} placeholder={placeholder} {...dataset}
@@ -66,7 +66,7 @@ export default {
             </label>
         </div>;
     },
-    "select": ({ name, readonly, value, label, error, placeholder, dataset, options, groupedOptions,
+    "select": ({ name, readonly, value, label, error, placeholder, dataset, options, groupedOptions, validation,
         onChange }) => {
         if (readonly) {
             let selectText = options.find(k => k.value == value)?.label;
@@ -80,7 +80,7 @@ export default {
                 }
             </div>;
         } else {
-            let requiredSign = dataset["data-validate-required"] ? <span className="text-danger">*</span> : <></>;
+            let requiredSign = validation.required ? <span className="text-danger">*</span> : <></>;
             return <div className="form-floating">
                 <select className={"form-control rounded-0 " + (error ? "is-invalid" : "")} name={name} value={value} {...dataset}
                     onChange={onChange}>
@@ -97,7 +97,8 @@ export default {
             </div>;
         }
     },
-    "reactselect": ({ name, readonly, value, label, error, placeholder, dataset, options, groupedOptions, onChange }) => {
+    "reactselect": ({ name, readonly, value, label, error, placeholder, dataset, options, groupedOptions, validation,
+        onChange }) => {
         if (readonly) {
             let selectText = options.find(k => k.value == value)?.label;
             return <div className="form-floating">
@@ -110,7 +111,7 @@ export default {
                 }
             </div>;
         } else {
-            let requiredSign = dataset["data-validate-required"] ? <span className="text-danger">*</span> : <></>;
+            let requiredSign = validation.required ? <span className="text-danger">*</span> : <></>;
             let selectText = options.find(k => k.value == value)?.label;
             return <div className="form-floating">
                 <ReactSelect

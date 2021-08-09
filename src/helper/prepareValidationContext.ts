@@ -1,14 +1,18 @@
 
 let modifyProp = (element, propName) => {
+    let value: any = null;
     if (element.props?.hasOwnProperty(propName)) {
-        element.props.dataset = element.props.dataset || {};
-        element.props.dataset["data-validate-" + propName.toLowerCase()] = (propName == "required") ?
+        value = (propName == "required") ?
             true :
             element.props[propName];
         delete element.props[propName];
     }
+    return {
+        [propName.toLowerCase()]: value
+    };
 }
 let prepare = (element, option) => {
+    let result: any = {};
     if (element.tagName == "text" ||
         element.tagName == "textarea") {
         for (let propName of [
@@ -16,21 +20,34 @@ let prepare = (element, option) => {
             "minlength",
             "required"
         ]) {
-            modifyProp(element, propName);
+            result = {
+                ...result,
+                ...modifyProp(element, propName)
+            };
         }
     } else if (element.tagName == "number") {
         [
             "max",
             "min",
             "required"
-        ].map(propName => modifyProp(element, propName));
+        ].map(propName => {
+            result = {
+                ...result,
+                ...modifyProp(element, propName)
+            };
+        });
     } else if (element.tagName == "select" ||
         element.tagName == "reactselect") {
         [
             "required"
-        ].map(propName => modifyProp(element, propName));
+        ].map(propName => {
+            result = {
+                ...result,
+                ...modifyProp(element, propName)
+            };
+        });
     }
-    return;
+    return result;
 };
 
 export default prepare;

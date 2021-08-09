@@ -25,7 +25,8 @@ let construct = (template) => {
             };
         });
         render() {
-            const { structure, data, error, parentKey = "", onChange } = this.props;
+            const { structure, data, error, context, parentKey = "", onChange } = this.props;
+            console.log(context)
             let elementDoms = [];
             let keyIndex = 0;
             for (let each of structure) {
@@ -33,11 +34,13 @@ let construct = (template) => {
                 let Tag = template[each.tagName];
                 if (each.children) {
                     elementDoms.push(<Tag data={data} key={key}>
-                        <WebForm structure={each.children} error={error} data={data} parentKey={parentKey + "x"}
+                        <WebForm structure={each.children} error={error} data={data} context={context}
+                            parentKey={parentKey + "x"}
                             onChange={onChange} />
                     </Tag>);
                 } else {
                     let additional: any = {};
+                    let tagContext = context[each.props?.name]?.[each.tagName];
                     if (each.tagName == "reactselect") {
                         if (each.options) { additional.options = each.options; }
                         else if (each.groupedOptions) { additional.groupedOptions = each.groupedOptions; }
@@ -45,6 +48,7 @@ let construct = (template) => {
                         let elemName = each.props?.name ?? "";
                         elementDoms.push(
                             <Tag data={data} {...each.props} {...additional} error={error[elemName]} value={data[elemName]} key={key}
+                                validation={tagContext?.validation ?? {}}
                                 onChange={this.reactSelectOnChange({ element: each })} />
                         );
                     } else if (each.tagName == "reactselectasync") {
@@ -62,13 +66,17 @@ let construct = (template) => {
 
                         let elemName = each.props?.name ?? "";
                         elementDoms.push(
-                            <Tag data={data} {...each.props} {...additional} error={error[elemName]} value={data[elemName]} key={key}
+                            <Tag data={data} {...each.props} {...additional} error={error[elemName]} value={data[elemName]} 
+                                validation={tagContext?.validation ?? {}}
+                                key={key}
                                 onChange={onChange} />
                         );
                     } else {
                         let elemName = each.props?.name ?? "";
                         elementDoms.push(
-                            <Tag data={data} {...each.props} {...additional} error={error[elemName]} value={data[elemName]} key={key} onChange={onChange} />
+                            <Tag data={data} {...each.props} {...additional} error={error[elemName]} value={data[elemName]} 
+                                validation={tagContext?.validation ?? {}}
+                                key={key} onChange={onChange} />
                         );
                     }
                 }

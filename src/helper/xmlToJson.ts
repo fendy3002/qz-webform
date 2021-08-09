@@ -1,5 +1,4 @@
 import { Parser } from 'xml2js';
-import prepareValidation from './prepareValidation';
 
 let xmlParser = new Parser({
     explicitArray: true,
@@ -81,9 +80,6 @@ const xmlToJson = (xml, option) => {
             } else {
                 result.children = each["$$"].map(k => formObject(k, elemMap));
             }
-        }
-        if (option.autoValidation) {
-            prepareValidation(result, option);
         }
         return result;
     };

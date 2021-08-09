@@ -12,10 +12,11 @@ let render = (element, userid, option?: any) => {
 
     return structureConstruct(option)
         // get only the structure props 
-        .then(({ structure }) => {
+        .then(({ structure, context }) => {
             let WebForm = react.webForm({
                 template: template,
                 structure: structure,
+                context: context,
                 language: language.en,
             });
 

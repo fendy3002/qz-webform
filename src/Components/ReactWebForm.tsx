@@ -2,7 +2,7 @@ import * as React from 'react';
 import WebFormConstruct from './WebForm';
 import validateInputConstruct from '../helper/validateInput';
 
-let construct = ({ template, structure, language }) => {
+let construct = ({ template, structure, context, language }) => {
     const WebForm = WebFormConstruct(template);
     const validateInput = validateInputConstruct(language);
     return class ReactWebForm extends React.Component {
@@ -34,6 +34,7 @@ let construct = ({ template, structure, language }) => {
             return <WebForm structure={structure}
                 data={data}
                 error={error}
+                context={context}
                 onChange={this.onChange} />
         }
     };
