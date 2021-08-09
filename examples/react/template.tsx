@@ -82,11 +82,17 @@ export default {
         } else {
             let requiredSign = dataset["data-validate-required"] ? <span className="text-danger">*</span> : <></>;
             return <div className="form-floating">
-                <select className="form-control rounded-0" name={name} value={value} onChange={onChange}>
+                <select className={"form-control rounded-0 " + (error ? "is-invalid" : "")} name={name} value={value} {...dataset}
+                    onChange={onChange}>
                     {options.map(k => <option value={k.value} key={k.value ?? k.label}>{k.label}</option>)}
                 </select>
                 {label &&
                     <label>{label}&nbsp;{requiredSign}</label>
+                }
+                {error &&
+                    <div className="invalid-feedback">
+                        {error}
+                    </div>
                 }
             </div>;
         }
@@ -128,6 +134,11 @@ export default {
                         opacity: ".65",
                         transform: "scale(.85) translateY(-.5rem) translateX(.15rem)"
                     }}>{label}&nbsp;{requiredSign}</label>
+                }
+                {error &&
+                    <div className="invalid-feedback">
+                        {error}
+                    </div>
                 }
             </div>;
         }

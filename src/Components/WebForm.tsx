@@ -47,7 +47,7 @@ let construct = (template) => {
                             <Tag data={data} {...each.props} {...additional} error={error[elemName]} value={data[elemName]} key={key}
                                 onChange={this.reactSelectOnChange({ element: each })} />
                         );
-                    } else if (each.tagName == "reactasyncselect") {
+                    } else if (each.tagName == "reactselectasync") {
                         // if (each.options) { additional.options = each.options; }
                         // else if (each.groupedOptions) { additional.groupedOptions = each.groupedOptions; }
 

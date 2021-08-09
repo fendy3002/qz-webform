@@ -37,6 +37,11 @@ const construct = (lang?: any) => {
                 error[name] = useLang.min_lower.replace("{value}", validateMin);
             }
         }
+        else if (tagName == "select" || tagName == "reactselect") {
+            if (currentTarget.dataset["validateRequired"] && !value) {
+                error[name] = useLang.required;
+            }
+        }
         else if (tagName == "checkbox") {
             value = currentTarget.checked;
         }

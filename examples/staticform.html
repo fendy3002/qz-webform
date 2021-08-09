@@ -21,7 +21,7 @@
                 <Textarea name="address" label="Address (Textarea)" required></Textarea>
                 <Checkbox name="hasJob" label="Has Job?"></Checkbox>
                 <RowBreak></RowBreak>
-                <Select name="nationality" label="Nationality (Select)">
+                <Select name="nationality" label="Nationality (Select)" required>
                     <option>-- SELECT ONE --</option>
                     <option value="id">Indonesia</option>
                     <option value="my">Malaysia</option>
@@ -33,7 +33,7 @@
                     <option value="my">Malaysia</option>
                     <option value="us">United States</option>
                 </Select>
-                <ReactSelect name="nationality" label="Nationality (React Select)">
+                <ReactSelect name="nationality" label="Nationality (React Select)" required>
                     <option>-- SELECT ONE --</option>
                     <option value="id">Indonesia</option>
                     <option value="my">Malaysia</option>
@@ -45,6 +45,11 @@
                     <option value="my">Malaysia</option>
                     <option value="us">United States</option>
                 </ReactSelect>
+                <!-- <ReactSelectAsync 
+                    name="userkey" label="User (React Select Async)"
+                    
+                    url="https://jsonplaceholder.typicode.com/users/{search}" 
+                    header-authorization="Bearer someauthorizationcode"></ReactSelectAsync> -->
                 <Text name="note"></Text>
                 <FullColumn>
                     <Text name="fullcolumntext"></Text>

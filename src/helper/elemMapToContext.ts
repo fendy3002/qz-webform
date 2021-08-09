@@ -1,16 +1,17 @@
-export interface SelectContext {
-
-};
-
 let elemMapToContext = (elemMap, option) => {
     let context: {
         [elemName: string]: {
-            [tagName: string]: SelectContext
+            [tagName: string]: any
         }
     } = {}
     for (let elemName of Object.keys(elemMap)) {
         for (let element of elemMap[elemName]) {
             if (element.tagName == "select") {
+                context[elemName] = context[elemName] ?? {};
+                context[elemName][element.tagName] = {
+                    
+                };
+            } else if (element.tagName == "reactselect") {
                 context[elemName] = context[elemName] ?? {};
                 context[elemName][element.tagName] = {
                     
