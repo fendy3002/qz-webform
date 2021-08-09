@@ -5,7 +5,7 @@ const common = require('./webpack.common.js');
 let entryOutput = {
     entry: {
         "staticform": path.resolve(__dirname, "examples/react/staticform.tsx"),
-        "reactform": path.resolve(__dirname, "examples/react/reactform.tsx"),
+        "reactform": path.resolve(__dirname, "examples/react/reactform/index.tsx"),
     },
     output: {
         path: path.resolve(__dirname, 'examples/js'),
