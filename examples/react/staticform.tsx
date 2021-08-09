@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import ReactSelect from 'react-select';
-import WebFormConstruct from '../../src/index';
+import { webform as WebFormConstruct } from '../../src/index';
 import ReactSelectBootstrapStyle from './ReactSelectBootstrapStyle';
 
 let render = (element, value, option?: any) => {

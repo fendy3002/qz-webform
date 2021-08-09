@@ -6,7 +6,7 @@ let xmlParser = new Parser({
     explicitChildren: true,
     preserveChildrenOrder: true
 });
-const elementToJson = (element, option) => {
+const xmlToJson = (xml, option) => {
 
     let propToBoolean = (prop) => {
         let result: any = {
@@ -82,7 +82,7 @@ const elementToJson = (element, option) => {
         return result;
     };
 
-    let xmlString = `<root>${element.innerHTML.trim()}</root>`;
+    let xmlString = `<root>${xml.trim()}</root>`;
     return xmlParser.parseStringPromise(xmlString).then(xml => {
         let formStructure = xml?.root.$$;
 
@@ -100,4 +100,4 @@ const elementToJson = (element, option) => {
     });
 };
 
-export default elementToJson;
+export default xmlToJson;

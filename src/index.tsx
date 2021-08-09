@@ -3,10 +3,33 @@ import * as ReactDOM from 'react-dom';
 
 import constructor from './Components/WebForm';
 import staticConstructor from './Components/StaticWebForm';
-import elementToJson from './helper/elementToJson';
+import xmlToJson from './helper/xmlToJson';
 import arrangeElements from './helper/arrangeElements';
 import prepareValue from './helper/prepareValue';
 import enlang from './lang/en';
+
+const prepareStructure = (xml: string, option?: any) => {
+    let useOption = {
+        autoGrid: true,
+        autoPlaceholder: true,
+        autoLabel: true,
+        autoValidation: true,
+        readOnly: false,
+        lang: enlang,
+        ...(option ?? {}),
+    };
+    return xmlToJson(xml, useOption).then((elementsJson) => {
+        let elementToRender = elementsJson.elemJSON;
+        if (useOption.autoGrid) {
+            elementToRender = arrangeElements(elementToRender);
+        }
+        return {
+            elements: elementToRender,
+            elemMap: elementsJson.elemMap,
+        };
+    });
+};
+
 const webform = (template, option?: any) => {
     let useOption = {
         autoGrid: true,
@@ -17,21 +40,17 @@ const webform = (template, option?: any) => {
         lang: enlang,
         ...(option ?? {}),
     };
-    let preprocess = (element, value) => {
-        return elementToJson(element, useOption).then((elementsJson) => {
-            let elementToRender = elementsJson.elemJSON;
-            if (useOption.autoGrid) {
-                elementToRender = arrangeElements(elementToRender);
-            }
+    let preprocessWithValue = (element, value) => {
+        return prepareStructure(element.innerHTML, useOption).then(({ elements, elemMap }) => {
             return {
-                elements: elementToRender,
-                elemMap: elementsJson.elemMap,
-                value: prepareValue(elementToRender, value, useOption)
+                elements: elements,
+                elemMap: elemMap,
+                value: prepareValue(elements, value, useOption)
             };
         });
     }
     const render = (element, value) => {
-        return preprocess(element, value).then((result) => {
+        return preprocessWithValue(element, value).then((result) => {
             let { elements, value } = result;
             let WebForm = constructor(template);
             ReactDOM.render(
@@ -41,7 +60,7 @@ const webform = (template, option?: any) => {
         });
     };
     const renderStatic = (element, value) => {
-        return preprocess(element, value).then((result) => {
+        return preprocessWithValue(element, value).then((result) => {
             let { elements, value } = result;
             let WebForm = staticConstructor(template, useOption.lang);
             ReactDOM.render(
@@ -53,10 +72,13 @@ const webform = (template, option?: any) => {
     return {
         WebForm: constructor(template),
 
-        preprocess,
+        preprocessWithValue,
         render,
         renderStatic
     };
 };
 
-export default webform;
+export {
+    webform,
+    prepareStructure
+};
