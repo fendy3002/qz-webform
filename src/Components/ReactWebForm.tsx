@@ -27,7 +27,7 @@ let construct = ({ template, structure, language }) => {
                     ...error,
                     ...validateResult.error
                 }
-            });
+            }, evt);
         }
         render() {
             let { data, error } = this.props;

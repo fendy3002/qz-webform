@@ -23,7 +23,8 @@ export default class store {
     @observable
     error: any = {};
     
-    onFormChange(newUser, evt) {
-        this.user = newUser;
+    onFormChange({data, error}, evt) {
+        this.user = data;
+        this.error = error;
     }
 };
