@@ -1,5 +1,6 @@
+import React from 'react';
 import ReactSelect from 'react-select';
-import ReactSelectBootstrapStyle from '../ReactSelectBootstrapStyle';
+import ReactSelectBootstrapStyle from './ReactSelectBootstrapStyle';
 
 export default {
     "text": ({ name, readonly, value, label, error, placeholder, dataset,
@@ -42,7 +43,6 @@ export default {
     "number": ({ name, readonly, value, label, error, placeholder, dataset,
         onChange }) => {
         let requiredSign = dataset["data-validate-required"] ? <span className="text-danger">*</span> : <></>;
-
         return <div className="form-floating">
             <input type="text" className={"form-control rounded-0 " + (error ? "is-invalid" : "")} name={name}
                 value={value} readOnly={readonly} placeholder={placeholder} {...dataset}

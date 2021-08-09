@@ -8,7 +8,10 @@ class App extends React.Component {
     render() {
         const { store, WebForm } = this.props;
         return <>
-            <WebForm data={store.user} error={store.error}/>
+            {/* do not render if user null (not yet ready) */}
+            {store.user &&
+                <WebForm data={store.user} error={store.error}/>
+            }
         </>;
     }
 }

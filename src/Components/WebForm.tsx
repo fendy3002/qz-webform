@@ -12,7 +12,7 @@ let construct = (template) => {
         //     }
         // });
 
-        reactSelectOnChange = memoize(({element}) => {
+        reactSelectOnChange = memoize(({ element }) => {
             return (selected) => {
                 const { onChange } = this.props;
                 onChange({
@@ -45,7 +45,7 @@ let construct = (template) => {
                         let elemName = each.props?.name ?? "";
                         elementDoms.push(
                             <Tag data={data} {...each.props} {...additional} error={error[elemName]} value={data[elemName]} key={key}
-                                onChange={this.reactSelectOnChange({element: each})} />
+                                onChange={this.reactSelectOnChange({ element: each })} />
                         );
                     } else if (each.tagName == "reactasyncselect") {
                         // if (each.options) { additional.options = each.options; }

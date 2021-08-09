@@ -25,7 +25,7 @@ const xmlToJson = (xml, option) => {
         return result;
     };
     const formObject = (each, elemMap) => {
-        let tagName = each['#name'];
+        let tagName = each['#name'].toLowerCase();
         let result: any = {
             tagName: tagName,
             props: {

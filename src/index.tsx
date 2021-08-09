@@ -25,7 +25,7 @@ const prepareStructure = (xml: string, option?: any) => {
             elementToRender = arrangeElements(elementToRender);
         }
         return {
-            elements: elementToRender,
+            structure: elementToRender,
             elemMap: elementsJson.elemMap,
         };
     });
@@ -42,30 +42,30 @@ const webform = (template, option?: any) => {
         ...(option ?? {}),
     };
     let preprocessWithValue = (element, value) => {
-        return prepareStructure(element.innerHTML, useOption).then(({ elements, elemMap }) => {
+        return prepareStructure(element.innerHTML, useOption).then(({ structure, elemMap }) => {
             return {
-                elements: elements,
+                structure: structure,
                 elemMap: elemMap,
-                value: prepareValue(elements, value, useOption)
+                value: prepareValue(structure, value, useOption)
             };
         });
     }
     const render = (element, value) => {
         return preprocessWithValue(element, value).then((result) => {
-            let { elements, value } = result;
+            let { structure, value } = result;
             let WebForm = constructor(template);
             ReactDOM.render(
-                <WebForm elements={elements} data={value} />,
+                <WebForm structure={structure} data={value} />,
                 element
             );
         });
     };
     const renderStatic = (element, value) => {
         return preprocessWithValue(element, value).then((result) => {
-            let { elements, value } = result;
+            let { structure, value } = result;
             let WebForm = staticConstructor({
                 template,
-                structure: elements,
+                structure: structure,
                 language: useOption.lang,
                 data: value
             });

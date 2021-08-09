@@ -19,7 +19,7 @@ export default class store {
 
     userid = "";
     @observable
-    user: any = {};
+    user: any = null;
     @observable
     error: any = {};
     
