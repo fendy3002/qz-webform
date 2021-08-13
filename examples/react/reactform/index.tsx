@@ -16,7 +16,15 @@ let render = (element, userid, option?: any) => {
             let WebForm = react.webForm({
                 template: template,
                 structure: structure,
-                context: context,
+                context: {
+                    ...context,
+                    "instituteselect": {
+                        ...context.instituteselect,
+                        select: {
+                            loadOptions: storeInstance.searchInstitute
+                        }
+                    }
+                },
                 language: language.en,
             });
 

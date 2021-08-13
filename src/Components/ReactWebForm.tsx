@@ -15,19 +15,34 @@ let construct = ({ template, structure, context, language }) => {
             });
         }
         onChange(evt) {
-            const { name, value } = evt.currentTarget ?? evt.target ?? {};
+            const { name, value, dataset } = evt.currentTarget ?? evt.target ?? {};
             let validateResult = validateInput.validate(evt);
             const { onChange, data, error } = this.props;
-            onChange({
-                data: {
-                    ...data,
-                    [name]: validateResult.value,
-                },
-                error: {
-                    ...error,
-                    ...validateResult.error
-                }
-            }, evt);
+            if (dataset?.["tagname"] == "reactselectasync") {
+                const { labelfield } = evt.currentTarget ?? evt.target;
+                onChange({
+                    data: {
+                        ...data,
+                        [name]: validateResult.value.value,
+                        [labelfield]: validateResult.value.label
+                    },
+                    error: {
+                        ...error,
+                        ...validateResult.error
+                    }
+                }, evt);
+            } else {
+                onChange({
+                    data: {
+                        ...data,
+                        [name]: validateResult.value,
+                    },
+                    error: {
+                        ...error,
+                        ...validateResult.error
+                    }
+                }, evt);
+            }
         }
         render() {
             let { data, error } = this.props;
