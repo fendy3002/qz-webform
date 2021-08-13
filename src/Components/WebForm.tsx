@@ -3,7 +3,23 @@ import memoize from 'lodash/memoize';
 
 let construct = (template) => {
     class WebForm extends React.Component {
-
+        reactSelectAsyncOnChange = memoize((element) => {
+            let dataset: any = {};
+            for (let key of Object.keys(element.props.dataset ?? {})) {
+                dataset[key.replace("data-", "")] = element.props.dataset[key];
+            }
+            return (selected) => {
+                const { onChange } = this.props;
+                onChange({
+                    currentTarget: {
+                        name: element.props.name,
+                        labelfield: element.props.labelfield,
+                        value: selected,
+                        dataset: dataset ?? {}
+                    }
+                });
+            };
+        });
         reactSelectOnChange = memoize((element) => {
             let dataset: any = {};
             for (let key of Object.keys(element.props.dataset ?? {})) {
@@ -52,8 +68,8 @@ let construct = (template) => {
                             <Tag data={data} {...each.props} {...additional} error={error[elemName]} value={data[elemName]} key={key}
                                 validation={tagContext?.validation ?? {}}
                                 loadOptions={tagContext?.select?.loadOptions}
-                                selectedLabel=""
-                                onChange={this.reactSelectOnChange(each)} />
+                                selectedLabel={data[each.props.labelfield]}
+                                onChange={this.reactSelectAsyncOnChange(each)} />
                         );
                     } else if (each.tagName == "select") {
                         if (each.options) { additional.options = each.options; }

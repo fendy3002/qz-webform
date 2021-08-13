@@ -3,6 +3,9 @@ const prepareValue = (element, value, option) => {
     for (let each of element) {
         if (each.props?.name) {
             result[each.props.name] = value[each.props.name] ?? "";
+            if (each.props.labelfield) {
+                result[each.props.labelfield] = value[each.props.labelfield] ?? "";
+            }
         }
         if (each.children) {
             result = {

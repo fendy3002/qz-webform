@@ -44,6 +44,11 @@ const construct = (context: any, lang?: any) => {
                 error[name] = useLang.required;
             }
         }
+        else if (tagName == "reactselectasync") {
+            if (validation.required && !value?.value) {
+                error[name] = useLang.required;
+            }
+        }
         else if (tagName == "checkbox") {
             value = currentTarget.checked;
         }

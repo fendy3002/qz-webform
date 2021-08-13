@@ -2,7 +2,7 @@ import * as React from 'react';
 import WebFormConstruct from './WebForm';
 import validateInputConstruct from '../helper/validateInput';
 
-let construct = ({template, structure, data, context, language}) => {
+let construct = ({ template, structure, data, context, language }) => {
     const WebForm = WebFormConstruct(template);
     const validateInput = validateInputConstruct(context, language);
     return class StaticWebForm extends React.Component {
@@ -19,21 +19,39 @@ let construct = ({template, structure, data, context, language}) => {
             });
         }
         onChange(evt) {
-            const { name, value } = evt.currentTarget ?? evt.target ?? {};
+            const { name, value, dataset } = evt.currentTarget ?? evt.target ?? {};
             let validateResult = validateInput.validate(evt);
-            this.setState((prev) => {
-                return {
-                    ...prev,
-                    data: {
-                        ...prev.data,
-                        [name]: validateResult.value,
-                    },
-                    error: {
-                        ...prev.error,
-                        ...validateResult.error
-                    }
-                };
-            });
+            if (dataset?.["tagname"] == "reactselectasync") {
+                const { labelfield } = evt.currentTarget ?? evt.target;
+                this.setState((prev) => {
+                    return {
+                        ...prev,
+                        data: {
+                            ...prev.data,
+                            [name]: validateResult.value.value,
+                            [labelfield]: validateResult.value.label
+                        },
+                        error: {
+                            ...prev.error,
+                            ...validateResult.error
+                        }
+                    };
+                });
+            } else {
+                this.setState((prev) => {
+                    return {
+                        ...prev,
+                        data: {
+                            ...prev.data,
+                            [name]: validateResult.value,
+                        },
+                        error: {
+                            ...prev.error,
+                            ...validateResult.error
+                        }
+                    };
+                });
+            }
         }
         render() {
             return <WebForm structure={structure}

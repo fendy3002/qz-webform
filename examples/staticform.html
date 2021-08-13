@@ -45,7 +45,9 @@
                     <option value="my">Malaysia</option>
                     <option value="us">United States</option>
                 </ReactSelect>
-                <ReactSelectAsync id="selectasync" name="userkey" label="User (React Select Async)"></ReactSelectAsync>
+                <ReactSelectAsync id="selectasync" name="userKey" 
+                    labelfield="userName"
+                    label="User (React Select Async)"></ReactSelectAsync>
                 <Text name="note"></Text>
                 <FullColumn>
                     <Text name="fullcolumntext"></Text>
@@ -65,17 +67,21 @@
             city: "Okinawa",
             province: "Southampton",
             height: "100",
-            hasJob: true
+            hasJob: true,
+            userKey: "001",
+            userName: "USER001"
         },
             {
                 readOnly: false,
                 additionalContext: {
+                    // selectasync is the id
                     "selectasync": {
                         select: {
                             loadOptions: (inputValue, callback) => {
                                 setTimeout(() => {
                                     callback([
-                                        { value: "", label: "--SELECT ONE--" }
+                                        { value: "001", label: "USER001" },
+                                        { value: "002", label: "USER002" },
                                     ]);
                                 }, 1000);
                             }
