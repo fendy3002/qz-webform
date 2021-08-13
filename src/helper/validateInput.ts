@@ -8,8 +8,8 @@ const construct = (context: any, lang?: any) => {
         const { currentTarget } = evt;
         let { name, value } = currentTarget;
         const tagName = currentTarget.dataset.tagname;
-        const validation = context[name][tagName]?.validation;
-
+        const id = currentTarget.dataset.id;
+        const validation = context[id]?.validation ?? {};
         let error = {
             [name]: ''
         };
@@ -27,8 +27,8 @@ const construct = (context: any, lang?: any) => {
             }
         }
         else if (tagName == "number") {
-            const validateMax = currentTarget.dataset["validateMax"] * 1;
-            const validateMin = currentTarget.dataset["validateMin"] * 1;
+            const validateMax = validation.max * 1;
+            const validateMin = validation.min * 1;
             if (!isNumeric(value)) {
                 error[name] = useLang.not_number;
             } else if (validateMax > 0
@@ -40,7 +40,7 @@ const construct = (context: any, lang?: any) => {
             }
         }
         else if (tagName == "select" || tagName == "reactselect") {
-            if (currentTarget.dataset["validateRequired"] && !value) {
+            if (validation.required && !value) {
                 error[name] = useLang.required;
             }
         }

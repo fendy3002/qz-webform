@@ -6,10 +6,11 @@ let modifyProp = (element, propName) => {
             true :
             element.props[propName];
         delete element.props[propName];
+        return {
+            [propName.toLowerCase()]: value
+        };
     }
-    return {
-        [propName.toLowerCase()]: value
-    };
+    return {};
 }
 let prepare = (element, option) => {
     let result: any = {};

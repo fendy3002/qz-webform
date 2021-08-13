@@ -39,7 +39,7 @@ let construct = (template) => {
                     </Tag>);
                 } else {
                     let additional: any = {};
-                    let tagContext = context[each.props?.name]?.[each.tagName];
+                    let tagContext = context[each.id];
                     if (each.tagName == "reactselect") {
                         if (each.options) { additional.options = each.options; }
                         else if (each.groupedOptions) { additional.groupedOptions = each.groupedOptions; }

@@ -29,59 +29,70 @@ const xmlToJson = (xml, option) => {
 
         return result;
     };
-    const formObject = (each, elemMap) => {
-        let tagName = each['#name'].toLowerCase();
-        let result: any = {
-            tagName: tagName,
-            props: {
-                dataset: {
-                    "data-tagname": tagName
+    const prepareFormObject = () => {
+        let elemIndex = 0;
+        let formObject = (each, elemMap) => {
+            let tagName = each['#name'].toLowerCase();
+            let result: any = {
+                tagName: tagName,
+                props: {
+                    dataset: {
+                        "data-tagname": tagName
+                    }
+                }
+            };
+            if (each["$"]) {
+                result.props = {
+                    ...result.props,
+                    ...propToBoolean(lowercasePropName(each["$"]))
+                };
+                if (result.props.name) {
+                    if (result.props.id) {
+                        result.id = result.props.id;
+                    } else {
+                        result.id = result.tagName + "_" + elemIndex.toString();
+                        elemIndex++;
+                    }
+                    result.props.dataset['data-id'] = result.id;
+                    elemMap[result.props.name] = elemMap[result.props.name] ?? [];
+                    elemMap[result.props.name].push(result);
                 }
             }
-        };
-        if (each["$"]) {
-            result.props = {
-                ...result.props,
-                ...propToBoolean(lowercasePropName(each["$"]))
-            };
-            if (result.props.name) {
-                elemMap[result.props.name] = elemMap[result.props.name] ?? [];
-                elemMap[result.props.name].push(result);
-            }
-        }
-        if (each["$$"]) {
-            // select options
-            if (tagName == "select" || tagName == "reactselect") {
-                if (each["$$"].some(k => k['#name'] == "optgroup")) {
-                    result.groupedOptions = [];
-                    let currentGroup = null;
-                    for (let eachopts of each["$$"]) {
-                        if (eachopts['#name'] == "optgroup") {
-                            currentGroup = {
-                                label: eachopts.$?.label,
-                                options: []
-                            };
-                            result.groupedOptions.push(currentGroup);
-                        } else {
-                            currentGroup.options.push({
-                                label: eachopts._,
-                                value: eachopts["$"]?.value ?? ""
-                            });
+            if (each["$$"]) {
+                // select options
+                if (tagName == "select" || tagName == "reactselect") {
+                    if (each["$$"].some(k => k['#name'] == "optgroup")) {
+                        result.groupedOptions = [];
+                        let currentGroup = null;
+                        for (let eachopts of each["$$"]) {
+                            if (eachopts['#name'] == "optgroup") {
+                                currentGroup = {
+                                    label: eachopts.$?.label,
+                                    options: []
+                                };
+                                result.groupedOptions.push(currentGroup);
+                            } else {
+                                currentGroup.options.push({
+                                    label: eachopts._,
+                                    value: eachopts["$"]?.value ?? ""
+                                });
+                            }
                         }
+                    } else {
+                        result.options = each["$$"].map(k => {
+                            return {
+                                label: k._,
+                                value: k["$"]?.value ?? ""
+                            };
+                        });
                     }
                 } else {
-                    result.options = each["$$"].map(k => {
-                        return {
-                            label: k._,
-                            value: k["$"]?.value ?? ""
-                        };
-                    });
+                    result.children = each["$$"].map(k => formObject(k, elemMap));
                 }
-            } else {
-                result.children = each["$$"].map(k => formObject(k, elemMap));
             }
-        }
-        return result;
+            return result;
+        };
+        return formObject;
     };
 
     let xmlString = `<root>${xml.trim()}</root>`;
@@ -92,6 +103,7 @@ const xmlToJson = (xml, option) => {
         let elemMap: {
             [key: string]: []
         } = {};
+        let formObject = prepareFormObject();
         for (let each of formStructure) {
             result.push(formObject(each, elemMap));
         }
