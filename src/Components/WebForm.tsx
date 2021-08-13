@@ -3,14 +3,6 @@ import memoize from 'lodash/memoize';
 
 let construct = (template) => {
     class WebForm extends React.Component {
-        // reactSelectLoadOptions(inputValue, callback) {
-
-        // }
-        // reactSelectOnChange = memoize(({ element }) => {
-        //     return (selected) => {
-
-        //     }
-        // });
 
         reactSelectOnChange = memoize((element) => {
             let dataset: any = {};
