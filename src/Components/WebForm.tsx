@@ -12,14 +12,18 @@ let construct = (template) => {
         //     }
         // });
 
-        reactSelectOnChange = memoize(({ element }) => {
+        reactSelectOnChange = memoize((element) => {
+            let dataset: any = {};
+            for (let key of Object.keys(element.props.dataset ?? {})) {
+                dataset[key.replace("data-", "")] = element.props.dataset[key];
+            }
             return (selected) => {
                 const { onChange } = this.props;
                 onChange({
                     currentTarget: {
                         name: element.props.name,
                         value: selected.value,
-                        dataset: element.dataset ?? {}
+                        dataset: dataset ?? {}
                     }
                 });
             };
@@ -48,7 +52,7 @@ let construct = (template) => {
                         elementDoms.push(
                             <Tag data={data} {...each.props} {...additional} error={error[elemName]} value={data[elemName]} key={key}
                                 validation={tagContext?.validation ?? {}}
-                                onChange={this.reactSelectOnChange({ element: each })} />
+                                onChange={this.reactSelectOnChange(each)} />
                         );
                     } else if (each.tagName == "reactselectasync") {
                         // if (each.options) { additional.options = each.options; }
@@ -65,7 +69,7 @@ let construct = (template) => {
 
                         let elemName = each.props?.name ?? "";
                         elementDoms.push(
-                            <Tag data={data} {...each.props} {...additional} error={error[elemName]} value={data[elemName]} 
+                            <Tag data={data} {...each.props} {...additional} error={error[elemName]} value={data[elemName]}
                                 validation={tagContext?.validation ?? {}}
                                 key={key}
                                 onChange={onChange} />
@@ -73,7 +77,7 @@ let construct = (template) => {
                     } else {
                         let elemName = each.props?.name ?? "";
                         elementDoms.push(
-                            <Tag data={data} {...each.props} {...additional} error={error[elemName]} value={data[elemName]} 
+                            <Tag data={data} {...each.props} {...additional} error={error[elemName]} value={data[elemName]}
                                 validation={tagContext?.validation ?? {}}
                                 key={key} onChange={onChange} />
                         );
