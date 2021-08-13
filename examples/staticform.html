@@ -45,11 +45,7 @@
                     <option value="my">Malaysia</option>
                     <option value="us">United States</option>
                 </ReactSelect>
-                <!-- <ReactSelectAsync 
-                    name="userkey" label="User (React Select Async)"
-                    
-                    url="https://jsonplaceholder.typicode.com/users/{search}" 
-                    header-authorization="Bearer someauthorizationcode"></ReactSelectAsync> -->
+                <ReactSelectAsync id="selectasync" name="userkey" label="User (React Select Async)"></ReactSelectAsync>
                 <Text name="note"></Text>
                 <FullColumn>
                     <Text name="fullcolumntext"></Text>
@@ -72,7 +68,20 @@
             hasJob: true
         },
             {
-                readOnly: false
+                readOnly: false,
+                additionalContext: {
+                    "selectasync": {
+                        select: {
+                            loadOptions: (inputValue, callback) => {
+                                setTimeout(() => {
+                                    callback([
+                                        { value: "", label: "--SELECT ONE--" }
+                                    ]);
+                                }, 1000);
+                            }
+                        }
+                    }
+                }
             });
     </script>
 </body>

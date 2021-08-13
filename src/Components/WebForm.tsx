@@ -47,14 +47,14 @@ let construct = (template) => {
                                 onChange={this.reactSelectOnChange(each)} />
                         );
                     } else if (each.tagName == "reactselectasync") {
-                        // if (each.options) { additional.options = each.options; }
-                        // else if (each.groupedOptions) { additional.groupedOptions = each.groupedOptions; }
-
-                        // let elemName = each.props?.name ?? "";
-                        // elementDoms.push(
-                        //     <Tag data={data} {...each.props} {...additional} error={error[elemName]} value={data[elemName]} key={key}
-                        //         onChange={this.reactSelectOnChange(elemName)} />
-                        // );
+                        let elemName = each.props?.name ?? "";
+                        elementDoms.push(
+                            <Tag data={data} {...each.props} {...additional} error={error[elemName]} value={data[elemName]} key={key}
+                                validation={tagContext?.validation ?? {}}
+                                loadOptions={tagContext?.select?.loadOptions}
+                                selectedLabel=""
+                                onChange={this.reactSelectOnChange(each)} />
+                        );
                     } else if (each.tagName == "select") {
                         if (each.options) { additional.options = each.options; }
                         else if (each.groupedOptions) { additional.groupedOptions = each.groupedOptions; }

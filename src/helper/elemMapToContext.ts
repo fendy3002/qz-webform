@@ -25,6 +25,12 @@ let elemMapToContext = (elemMap, option) => {
 
                 // };
             }
+            if (option.additionalContext[element.id]) {
+                context[element.id] = {
+                    ...context[element.id],
+                    ...option.additionalContext[element.id]
+                };
+            }
         }
     }
     return context;

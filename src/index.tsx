@@ -18,6 +18,7 @@ const prepareStructure = (xml: string, option?: any) => {
         autoValidation: true,
         readOnly: false,
         lang: enlang,
+        additionalContext: {},
         ...(option ?? {}),
     };
     return xmlToJson(xml, useOption).then((elementsJson) => {
