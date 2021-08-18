@@ -22,6 +22,7 @@ let render = (element, value, option?: any) => {
 Then we can use in html page like this:
 
 ``` javascript
+// the element containing the structure
 let qzWebFormElement = document.getElementById("elementID");
 let data = {
     key: "value",
@@ -35,5 +36,15 @@ window.QzWebForm.render(
 );
 ```
 
+You can see [template.md](./template.md) for more information about template.
+
 # Reactform API
 
+The reactform usually consist of template, structure, the container component and the library api. You can see [template.md](./template.md) for more information about template.
+
+## structure
+
+
+## container component
+
+## api

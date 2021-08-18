@@ -1,6 +1,8 @@
 # qz-webform
 
-Define form template with react, then use it on both react and html page with autogrid. Try at [fendy3002.github.io/qz-webform/](https://fendy3002.github.io/qz-webform/). This consist of three important parts: Template, Structure and API.
+An effort to unify common components appearance and usability across both react and html (javascript).
+
+Define components template with react, define your xml / html structure then use it on both react and html page with autogrid. Try at [fendy3002.github.io/qz-webform/](https://fendy3002.github.io/qz-webform/). This consist of three important parts: Template, Structure and API.
 
 # Installation and usage
 

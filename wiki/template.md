@@ -16,6 +16,8 @@ And currently these are the supported layouting components:
 * fullcolumn
 * column
 
+An example template using bootstrap 5 can be seen at [template.tsx](../examples/react/template.tsx).
+
 ## Mandatory props for layouting components
 
 The only props passed to layouting components are `children`. It is the children components to be rendered inside the layouting components.
