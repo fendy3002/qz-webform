@@ -52,7 +52,7 @@ Both `select` and `reactselect` component get some additional `properties`:
 
 * `groupedOptions (not yet supported)`: array. An array of group options. Each group has property `label (string)` and `option` property. The `option` property is an array of `options`.
 
-## reactselectasync props
+## `reactselectasync` props
 
 The additional `properties` for `reactselectasync` component:
 
