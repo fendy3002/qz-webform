@@ -126,4 +126,4 @@ export default (option?: any) => {
 
 # API
 
-Complete documentation about API can be viewed at [api.md](./wiki/api.md). 
+Complete documentation about API can be viewed at [api.md](./wiki/api.md).

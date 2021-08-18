@@ -56,6 +56,6 @@ Both `select` and `reactselect` component get some additional `properties`:
 
 The additional `properties` for `reactselectasync` component:
 
-* `selectedLabel`: string. The selected option text / label. It is get from `data[<labelField>]`, with `<labelfield>` is provided by `labelField` attribute
+* `selectedLabel`: string. The selected option text / label. It is get from `data[<labelField>]`, with `<labelfield>` is provided by structure component's `labelField` attribute.
 
-* loadOptions
+* `loadOptions`: `(inputValue: string, callback: callback) => void`. It is the `loadOptions` handler to be provided to `react-select/async` component. As how to provide this property, see [api.md](./api.md).
