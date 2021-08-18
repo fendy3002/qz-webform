@@ -150,7 +150,7 @@ export default {
     "reactselectasync": ({ name, readonly, value, selectedLabel, label, error, placeholder, dataset, loadOptions, validation,
         onChange }) => {
         if (readonly) {
-            let selectText = options.find(k => k.value == value)?.label;
+            let selectText = selectedLabel;
             return <div className="form-floating">
                 <input type="text" className={"form-control rounded-0 "}
                     value={selectText} readOnly={true} placeholder={placeholder} {...dataset}
