@@ -7,12 +7,12 @@ The API is different between `staticform` (regular html / postback form) and `re
 For `staticform` we still need to compose a "library" (using react) with provided react templates. The library usually composed like this:
 
 ``` javascript
-import { webform as WebFormConstruct } from '@fendy3002/qz-webform';
+import { fromTemplate } from '@fendy3002/qz-webform';
 import template from './template';
 
 let render = (element, value, option?: any) => {
-    let WebForm = WebFormConstruct(template, option);
-    return WebForm.elementStructure(element).render(value);
+    return fromTemplate(template, option)
+        .elementStructure(element).render(value);
 };
 (window as any).QzWebForm = {
     render
