@@ -1,0 +1,41 @@
+<div id="qzform">
+    <Text name="name" label="Name (Text)" minLength="3" required></Text>
+    <Text name="city" label="City (Text)" readOnly></Text>
+    <Text name="province"></Text>
+    <RowBreak></RowBreak>
+    <Number name="height" min="100" label="Height (Number)" required></Number>
+    <Textarea name="address" label="Address (Textarea)" required></Textarea>
+    <Checkbox name="hasJob" label="Has Job?"></Checkbox>
+    <RowBreak></RowBreak>
+    <Select name="nationality" label="Nationality (Select)" required>
+        <option>-- SELECT ONE --</option>
+        <option value="id">Indonesia</option>
+        <option value="my">Malaysia</option>
+        <option value="us">United States</option>
+    </Select>
+    <Select name="nationality" label="Nationality (Select)" readOnly>
+        <option>-- SELECT ONE --</option>
+        <option value="id">Indonesia</option>
+        <option value="my">Malaysia</option>
+        <option value="us">United States</option>
+    </Select>
+    <ReactSelect name="nationality" label="Nationality (React Select)" required>
+        <option>-- SELECT ONE --</option>
+        <option value="id">Indonesia</option>
+        <option value="my">Malaysia</option>
+        <option value="us">United States</option>
+    </ReactSelect>
+    <ReactSelect name="nationality" label="Nationality (React Select)" readOnly>
+        <option>-- SELECT ONE --</option>
+        <option value="id">Indonesia</option>
+        <option value="my">Malaysia</option>
+        <option value="us">United States</option>
+    </ReactSelect>
+    <ReactSelectAsync id="selectasync" name="userKey" labelfield="userName" label="User (React Select Async)">
+    </ReactSelectAsync>
+    <Text name="note"></Text>
+    <FullColumn>
+        <Text name="fullcolumntext"></Text>
+    </FullColumn>
+    <Text name="text"></Text>
+</div>
