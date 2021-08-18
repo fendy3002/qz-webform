@@ -56,7 +56,7 @@ export default `
 `;
 ```
 
-You can see [structure.md](./structure.md) for more information about template.
+You can see [structure.md](./structure.md) for more information about structure.
 
 ## container component
 
