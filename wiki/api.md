@@ -4,7 +4,7 @@ The API is different between `staticform` (regular html / postback form) and `re
 
 # Staticform API
 
-The library usually composed like this:
+For `staticform` we still need to compose a "library" (using react) with provided react templates. The library usually composed like this:
 
 ``` javascript
 import { webform as WebFormConstruct } from '@fendy3002/qz-webform';
