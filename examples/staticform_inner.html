@@ -57,7 +57,7 @@
     <script src="js/staticform.js"></script>
     <script>
         let qzForm = document.getElementById("qzform");
-        QzWebForm.render(qzForm, {
+        let data = {
             name: "Initial Name",
             city: "Okinawa",
             province: "Southampton",
@@ -65,7 +65,8 @@
             hasJob: true,
             userKey: "001",
             userName: "USER001"
-        },
+        };
+        QzWebForm.render(qzForm, data,
             {
                 readOnly: false,
                 additionalContext: {

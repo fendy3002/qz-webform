@@ -1,0 +1,32 @@
+<script src="js/staticform.js"></script>
+<script>
+    let qzForm = document.getElementById("qzform");
+    let data = {
+        name: "Initial Name",
+        city: "Okinawa",
+        province: "Southampton",
+        height: "100",
+        hasJob: true,
+        userKey: "001",
+        userName: "USER001"
+    };
+    QzWebForm.render(qzForm, data,
+        {
+            readOnly: false,
+            additionalContext: {
+                // selectasync is the id
+                "selectasync": {
+                    select: {
+                        loadOptions: (inputValue, callback) => {
+                            setTimeout(() => {
+                                callback([
+                                    { value: "001", label: "USER001" },
+                                    { value: "002", label: "USER002" },
+                                ]);
+                            }, 1000);
+                        }
+                    }
+                }
+            }
+        });
+</script>
