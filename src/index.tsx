@@ -57,13 +57,13 @@ const webform = (template, option?: any) => {
     const elementStructure = (element) => {
         return {
             render: (value) => {
-                return xmlStructure(element.innerHTML).render(value);
+                return xmlStructure(element.innerHTML).render(element, value);
             }
         };
     };
     const xmlStructure = (xml) => {
         return {
-            render: (value) => {
+            render: (element, value) => {
                 return preprocessXmlWithValue(xml, value).then((result) => {
                     let { structure, value, context } = result;
                     let WebForm = staticConstructor({

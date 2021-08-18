@@ -51,6 +51,7 @@ const xmlToJson = (xml, option) => {
                         result.id = result.props.id;
                     } else {
                         result.id = result.tagName + "_" + elemIndex.toString();
+                        result.props.id = result.id;
                         elemIndex++;
                     }
                     result.props.dataset['data-id'] = result.id;
