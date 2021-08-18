@@ -3,7 +3,7 @@ import template from '../../react/template';
 
 let render = (element, value, option?: any) => {
     let WebForm = WebFormConstruct(template, option);
-    return WebForm.renderStatic(element, value);
+    return WebForm.elementStructure(element).render(value);
 };
 (window as any).QzWebForm = {
     render

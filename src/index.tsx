@@ -44,8 +44,8 @@ const webform = (template, option?: any) => {
         lang: enlang,
         ...(option ?? {}),
     };
-    let preprocessWithValue = (element, value) => {
-        return prepareStructure(element.innerHTML, useOption).then(({ structure, elemMap, context }) => {
+    let preprocessXmlWithValue = (xml, value) => {
+        return prepareStructure(xml, useOption).then(({ structure, elemMap, context }) => {
             return {
                 structure: structure,
                 elemMap: elemMap,
@@ -53,39 +53,40 @@ const webform = (template, option?: any) => {
                 context: context
             };
         });
-    }
-    // const render = (element, value) => {
-    //     return preprocessWithValue(element, value).then((result) => {
-    //         let { structure, value } = result;
-    //         let WebForm = constructor(template);
-    //         ReactDOM.render(
-    //             <WebForm structure={structure} data={value} />,
-    //             element
-    //         );
-    //     });
-    // };
-    const renderStatic = (element, value) => {
-        return preprocessWithValue(element, value).then((result) => {
-            let { structure, value, context } = result;
-            let WebForm = staticConstructor({
-                template,
-                structure: structure,
-                language: useOption.lang,
-                data: value,
-                context: context
-            });
-            ReactDOM.render(
-                <WebForm />,
-                element
-            );
-        });
     };
+    const elementStructure = (element) => {
+        return {
+            render: (value) => {
+                return xmlStructure(element.innerHTML).render(value);
+            }
+        };
+    };
+    const xmlStructure = (xml) => {
+        return {
+            render: (value) => {
+                return preprocessXmlWithValue(xml, value).then((result) => {
+                    let { structure, value, context } = result;
+                    let WebForm = staticConstructor({
+                        template,
+                        structure: structure,
+                        language: useOption.lang,
+                        data: value,
+                        context: context
+                    });
+                    ReactDOM.render(
+                        <WebForm />,
+                        element
+                    );
+                });
+            }
+        };
+    };
+    
     return {
         WebForm: constructor(template),
 
-        preprocessWithValue,
-        // render,
-        renderStatic
+        xmlStructure,
+        elementStructure,
     };
 };
 const language = {
