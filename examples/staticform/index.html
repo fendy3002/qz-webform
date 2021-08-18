@@ -11,7 +11,7 @@
         <div class="container">
             <h1>QzWebForm - Static (postback)</h1>
             <hr />
-            <div id="qzform">
+            <div id="qzwebform">
                 <Text name="name" label="Name (Text)" minLength="3" required></Text>
                 <Text name="city" label="City (Text)" readOnly></Text>
                 <Text name="province"></Text>
@@ -60,7 +60,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="js/staticform.js"></script>
     <script>
-        let qzForm = document.getElementById("qzform");
+        let qzWebForm = document.getElementById("qzwebform");
         let data = {
             name: "Initial Name",
             city: "Okinawa",
@@ -70,7 +70,7 @@
             userKey: "001",
             userName: "USER001"
         };
-        QzWebForm.render(qzForm, data,
+        QzWebForm.render(qzWebForm, data,
             {
                 readOnly: false,
                 additionalContext: {
