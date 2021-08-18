@@ -34,7 +34,7 @@ const prepareStructure = (xml: string, option?: any) => {
     });
 };
 
-const webform = (template, option?: any) => {
+let fromTemplate = (template, option?: any) => {
     let useOption = {
         autoGrid: true,
         autoPlaceholder: true,
@@ -44,60 +44,62 @@ const webform = (template, option?: any) => {
         lang: enlang,
         ...(option ?? {}),
     };
-    let preprocessXmlWithValue = (xml, value) => {
-        return prepareStructure(xml, useOption).then(({ structure, elemMap, context }) => {
-            return {
-                structure: structure,
-                elemMap: elemMap,
-                value: prepareValue(structure, value, useOption),
-                context: context
-            };
-        });
-    };
     const elementStructure = (element) => {
         return {
             render: (value) => {
                 return xmlStructure(element.innerHTML).render(element, value);
-            }
+            },
         };
     };
+
     const xmlStructure = (xml) => {
         return {
+            webForm: (language) => {
+                return prepareStructure(xml, option).then(({ structure, context }) => {
+                    let WebForm = reactWebForm({
+                        template: template,
+                        structure: structure,
+                        context: context,
+                        language: language
+                    });
+                    return WebForm;
+                });
+            },
             render: (element, value) => {
-                return preprocessXmlWithValue(xml, value).then((result) => {
-                    let { structure, value, context } = result;
-                    let WebForm = staticConstructor({
+                return prepareStructure(xml, useOption).then(({ structure, elemMap, context }) => {
+                    let preparedValue = prepareValue(structure, value, useOption);
+                    let WebFormInstance = staticConstructor({
                         template,
                         structure: structure,
                         language: useOption.lang,
-                        data: value,
+                        data: preparedValue,
                         context: context
                     });
                     ReactDOM.render(
-                        <WebForm />,
+                        <WebFormInstance />,
                         element
                     );
+                    return {
+                        structure: structure,
+                        elemMap: elemMap,
+                        context: context
+                    };
                 });
             }
         };
     };
-    
-    return {
-        WebForm: constructor(template),
 
+    return {
         xmlStructure,
         elementStructure,
-    };
+    }
 };
+
 const language = {
     en: enlang
 };
-const react = {
-    prepareStructure,
-    webForm: reactWebForm
-};
+
 export {
-    webform,
     language,
-    react
+    fromTemplate,
 };

@@ -1,9 +1,9 @@
-import { webform as WebFormConstruct } from '../../../src/index';
+import { fromTemplate } from '../../../src/index';
 import template from '../../react/template';
 
 let render = (element, value, option?: any) => {
-    let WebForm = WebFormConstruct(template, option);
-    return WebForm.elementStructure(element).render(value);
+    return fromTemplate(template, option)
+        .elementStructure(element).render(value);
 };
 (window as any).QzWebForm = {
     render
