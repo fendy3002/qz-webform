@@ -37,8 +37,12 @@ export default class store {
     error: any = {};
 
     onFormChange({ data, error }, evt) {
-        this.user = data;
-        this.error = error;
+        if (data) {
+            this.user = data;
+        }
+        if (error) {
+            this.error = error;
+        }
     }
 
     searchInstitute(inputValue, callback) {

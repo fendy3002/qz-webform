@@ -31,6 +31,22 @@ let construct = ({ template, structure, context, language }) => {
                         ...validateResult.error
                     }
                 }, evt);
+            } else if (dataset?.["tagname"] == "button") {
+                if (name == "data") {
+                    onChange({
+                        data: {
+                            ...data,
+                            ...validateResult.value
+                        },
+                    });
+                } else {
+                    onChange({
+                        error: {
+                            ...error,
+                            ...validateResult.value
+                        }
+                    });
+                }
             } else {
                 onChange({
                     data: {

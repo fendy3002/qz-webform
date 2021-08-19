@@ -17,7 +17,36 @@ let render = (element, userid, option?: any) => {
                 select: {
                     loadOptions: storeInstance.searchInstitute
                 }
-            }
+            },
+            "shufflename": {
+                "button": {
+                    "onClick": (evt, {data, setData, setError}) => {
+                        setData((prev) => {
+                            return {
+                                // shuffle snippet: https://stackoverflow.com/questions/3943772/how-do-i-shuffle-the-characters-in-a-string-in-javascript
+                                name: prev.name.split('').sort(function(){return 0.5-Math.random()}).join('')
+                            };
+                        })
+                    }
+                }
+            },
+            "clearname": {
+                "button": {
+                    "onClick": (evt, {data, setData, setError}) => {
+                        setData((prev) => {
+                            return {
+                                name: ""
+                            };
+                        });
+                        setError((prev) => {
+                            return {
+                                name: "required"
+                            }
+                        })
+                    }
+                }
+            },
+            
         }
     };
     return fromTemplate(template, webFormOption)
