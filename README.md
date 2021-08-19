@@ -29,6 +29,8 @@ The tags supported at the moment:
 * select
 * reactselect
 * reactselectasync
+* button
+* cell
 * row
 * fullcolumn
 * column
@@ -69,11 +71,16 @@ In HTML, we can use dom elements to define the structure. Example usage in HTML:
     <Text name="name" label="Name (Text)" minLength="3" required></Text>
     <Text name="city" label="City (Text)" readOnly></Text>
     <Text name="province"></Text>
-    <RowBreak></RowBreak>
-    <Number name="height" min="100" label="Height (Number)" required></Number>
     <Textarea name="address" label="Address (Textarea)" required></Textarea>
     <Checkbox name="hasJob" label="Has Job?"></Checkbox>
     <RowBreak></RowBreak>
+    <Number name="height" min="100" label="Height (Number)" required></Number>
+    <Cell>
+        <Button id="incrementBtn" type="outline-secondary" text="+"></Button>
+        <Button id="decrementBtn" type="outline-danger" text="-"></Button>
+    </Cell>
+    <RowBreak></RowBreak>
+
     <Select name="nationality" label="Nationality (Select)" required>
         <option>-- SELECT ONE --</option>
         <option value="id">Indonesia</option>
@@ -98,7 +105,7 @@ In HTML, we can use dom elements to define the structure. Example usage in HTML:
         <option value="my">Malaysia</option>
         <option value="us">United States</option>
     </ReactSelect>
-    <ReactSelectAsync id="selectasync" name="userKey" labelfield="userName"
+    <ReactSelectAsync id="selectasync" name="userKey" labelField="userName"
         label="User (React Select Async)">
     </ReactSelectAsync>
     <Text name="note"></Text>
@@ -112,18 +119,17 @@ In HTML, we can use dom elements to define the structure. Example usage in HTML:
 With react, we'll be using XML string to define the structure The tags and attributes should be the same, except xml does not support empty attribute, so we need to supply empty string or any value. Example usage in react:
 
 ```javascript
-import { react } from '@fendy3002/qz-webform';
-// import 
-export default (option?: any) => {
-    // empty value for required or readonly is needed, for a valid XML
-    return react.prepareStructure(`
-        <Text name="name" label="Name (Text)" minLength="3" required=""></Text>
-        <Text name="username" label="Username (Text)" minLength="3" required=""></Text>
-        <Text name="email" label="Email (Text)" minLength="3" required=""></Text>
-        <ReactSelectAsync id="instituteselect" name="instituteKey" label="Institute (React Select Async)" 
-            labelfield="instituteName" required=""></ReactSelectAsync>
-    `, option);
-};
+export default `
+<Text name="name" label="Name (Text)" minLength="3" required=""></Text>
+<Cell>
+    <Button id="shufflename" text="Shuffle" type="outline-secondary"></Button>
+    <Button id="clearname" text="Clear" type="outline-danger"></Button>
+</Cell>
+<Text name="username" label="Username (Text)" minLength="3" required=""></Text>
+<Text name="email" label="Email (Text)" minLength="3" required=""></Text>
+<ReactSelectAsync id="instituteselect" name="instituteKey" label="Institute (React Select Async)" 
+    labelfield="instituteName" required=""></ReactSelectAsync>
+`;
 ```
 
 # API

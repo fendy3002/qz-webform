@@ -9,9 +9,11 @@ A key-value consist of XML or HTML tags that want to be rendered. Currently thes
 * select
 * reactselect
 * reactselectasync
+* button
 
 And currently these are the supported layouting components:
 
+* cell
 * row
 * fullcolumn
 * column

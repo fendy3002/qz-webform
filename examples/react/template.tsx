@@ -200,7 +200,7 @@ export default {
     "button": ({ onClick, text, type }) => {
         return <button className={"btn rounded-0 btn-" + type} onClick={onClick}>{text}</button>;
     },
-    "buttons": ({ children }) => {
+    "cell": ({ children }) => {
         return children;
     },
     "row": ({ children }) => {

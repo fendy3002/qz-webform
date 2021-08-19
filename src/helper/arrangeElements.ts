@@ -61,7 +61,7 @@ const arrangeElements = (elements, options?: any) => {
                 });
                 continue;
             }
-            if (each.children && each.tagName != "buttons") {
+            if (each.children && each.tagName != "cell") {
                 each.children = innerArrange(each.children);
             }
 
