@@ -21,6 +21,7 @@
                 <Number name="height" min="100" label="Height (Number)" required></Number>
                 <Buttons>
                     <Button id="incrementBtn" type="outline-secondary" text="+"></Button>
+                    <Button id="decrementBtn" type="outline-danger" text="-"></Button>
                 </Buttons>
                 <RowBreak></RowBreak>
 
@@ -86,6 +87,17 @@
                                 setData((prev) => {
                                     return {
                                         height: (prev.height * 1) + 1
+                                    };
+                                });
+                            }
+                        }
+                    },
+                    "decrementBtn": {
+                        "button": {
+                            "onClick": (evt, data, setData, setError) => {
+                                setData((prev) => {
+                                    return {
+                                        height: (prev.height * 1) - 1
                                     };
                                 });
                             }
