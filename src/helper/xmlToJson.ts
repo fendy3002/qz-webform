@@ -46,17 +46,23 @@ const xmlToJson = (xml, option) => {
                     ...result.props,
                     ...propToBoolean(lowercasePropName(each["$"]))
                 };
+                if (result.props.id) {
+                    result.id = result.props.id;
+                }
                 if (result.props.name) {
-                    if (result.props.id) {
-                        result.id = result.props.id;
-                    } else {
+                    if (!result.id) {
                         result.id = result.tagName + "_" + elemIndex.toString();
                         result.props.id = result.id;
                         elemIndex++;
                     }
                     result.props.dataset['data-id'] = result.id;
-                    elemMap[result.props.name] = elemMap[result.props.name] ?? [];
-                    elemMap[result.props.name].push(result);
+                    elemMap[result.id] = elemMap[result.id] ?? [];
+                    elemMap[result.id].push(result);
+                }
+                
+                if(result.id){
+                    elemMap[result.id] = elemMap[result.id] ?? [];
+                    elemMap[result.id].push(result);
                 }
             }
             if (each["$$"]) {

@@ -36,6 +36,41 @@ let construct = (template) => {
                 });
             };
         });
+        buttonOnClick = memoize((element, context) => {
+            let onClick = context?.button?.onClick;
+            let dataset: any = {};
+            for (let key of Object.keys(element.props.dataset ?? {})) {
+                dataset[key.replace("data-", "")] = element.props.dataset[key];
+            }
+            let setDataHandler = (handler) => {
+                const { onChange, data } = this.props;
+                let newData = handler(data);
+                onChange({
+                    currentTarget: {
+                        name: element.props.name || "data",
+                        value: newData,
+                        dataset: dataset ?? {}
+                    }
+                });
+            };
+            let setErrorHandler = (handler) => {
+                const { onChange, data } = this.props;
+                let newError = handler(data);
+                onChange({
+                    currentTarget: {
+                        name: element.props.name || "error",
+                        value: newError,
+                        dataset: dataset ?? {}
+                    }
+                });
+            };
+            return (evt) => {
+                if (onClick) {
+                    const { data } = this.props;
+                    onClick(evt, data, setDataHandler, setErrorHandler);
+                }
+            };
+        });
         render() {
             const { structure, data, error, context, parentKey = "", onChange } = this.props;
             let elementDoms = [];
@@ -81,6 +116,11 @@ let construct = (template) => {
                                 validation={tagContext?.validation ?? {}}
                                 key={key}
                                 onChange={onChange} />
+                        );
+                    } else if (each.tagName == "button") {
+                        elementDoms.push(
+                            <Tag data={data} {...each.props} {...additional}
+                                key={key} onClick={this.buttonOnClick(each, tagContext)} />
                         );
                     } else {
                         let elemName = each.props?.name ?? "";

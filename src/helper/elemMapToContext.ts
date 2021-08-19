@@ -4,10 +4,10 @@ let elemMapToContext = (elemMap, option) => {
     let context: {
         [elemId: string]: any
     } = {}
-    for (let elemName of Object.keys(elemMap)) {
-        for (let element of elemMap[elemName]) {
+    for (let elemId of Object.keys(elemMap)) {
+        for (let element of elemMap[elemId]) {
             context[element.id] = {
-                name: elemName,
+                name: element.props.name,
                 tagName: element.tagName
             };
             if (option.autoValidation) {

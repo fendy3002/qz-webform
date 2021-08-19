@@ -61,7 +61,7 @@ const arrangeElements = (elements, options?: any) => {
                 });
                 continue;
             }
-            if (each.children) {
+            if (each.children && each.tagName != "buttons") {
                 each.children = innerArrange(each.children);
             }
 
