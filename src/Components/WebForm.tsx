@@ -67,7 +67,11 @@ let construct = (template) => {
             return (evt) => {
                 if (onClick) {
                     const { data } = this.props;
-                    onClick(evt, data, setDataHandler, setErrorHandler);
+                    onClick(evt, {
+                        data: data, 
+                        setData: setDataHandler, 
+                        setError: setErrorHandler
+                    });
                 }
             };
         });

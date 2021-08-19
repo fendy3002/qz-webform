@@ -83,7 +83,7 @@
                 additionalContext: {
                     "incrementBtn": {
                         "button": {
-                            "onClick": (evt, data, setData, setError) => {
+                            "onClick": (evt, { data, setData, setError }) => {
                                 setData((prev) => {
                                     return {
                                         height: (prev.height * 1) + 1
@@ -94,7 +94,7 @@
                     },
                     "decrementBtn": {
                         "button": {
-                            "onClick": (evt, data, setData, setError) => {
+                            "onClick": (evt, { data, setData, setError }) => {
                                 setData((prev) => {
                                     return {
                                         height: (prev.height * 1) - 1
