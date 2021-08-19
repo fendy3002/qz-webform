@@ -38,27 +38,19 @@ let construct = ({ template, structure, data, context, language }) => {
                     };
                 });
             } else if (dataset?.["tagname"] == "button") {
-                if (name == "data") {
-                    this.setState((prev) => {
-                        return {
-                            ...prev,
-                            data: {
-                                ...prev.data,
-                                ...validateResult.value,
-                            }
-                        };
-                    });
-                } else {
-                    this.setState((prev) => {
-                        return {
-                            ...prev,
-                            error: {
-                                ...prev.error,
-                                ...validateResult.value
-                            }
-                        };
-                    });
-                }
+                this.setState((prev) => {
+                    return {
+                        ...prev,
+                        data: {
+                            ...prev.data,
+                            ...validateResult.value.data,
+                        },
+                        error: {
+                            ...prev.error,
+                            ...validateResult.value.error
+                        }
+                    };
+                });
             } else {
                 this.setState((prev) => {
                     return {

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import memoize from 'lodash/memoize';
+import buttonOnClickHandler from '../helper/buttonOnClickHandler';
 
 let construct = (template) => {
     class WebForm extends React.Component {
@@ -42,35 +43,21 @@ let construct = (template) => {
             for (let key of Object.keys(element.props.dataset ?? {})) {
                 dataset[key.replace("data-", "")] = element.props.dataset[key];
             }
-            let setDataHandler = (handler) => {
-                const { onChange, data } = this.props;
-                let newData = handler(data);
-                onChange({
-                    currentTarget: {
-                        name: element.props.name || "data",
-                        value: newData,
-                        dataset: dataset ?? {}
-                    }
-                });
-            };
-            let setErrorHandler = (handler) => {
-                const { onChange, data } = this.props;
-                let newError = handler(data);
-                onChange({
-                    currentTarget: {
-                        name: element.props.name || "error",
-                        value: newError,
-                        dataset: dataset ?? {}
-                    }
-                });
-            };
             return (evt) => {
                 if (onClick) {
-                    const { data } = this.props;
+                    let eventContext = buttonOnClickHandler(this.props);
+                    const { data, onChange } = this.props;
                     onClick(evt, {
                         data: data, 
-                        setData: setDataHandler, 
-                        setError: setErrorHandler
+                        setData: eventContext.setData, 
+                        setError: eventContext.setError
+                    });
+                    onChange({
+                        currentTarget: {
+                            name: "",
+                            value: eventContext.getChange(),
+                            dataset: dataset ?? {}
+                        }
                     });
                 }
             };
