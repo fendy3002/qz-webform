@@ -1,5 +1,5 @@
 import * as React from 'react';
-import memoize from 'lodash/memoize';
+import * as memoize from 'lodash/memoize';
 import buttonOnClickHandler from '../helper/buttonOnClickHandler';
 
 let construct = (template) => {
