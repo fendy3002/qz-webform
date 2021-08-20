@@ -5,7 +5,7 @@ import validateInputConstruct from '../helper/validateInput';
 let construct = ({ template, structure, context, language }) => {
     const WebForm = WebFormConstruct(template);
     const validateInput = validateInputConstruct(context, language);
-    return class ReactWebForm extends React.Component {
+    class ReactWebForm extends React.Component<any, any> {
         constructor(prop) {
             super(prop);
             [
@@ -64,5 +64,7 @@ let construct = ({ template, structure, context, language }) => {
                 onChange={this.onChange} />
         }
     };
+
+    return ReactWebForm as any;
 }
 export default construct;

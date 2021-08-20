@@ -3,7 +3,7 @@ import memoize from 'lodash/memoize';
 import buttonOnClickHandler from '../helper/buttonOnClickHandler';
 
 let construct = (template) => {
-    class WebForm extends React.Component {
+    class WebForm extends React.Component<any, any> {
         reactSelectAsyncOnChange = memoize((element) => {
             let dataset: any = {};
             for (let key of Object.keys(element.props.dataset ?? {})) {
@@ -127,6 +127,6 @@ let construct = (template) => {
             return elementDoms;
         }
     };
-    return WebForm;
+    return WebForm as any;
 }
 export default construct;
