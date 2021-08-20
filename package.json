@@ -1,12 +1,19 @@
 {
   "name": "qz-webform",
-  "version": "1.0.0",
-  "main": "index.js",
+  "version": "0.1.0",
+  "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
     "compile-dev": "webpack --config webpack.dev.js --watch",
-    "compile": "webpack --config webpack.prod.js",
-    "prepublish": "yarn compile"
+    "build": "tsc",
+    "prepublish": "yarn build"
+  },
+  "files": [
+    "dist/**/*",
+    "src/**/*"
+  ],
+  "publishConfig": {
+    "access": "public"
   },
   "repository": "git@github.com:fendy3002/qz-webform.git",
   "author": "Fendy Heryanto <fendy.heryanto@valista-indonesia.com>",
@@ -17,6 +24,7 @@
     "@babel/preset-react": "^7.13.13",
     "@babel/preset-typescript": "^7.13.0",
     "@types/node": "^14.14.35",
+    "@types/react": "^17.0.19",
     "babel-loader": "^8.2.2",
     "buffer": "^6.0.3",
     "css-loader": "^5.2.0",
