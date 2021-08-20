@@ -56,8 +56,6 @@ const xmlToJson = (xml, option) => {
                         elemIndex++;
                     }
                     result.props.dataset['data-id'] = result.id;
-                    elemMap[result.id] = elemMap[result.id] ?? [];
-                    elemMap[result.id].push(result);
                 }
                 
                 if(result.id){
