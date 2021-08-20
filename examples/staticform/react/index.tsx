@@ -1,4 +1,4 @@
-import { fromTemplate } from '../../../src/index';
+import { language, fromTemplate } from '@fendy3002/qz-webform';
 import template from '../../react/template';
 
 let render = (element, value, option?: any) => {

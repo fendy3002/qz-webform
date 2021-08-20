@@ -5,7 +5,7 @@ import structure from './structure';
 import template from '../../react/template';
 import store from './store';
 import App from './App';
-import { language, fromTemplate } from '../../../src/index';
+import { language, fromTemplate } from '@fendy3002/qz-webform';
 
 let render = (element, userid, option?: any) => {
     let storeInstance = new store(userid);
