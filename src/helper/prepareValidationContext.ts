@@ -37,7 +37,7 @@ let prepare = (element, option) => {
                 ...modifyProp(element, propName)
             };
         });
-    } else if (element.tagName == "date") {
+    } else if (element.tagName == "reactdatepicker") {
         [
             "required"
         ].map(propName => {

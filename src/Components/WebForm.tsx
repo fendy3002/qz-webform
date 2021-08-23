@@ -134,6 +134,7 @@ let construct = (template) => {
                         let converter = tagContext.converter;
                         elementDoms.push(
                             <Tag data={data} {...each.props} {...additional} error={error[elemName]} value={converter.fromSource(data[elemName])}
+                                originalValue={data[elemName]}
                                 validation={tagContext?.validation ?? {}}
                                 key={key} onChange={this.reactDatepickerOnChange(each, tagContext)} />
                         );

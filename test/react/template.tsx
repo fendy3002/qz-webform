@@ -4,7 +4,24 @@ import ReactSelectAsync from 'react-select/async';
 import ReactSelectBootstrapStyle from './ReactSelectBootstrapStyle';
 
 import DatePicker from "react-datepicker";
+import * as dayjs from 'dayjs';
 import "react-datepicker/dist/react-datepicker.css";
+
+const ReactDatepickerCustomInput = React.forwardRef((props, ref) => {
+    let { label, validation } = props;
+    let requiredSign = validation.required ? <span className="text-danger">*</span> : <></>;
+    return <>
+        <div className="form-floating">
+            <input type="text" className={"form-control rounded-0 "}
+                value={props.value} ref={ref}
+                onChange={props.onChange}
+                onClick={props.onClick}></input>
+            {label &&
+                <label>{label}&nbsp;{requiredSign}</label>
+            }
+        </div>
+    </>
+});
 
 export default {
     "text": ({ name, readonly, value, label, error, placeholder, dataset, validation,
@@ -200,20 +217,33 @@ export default {
             </div>;
         }
     },
-    "reactdatepicker": ({ name, readonly, value, label, error, placeholder, dataset, validation,
+    "reactdatepicker": ({ name, readonly, value, originalValue, label, error, placeholder, dataset, validation,
         onChange }) => {
         let requiredSign = validation.required ? <span className="text-danger">*</span> : <></>;
+
+        if (readonly) {
+            return <div className="form-floating">
+                <input type="text" className={"form-control rounded-0 "}
+                    value={dayjs(value).format("YYYY/MM/DD")} readOnly={true} placeholder={placeholder} {...dataset}
+                    onChange={onChange} />
+                <input type="hidden" name={name} value={originalValue} />
+                {label &&
+                    <label>{label}</label>
+                }
+            </div>;
+        }
         return <div className="form-floating ">
             <DatePicker className={"form-control rounded-0 " + (error ? "is-invalid" : "")} selected={value}
+                placeholderText={placeholder}
+                dateFormat="yyyy/MM/dd"
+                customInput={<ReactDatepickerCustomInput label={label} validation={validation} />}
                 onChange={onChange} />
-            {label &&
-                <label>{label}&nbsp;{requiredSign}</label>
-            }
             {error &&
                 <div className="invalid-feedback">
                     {error}
                 </div>
             }
+            <input type="hidden" name={name} value={dayjs(value).toISOString()} />
         </div>;
     },
     "button": ({ onClick, text, type }) => {
