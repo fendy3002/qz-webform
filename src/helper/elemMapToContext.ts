@@ -1,4 +1,5 @@
 import prepareValidationContext from './prepareValidationContext';
+import * as dayjs from 'dayjs';
 
 let elemMapToContext = (elemMap, option) => {
     let context: {
@@ -16,14 +17,36 @@ let elemMapToContext = (elemMap, option) => {
                     context[element.id].validation = validation;
                 }
             }
-            if (element.tagName == "select") {
-                // context[elemName][element.tagName] = {
+            if (element.tagName == "reactdatepicker") {
+                let converter = {
+                    fromSource: (sourceValue: Date | string | number) => {
+                        return sourceValue;
+                    },
+                    toSource: (sourceValue: Date) : any => {
+                        return sourceValue;
+                    },
+                };
+                if (element.props.sourcetype == "iso") {
+                    converter = {
+                        fromSource: (sourceValue: Date | string | number) => {
+                            return dayjs(sourceValue).toDate();
+                        },
+                        toSource: (sourceValue: Date) : any => {
+                            return dayjs(sourceValue).format();
+                        },
+                    };
+                } else if(element.props.sourcetype == "timestamp") {
+                    converter = {
+                        fromSource: (sourceValue: Date | string | number) => {
+                            return dayjs(sourceValue).toDate();
+                        },
+                        toSource: (sourceValue: Date) : any => {
+                            return dayjs(sourceValue).valueOf();
+                        },
+                    };
+                }
 
-                // };
-            } else if (element.tagName == "reactselect") {
-                // context[elemName][element.tagName] = {
-
-                // };
+                context[element.id].converter = converter;
             }
             if (option.additionalContext[element.id]) {
                 context[element.id] = {

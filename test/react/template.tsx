@@ -3,6 +3,9 @@ import ReactSelect from 'react-select';
 import ReactSelectAsync from 'react-select/async';
 import ReactSelectBootstrapStyle from './ReactSelectBootstrapStyle';
 
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 export default {
     "text": ({ name, readonly, value, label, error, placeholder, dataset, validation,
         onChange }) => {
@@ -196,6 +199,22 @@ export default {
                 }
             </div>;
         }
+    },
+    "reactdatepicker": ({ name, readonly, value, label, error, placeholder, dataset, validation,
+        onChange }) => {
+        let requiredSign = validation.required ? <span className="text-danger">*</span> : <></>;
+        return <div className="form-floating ">
+            <DatePicker className={"form-control rounded-0 " + (error ? "is-invalid" : "")} selected={value}
+                onChange={onChange} />
+            {label &&
+                <label>{label}&nbsp;{requiredSign}</label>
+            }
+            {error &&
+                <div className="invalid-feedback">
+                    {error}
+                </div>
+            }
+        </div>;
     },
     "button": ({ onClick, text, type }) => {
         return <button className={"btn rounded-0 btn-" + type} onClick={onClick}>{text}</button>;

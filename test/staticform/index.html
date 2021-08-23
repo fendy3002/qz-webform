@@ -52,6 +52,9 @@
                 <ReactSelectAsync id="selectasync" name="userKey" labelField="userName"
                     label="User (React Select Async)">
                 </ReactSelectAsync>
+                <ReactDatepicker name="birthTs" label="Birth Date" required sourceType="timestamp"></ReactDatepicker>
+                <ReactDatepicker name="birthIso" label="Birth Date" required sourceType="iso"></ReactDatepicker>
+                <ReactDatepicker name="birthDate" label="Birth Date" required sourceType="date"></ReactDatepicker>
                 <Text name="note"></Text>
                 <FullColumn>
                     <Text name="fullcolumntext"></Text>
@@ -75,7 +78,10 @@
             height: "100",
             hasJob: true,
             userKey: "001",
-            userName: "USER001"
+            userName: "USER001",
+            birthTs: 1627689600000,
+            birthIso: '2021-01-01T00:00:00z',
+            birthDate: new Date(2021, 01, 01),
         };
         QzWebForm.render(qzWebForm, data,
             {

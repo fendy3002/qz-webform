@@ -62,6 +62,22 @@ let construct = (template) => {
                 }
             };
         });
+        reactDatepickerOnChange = memoize((element, context) => {
+            let dataset: any = {};
+            for (let key of Object.keys(element.props.dataset ?? {})) {
+                dataset[key.replace("data-", "")] = element.props.dataset[key];
+            }
+            return (date) => {
+                const { onChange } = this.props;
+                onChange({
+                    currentTarget: {
+                        name: element.props.name,
+                        value: context.converter.toSource(date),
+                        dataset: dataset ?? {}
+                    }
+                });
+            };
+        });
         render() {
             const { structure, data, error, context, parentKey = "", onChange } = this.props;
             let elementDoms = [];
@@ -112,6 +128,14 @@ let construct = (template) => {
                         elementDoms.push(
                             <Tag data={data} {...each.props} {...additional}
                                 key={key} onClick={this.buttonOnClick(each, tagContext)} />
+                        );
+                    } else if (each.tagName == "reactdatepicker") {
+                        let elemName = each.props?.name ?? "";
+                        let converter = tagContext.converter;
+                        elementDoms.push(
+                            <Tag data={data} {...each.props} {...additional} error={error[elemName]} value={converter.fromSource(data[elemName])}
+                                validation={tagContext?.validation ?? {}}
+                                key={key} onChange={this.reactDatepickerOnChange(each, tagContext)} />
                         );
                     } else {
                         let elemName = each.props?.name ?? "";

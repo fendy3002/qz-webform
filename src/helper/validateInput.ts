@@ -52,6 +52,11 @@ const construct = (context: any, lang?: any) => {
         else if (tagName == "checkbox") {
             value = currentTarget.checked;
         }
+        if (tagName == "reactdatepicker") {
+            if (validation.required && !value) {
+                error[name] = useLang.required;
+            }
+        }
         return {
             value: value,
             error: error

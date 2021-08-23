@@ -37,6 +37,15 @@ let prepare = (element, option) => {
                 ...modifyProp(element, propName)
             };
         });
+    } else if (element.tagName == "date") {
+        [
+            "required"
+        ].map(propName => {
+            result = {
+                ...result,
+                ...modifyProp(element, propName)
+            };
+        });
     } else if (element.tagName == "select" ||
         element.tagName == "reactselect") {
         [
