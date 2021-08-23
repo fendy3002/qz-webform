@@ -8,12 +8,12 @@ import * as dayjs from 'dayjs';
 import "react-datepicker/dist/react-datepicker.css";
 
 const ReactDatepickerCustomInput = React.forwardRef((props, ref) => {
-    let { label, validation } = props;
+    let { label, validation, placeholder } = props;
     let requiredSign = validation.required ? <span className="text-danger">*</span> : <></>;
     return <>
         <div className="form-floating">
             <input type="text" className={"form-control rounded-0 "}
-                value={props.value} ref={ref}
+                value={props.value} ref={ref} placeholder={placeholder}
                 onChange={props.onChange}
                 onClick={props.onClick}></input>
             {label &&
@@ -234,16 +234,16 @@ export default {
         }
         return <div className="form-floating ">
             <DatePicker className={"form-control rounded-0 " + (error ? "is-invalid" : "")} selected={value}
-                placeholderText={placeholder}
                 dateFormat="yyyy/MM/dd"
-                customInput={<ReactDatepickerCustomInput label={label} validation={validation} />}
+                placeholderText={placeholder}
+                customInput={<ReactDatepickerCustomInput label={label} validation={validation} placeholder={placeholder} />}
                 onChange={onChange} />
             {error &&
                 <div className="invalid-feedback">
                     {error}
                 </div>
             }
-            <input type="hidden" name={name} value={dayjs(value).toISOString()} />
+            <input type="hidden" name={name} value={value ? dayjs(value).toISOString() : ""} />
         </div>;
     },
     "button": ({ onClick, text, type }) => {

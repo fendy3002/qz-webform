@@ -18,38 +18,30 @@ let elemMapToContext = (elemMap, option) => {
                 }
             }
             if (element.tagName == "reactdatepicker") {
-                let toInputConverter = {
-                    hidden: (sourceValue: Date | string | number): string => {
-                        return dayjs(sourceValue).toISOString();
-                    },
-                    display: (sourceValue: Date | string | number): string => {
-                        return dayjs(sourceValue).toISOString();
-                    }
-                };
                 let converter = {
                     fromSource: (sourceValue: Date | string | number) => {
                         return sourceValue;
                     },
-                    toSource: (sourceValue: Date) : any => {
+                    toSource: (sourceValue: Date): any => {
                         return sourceValue;
-                    } 
+                    }
                 };
                 if (element.props.sourcetype == "iso") {
                     converter = {
                         fromSource: (sourceValue: Date | string | number) => {
-                            return dayjs(sourceValue).toDate();
+                            return sourceValue ? dayjs(sourceValue).toDate() : null;
                         },
-                        toSource: (sourceValue: Date) : any => {
-                            return dayjs(sourceValue).toISOString();
+                        toSource: (sourceValue: Date): any => {
+                            return sourceValue ? dayjs(sourceValue).toISOString() : "";
                         },
                     };
-                } else if(element.props.sourcetype == "timestamp") {
+                } else if (element.props.sourcetype == "timestamp") {
                     converter = {
                         fromSource: (sourceValue: Date | string | number) => {
-                            return dayjs(sourceValue).toDate();
+                            return sourceValue ? dayjs(sourceValue).toDate() : null;
                         },
-                        toSource: (sourceValue: Date) : any => {
-                            return dayjs(sourceValue).valueOf();
+                        toSource: (sourceValue: Date): any => {
+                            return sourceValue ? dayjs(sourceValue).valueOf() : "";
                         },
                     };
                 }
