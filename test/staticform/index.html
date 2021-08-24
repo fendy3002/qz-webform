@@ -73,9 +73,10 @@
                 <ReactSelectAsync id="selectasync" name="userKey" labelField="userName"
                     label="User (React Select Async)">
                 </ReactSelectAsync>
-                <ReactDatepicker name="birthTs" label="Birth Date" required sourceType="timestamp"></ReactDatepicker>
-                <ReactDatepicker name="birthIso" label="Birth Date" required sourceType="iso"></ReactDatepicker>
-                <ReactDatepicker name="birthDate" label="Birth Date" required sourceType="date"></ReactDatepicker>
+                <ReactDatepicker name="birthTs" label="Birth Date (Timestamp)" required sourceType="timestamp"></ReactDatepicker>
+                <ReactDatepicker name="birthIso" label="Birth Date (ISO)" required sourceType="iso"></ReactDatepicker>
+                <ReactDatepicker name="birthDate" label="Birth Date (Date)" required sourceType="date"></ReactDatepicker>
+                <ReactDatepicker name="birthIsoNull" label="Birth Date (ISO - NULL)" required sourceType="iso" clearable></ReactDatepicker>
                 <Text name="note"></Text>
                 <FullColumn>
                     <Text name="fullcolumntext"></Text>

@@ -7,17 +7,28 @@ import DatePicker from "react-datepicker";
 import * as dayjs from 'dayjs';
 import "react-datepicker/dist/react-datepicker.css";
 
-const ReactDatepickerCustomInput = React.forwardRef((props, ref) => {
-    let { label, validation, placeholder } = props;
+const ReactDatepickerCustomInput = React.forwardRef((props: any, ref) => {
+    let { value, label, validation, placeholder, isClearable,
+        onChange, onClick } = props;
     let requiredSign = validation.required ? <span className="text-danger">*</span> : <></>;
+    let clearOnClick = (evt) => {
+        return onChange({
+            target: {
+                value: ""
+            }
+        });
+    };
     return <>
-        <div className="form-floating">
+        <div className="form-floating input-group">
             <input type="text" className={"form-control rounded-0 "}
-                value={props.value} ref={ref} placeholder={placeholder}
-                onChange={props.onChange}
-                onClick={props.onClick}></input>
+                value={value} ref={ref} placeholder={placeholder}
+                onChange={onChange}
+                onClick={onClick}></input>
             {label &&
-                <label>{label}&nbsp;{requiredSign}</label>
+                <label style={{ zIndex: 3 }}>{label}&nbsp;{requiredSign}</label>
+            }
+            {isClearable &&
+                <button className="btn btn-outline-secondary rounded-0" type="button" onClick={clearOnClick}>x</button>
             }
         </div>
     </>
@@ -218,6 +229,7 @@ export default {
         }
     },
     "reactdatepicker": ({ name, readonly, value, originalValue, label, error, placeholder, dataset, validation,
+        clearable,
         onChange }) => {
         let requiredSign = validation.required ? <span className="text-danger">*</span> : <></>;
 
@@ -236,7 +248,9 @@ export default {
             <DatePicker className={"form-control rounded-0 " + (error ? "is-invalid" : "")} selected={value}
                 dateFormat="yyyy/MM/dd"
                 placeholderText={placeholder}
-                customInput={<ReactDatepickerCustomInput label={label} validation={validation} placeholder={placeholder} />}
+                customInput={<ReactDatepickerCustomInput
+                    isClearable={clearable}
+                    label={label} validation={validation} />}
                 onChange={onChange} />
             {error &&
                 <div className="invalid-feedback">

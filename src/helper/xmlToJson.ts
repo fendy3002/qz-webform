@@ -23,6 +23,8 @@ const xmlToJson = (xml, option) => {
             }
         } if (result.hasOwnProperty("checked")) {
             result.checked = true;
+        } if (result.hasOwnProperty("clearable")) {
+            result.clearable = true;
         } if (option.autoLabel && !result.label) {
             result.label = result.name ?? "";
         } if (option.autoPlaceholder && !result.placeholder) {
