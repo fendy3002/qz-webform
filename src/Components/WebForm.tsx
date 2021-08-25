@@ -47,18 +47,23 @@ let construct = (template) => {
                 if (onClick) {
                     let eventContext = buttonOnClickHandler(this.props);
                     const { data, onChange } = this.props;
-                    onClick(evt, {
+                    let clickResult = onClick(evt, {
                         data: data, 
                         setData: eventContext.setData, 
                         setError: eventContext.setError
                     });
-                    onChange({
-                        currentTarget: {
-                            name: "",
-                            value: eventContext.getChange(),
-                            dataset: dataset ?? {}
-                        }
-                    });
+                    if(!clickResult){
+                        clickResult = Promise.resolve();
+                    }
+                    clickResult.then(() => {
+                        onChange({
+                            currentTarget: {
+                                name: "",
+                                value: eventContext.getChange(),
+                                dataset: dataset ?? {}
+                            }
+                        });
+                    })
                 }
             };
         });
