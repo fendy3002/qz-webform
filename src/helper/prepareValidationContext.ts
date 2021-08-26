@@ -47,7 +47,8 @@ let prepare = (element, option) => {
             };
         });
     } else if (element.tagName == "select" ||
-        element.tagName == "reactselect") {
+        element.tagName == "reactselect" ||
+        element.tagName == "reactselectasync") {
         [
             "required"
         ].map(propName => {
