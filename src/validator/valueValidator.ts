@@ -64,7 +64,7 @@ const construct = (lang) => {
             }
         }
         else if (tagName == "reactselectasync") {
-            if (validation.required && !value?.value) {
+            if (validation.required && !value) {
                 result = {
                     name: name,
                     error: useLang.required
