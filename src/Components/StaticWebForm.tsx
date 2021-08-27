@@ -1,10 +1,10 @@
 import * as React from 'react';
 import WebFormConstruct from './WebForm';
-import validateInputConstruct from '../helper/validateInput';
+import inputValidatorConstruct from '../validator/inputValidator';
 
 let construct = ({ template, structure, data, context, language }) => {
     const WebForm = WebFormConstruct(template);
-    const validateInput = validateInputConstruct(context, language);
+    const inputValidator = inputValidatorConstruct(context, language);
     class StaticWebForm extends React.Component<any, any> {
         constructor(prop) {
             super(prop);
@@ -20,7 +20,7 @@ let construct = ({ template, structure, data, context, language }) => {
         }
         onChange(evt) {
             const { name, value, dataset } = evt.currentTarget ?? evt.target ?? {};
-            let validateResult = validateInput.validate(evt);
+            let validateResult = inputValidator.validate(evt);
             if (dataset?.["tagname"] == "reactselectasync") {
                 const { labelfield } = evt.currentTarget ?? evt.target;
                 this.setState((prev) => {
