@@ -41,9 +41,6 @@ export default {
         return <div className="form-floating">
             <input type="text" className={"form-control rounded-0 " + (error ? "is-invalid" : "")} name={name}
                 value={value} readOnly={readonly} placeholder={placeholder} {...dataset}
-                style={{
-                    backgroundColor: "red"
-                }}
                 onChange={onChange} />
             {label &&
                 <label>{label}&nbsp;{requiredSign}</label>
