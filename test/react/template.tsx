@@ -203,6 +203,7 @@ export default {
                         },
                         ...ReactSelectBootstrapStyle
                     }}
+                    isClearable={true}
                     value={{
                         value: value,
                         label: selectedLabel

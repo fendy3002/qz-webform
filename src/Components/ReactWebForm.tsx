@@ -23,8 +23,8 @@ let construct = ({ template, structure, context, language }) => {
                 onChange({
                     data: {
                         ...data,
-                        [name]: validateResult.value.value,
-                        [labelfield]: validateResult.value.label
+                        [name]: validateResult.value?.value,
+                        [labelfield]: validateResult.value?.label
                     },
                     error: {
                         ...error,

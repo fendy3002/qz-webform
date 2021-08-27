@@ -28,8 +28,8 @@ let construct = ({ template, structure, context, language }) => {
                         ...prev,
                         data: {
                             ...prev.data,
-                            [name]: validateResult.value.value,
-                            [labelfield]: validateResult.value.label
+                            [name]: validateResult.value?.value,
+                            [labelfield]: validateResult.value?.label
                         },
                         error: {
                             ...prev.error,

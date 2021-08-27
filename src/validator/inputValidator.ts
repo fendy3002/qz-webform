@@ -22,7 +22,7 @@ const construct = (context: any, lang?: any) => {
         }
         let validationValue = value;
         if (tagName == "reactselectasync") {
-            validationValue = value.value;
+            validationValue = value?.value;
         }
 
         let validationResult = valueValidator.validate(value, elemContext);
