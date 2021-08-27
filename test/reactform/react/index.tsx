@@ -53,7 +53,8 @@ let render = (element, userid, option?: any) => {
     return fromTemplate(template, webFormOption)
         .xmlStructure(structure)
         .webForm(language.en)
-        .then(WebForm => {
+        .then(({WebForm, dataValidator}) => {
+            storeInstance.dataValidator = dataValidator;
             ReactDOM.render(
                 <MobxReact.Provider store={storeInstance}>
                     <App WebForm={WebForm} />

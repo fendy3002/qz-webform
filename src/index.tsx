@@ -1,14 +1,17 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import constructor from './Components/WebForm';
 import staticConstructor from './Components/StaticWebForm';
 import reactWebForm from './Components/ReactWebForm';
 import xmlToJson from './helper/xmlToJson';
 import arrangeElements from './helper/arrangeElements';
 import prepareValue from './helper/prepareValue';
 import elemMapToContext from './helper/elemMapToContext';
+import dataValidatorConstruct from './validator/dataValidator';
+import staticDummyState from './helper/staticDummyState';
 import enlang from './lang/en';
+import { toJS } from 'mobx';
+import * as MobxReact from 'mobx-react';
 
 const prepareStructure = (xml: string, option?: any) => {
     let useOption = {
@@ -56,33 +59,41 @@ let fromTemplate = (template, option?: any) => {
         return {
             webForm: (language) => {
                 return prepareStructure(xml, option).then(({ structure, context }) => {
+                    let dataValidator = dataValidatorConstruct(context, language);
                     let WebForm = reactWebForm({
                         template: template,
                         structure: structure,
                         context: context,
                         language: language
                     });
-                    return WebForm;
+                    return {
+                        WebForm,
+                        dataValidator
+                    };
                 });
             },
             render: (element, value) => {
                 return prepareStructure(xml, useOption).then(({ structure, elemMap, context }) => {
                     let preparedValue = prepareValue(structure, value, useOption);
+                    let DummyState = new staticDummyState(preparedValue);
                     let WebFormInstance = staticConstructor({
                         template,
                         structure: structure,
                         language: useOption.lang,
-                        data: preparedValue,
                         context: context
                     });
+                    let dataValidator = dataValidatorConstruct(context, useOption.lang);
                     ReactDOM.render(
-                        <WebFormInstance />,
+                        <MobxReact.Provider store={DummyState}>
+                            <WebFormInstance />
+                        </MobxReact.Provider>,
                         element
                     );
                     return {
                         structure: structure,
                         elemMap: elemMap,
-                        context: context
+                        context: context,
+                        validateData: () => dataValidator.validate(toJS(DummyState.data))
                     };
                 });
             }

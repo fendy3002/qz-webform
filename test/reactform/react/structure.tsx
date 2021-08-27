@@ -8,4 +8,5 @@ export default `
 <Text name="email" label="Email (Text)" minLength="3" required=""></Text>
 <ReactSelectAsync id="instituteselect" name="instituteKey" label="Institute (React Select Async)" 
     labelfield="instituteName" required=""></ReactSelectAsync>
+<Text name="title" label="Title" required=""></Text>
 `;

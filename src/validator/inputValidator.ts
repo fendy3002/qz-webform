@@ -9,6 +9,12 @@ const construct = (context: any, lang?: any) => {
         const id = currentTarget.dataset.id ?? currentTarget.id;
         let elemContext = context[id];
         let { name, value } = currentTarget;
+        if (!elemContext) {
+            return {
+                value: value,
+                error: {}
+            };
+        }
         let { tagName } = elemContext;
 
         if (tagName == "checkbox") {
@@ -17,9 +23,9 @@ const construct = (context: any, lang?: any) => {
 
         let validationResult = valueValidator.validate(value, elemContext);
         let error = {
-            [name]: validationResult.error
+            [name]: validationResult?.error ?? ""
         };
-        
+
         return {
             value: value,
             error: error

@@ -25,7 +25,7 @@ const ReactDatepickerCustomInput = React.forwardRef((props: any, ref) => {
                 onChange={onChange}
                 onClick={onClick}></input>
             {label &&
-                <label style={{ zIndex: 3 }}>{label}&nbsp;{requiredSign}</label>
+                <label>{label}&nbsp;{requiredSign}</label>
             }
             {isClearable &&
                 <button className="btn btn-outline-secondary rounded-0" type="button" onClick={clearOnClick}>x</button>

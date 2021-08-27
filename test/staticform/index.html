@@ -73,10 +73,13 @@
                 <ReactSelectAsync id="selectasync" name="userKey" labelField="userName"
                     label="User (React Select Async)">
                 </ReactSelectAsync>
-                <ReactDatepicker name="birthTs" label="Birth Date (Timestamp)" required sourceType="timestamp"></ReactDatepicker>
+                <ReactDatepicker name="birthTs" label="Birth Date (Timestamp)" required sourceType="timestamp">
+                </ReactDatepicker>
                 <ReactDatepicker name="birthIso" label="Birth Date (ISO)" required sourceType="iso"></ReactDatepicker>
-                <ReactDatepicker name="birthDate" label="Birth Date (Date)" required sourceType="date"></ReactDatepicker>
-                <ReactDatepicker name="birthIsoNull" label="Birth Date (ISO - NULL)" required sourceType="iso" clearable></ReactDatepicker>
+                <ReactDatepicker name="birthDate" label="Birth Date (Date)" required sourceType="date">
+                </ReactDatepicker>
+                <ReactDatepicker name="birthIsoNull" label="Birth Date (ISO - NULL)" required sourceType="iso"
+                    clearable></ReactDatepicker>
                 <Text name="note"></Text>
                 <FullColumn>
                     <Text name="fullcolumntext"></Text>
@@ -105,7 +108,8 @@
             birthIso: '2021-01-01T00:00:00z',
             birthDate: new Date(2021, 01, 01),
         };
-        QzWebForm.render(qzWebForm, data,
+
+        let QzWebFormInstance = QzWebForm.render(qzWebForm, data,
             {
                 readOnly: false,
                 additionalContext: {
@@ -146,6 +150,8 @@
                     }
                 }
             });
+        let _validateData = null;
+        QzWebFormInstance.then(({ validateData }) => _validateData = validateData);
     </script>
 </body>
 

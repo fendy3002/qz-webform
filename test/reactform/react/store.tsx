@@ -14,6 +14,7 @@ export default class store {
         [
             "onFormChange",
             "searchInstitute",
+            "validateData"
         ].forEach((handler) => {
             this[handler] = this[handler].bind(this);
         });
@@ -26,6 +27,7 @@ export default class store {
                 // example select async
                 instituteKey: "",
                 instituteName: "",
+                title: ""
             };
         });
     }
@@ -35,6 +37,7 @@ export default class store {
     user: any = null;
     @observable
     error: any = {};
+    dataValidator: any = null;
 
     onFormChange({ data, error }, evt) {
         this.user = data;
@@ -48,5 +51,13 @@ export default class store {
             );
             callback(searchResult);
         }, 1000);
+    }
+
+    validateData() {
+        let error = this.dataValidator.validate(this.user).object();
+        this.error = {
+            ...this.error,
+            ...error
+        };
     }
 };

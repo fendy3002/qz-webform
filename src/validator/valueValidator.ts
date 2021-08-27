@@ -5,10 +5,12 @@ const isNumeric = (value) => {
 };
 const construct = (lang) => {
     let useLang = lang ?? enLang;
-
     const validateValue = (value, elemContext) => {
         let { name, tagName, validation } = elemContext;
         let result = null;
+        if (!validation) {
+            return result;
+        }
         if (tagName == "text" || tagName == "textarea") {
             let validateMaxlength = validation.maxlength * 1;
             let validateMinlength = validation.minlength * 1;
@@ -77,7 +79,6 @@ const construct = (lang) => {
                 };
             }
         }
-
         return result;
     }
     return {

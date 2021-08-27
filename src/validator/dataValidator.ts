@@ -5,7 +5,7 @@ const construct = (context: any, lang?: any) => {
     let valueValidator = valueValidatorConstruct(useLang);
     let validate = (data) => {
         let result = [];
-        for (let elemId of context) {
+        for (let elemId of Object.keys(context)) {
             let elemContext = context[elemId];
             if (!elemContext.validation) {
                 continue;
