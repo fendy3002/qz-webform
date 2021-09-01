@@ -93,6 +93,7 @@ let fromTemplate = (template, option?: any) => {
                         structure: structure,
                         elemMap: elemMap,
                         context: context,
+                        data: () => toJS(DummyState.data),
                         validateData: () => dataValidator.validate(toJS(DummyState.data))
                     };
                 });
@@ -103,7 +104,7 @@ let fromTemplate = (template, option?: any) => {
     return {
         xmlStructure,
         elementStructure,
-    }
+    };
 };
 
 const language = {

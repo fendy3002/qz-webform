@@ -15,7 +15,10 @@ let construct = (template) => {
                     currentTarget: {
                         name: element.props.name,
                         labelfield: element.props.labelfield,
-                        value: selected,
+                        value: selected ?? {
+                            value: "",
+                            label: ""
+                        },
                         dataset: dataset ?? {}
                     }
                 });
