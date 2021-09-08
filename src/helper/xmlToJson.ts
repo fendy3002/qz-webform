@@ -18,7 +18,7 @@ const xmlToJson = (xml, option) => {
             ...prop,
         };
         if (result.hasOwnProperty("readonly") || option.readOnly) {
-            if(!result.hasOwnProperty("editable")){
+            if (!result.hasOwnProperty("editable")) {
                 result.readonly = true;
             }
         } if (result.hasOwnProperty("checked")) {
@@ -29,6 +29,14 @@ const xmlToJson = (xml, option) => {
             result.label = result.name ?? "";
         } if (option.autoPlaceholder && !result.placeholder) {
             result.placeholder = result.label ?? result.name;
+        } if (result.hasOwnProperty("uppercase")) {
+            result.dataset = result.dataset || {};
+            result.dataset["data-uppercase"] = true;
+            delete result.uppercase;
+        } if (result.hasOwnProperty("lowercase")) {
+            result.dataset = result.dataset || {};
+            result.dataset["data-lowercase"] = true;
+            delete result.lowercase;
         }
 
         return result;
@@ -46,9 +54,14 @@ const xmlToJson = (xml, option) => {
                 }
             };
             if (each["$"]) {
+                let booleanProps = propToBoolean(lowercasePropName(each["$"]));
                 result.props = {
                     ...result.props,
-                    ...propToBoolean(lowercasePropName(each["$"]))
+                    ...booleanProps,
+                    dataset: {
+                        ...result.props.dataset,
+                        ...booleanProps.dataset
+                    }
                 };
                 if (result.props.id) {
                     result.id = result.props.id;
@@ -61,8 +74,8 @@ const xmlToJson = (xml, option) => {
                     }
                     result.props.dataset['data-id'] = result.id;
                 }
-                
-                if(result.id){
+
+                if (result.id) {
                     elemMap[result.id] = elemMap[result.id] ?? [];
                     elemMap[result.id].push(result);
                 }

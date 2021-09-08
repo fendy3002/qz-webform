@@ -20,12 +20,19 @@ const construct = (context: any, lang?: any) => {
         if (tagName == "checkbox") {
             value = currentTarget.checked;
         }
+        if (tagName == "text" || tagName == "textarea") {
+            if (currentTarget.dataset.uppercase) {
+                value = value.toUpperCase();
+            } else if (currentTarget.dataset.lowercase) {
+                value = value.toLowerCase();
+            }
+        }
         let validationValue = value;
         if (tagName == "reactselectasync") {
             validationValue = value?.value;
         }
 
-        let validationResult = valueValidator.validate(value, elemContext);
+        let validationResult = valueValidator.validate(validationValue, elemContext);
         let error = {
             [name]: validationResult?.error ?? ""
         };
