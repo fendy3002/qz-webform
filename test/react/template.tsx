@@ -35,8 +35,11 @@ const ReactDatepickerCustomInput = React.forwardRef((props: any, ref) => {
 });
 
 export default {
-    "text": ({ name, readonly, value, label, error, placeholder, dataset, validation,
+    "text": ({ name, readonly, value, label, error, placeholder, dataset, validation, hidden,
         onChange }) => {
+        if (hidden) {
+            return <input type="hidden" name={name} value={value} />
+        }
         let requiredSign = validation.required ? <span className="text-danger">*</span> : <></>;
         return <div className="form-floating">
             <input type="text" className={"form-control rounded-0 " + (error ? "is-invalid" : "")} name={name}

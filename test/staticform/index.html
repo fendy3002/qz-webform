@@ -24,6 +24,9 @@
                 <Textarea name="address" label="Address (Textarea, uppercase)" required uppercase></Textarea>
                 <Checkbox name="hasJob" label="Has Job?"></Checkbox>
                 <RowBreak></RowBreak>
+                <Text id="companyName" name="companyName" label="Company Name" required></Text>
+                <Text id="jobTitle" name="jobTitle" label="Job Title"></Text>
+                <RowBreak></RowBreak>
                 <Number name="height" min="100" label="Height (Number)" required></Number>
                 <Cell>
                     <Button id="incrementBtn" type="outline-secondary" text="+"></Button>
@@ -86,7 +89,7 @@
             city: "Okinawa",
             province: "Southampton",
             height: "100",
-            hasJob: true,
+            hasJob: false,
             userKey: "001",
             userName: "USER001",
             birthTs: 1627689600000,
@@ -98,6 +101,16 @@
             {
                 readOnly: false,
                 additionalContext: {
+                    "companyName": {
+                        "hidden": (data) => {
+                            return !data.hasJob;
+                        }
+                    },
+                    "jobTitle": {
+                        "hidden": (data) => {
+                            return !data.hasJob;
+                        }
+                    },
                     "incrementBtn": {
                         "button": {
                             "onClick": (evt, { data, setData, setError }) => {

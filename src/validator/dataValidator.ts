@@ -9,6 +9,8 @@ const construct = (context: any, lang?: any) => {
             let elemContext = context[elemId];
             if (!elemContext.validation) {
                 continue;
+            } else if (elemContext.hidden && elemContext.hidden(data)) {
+                continue;
             }
             let validateElementResult = valueValidator.validate(data[elemContext.name], elemContext);
             if (validateElementResult) {
@@ -28,7 +30,7 @@ const construct = (context: any, lang?: any) => {
             }
         };
     }
-    
+
     return {
         validate
     };

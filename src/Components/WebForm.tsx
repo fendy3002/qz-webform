@@ -24,6 +24,21 @@ let construct = (template) => {
                 });
             };
         });
+
+        additionalContextProps = memoize((context) => {
+            return (data) => {
+                if (!context) { return {}; }
+                let result: any = {};
+                if (context.hidden) {
+                    result.hidden = context.hidden(data);
+                }
+                if (context.readonly) {
+                    result.readonly = context.readonly(data);
+                } 
+                return result;
+            };
+        });
+
         reactSelectOnChange = memoize((element) => {
             let dataset: any = {};
             for (let key of Object.keys(element.props.dataset ?? {})) {
@@ -51,11 +66,11 @@ let construct = (template) => {
                     let eventContext = buttonOnClickHandler(this.props);
                     const { data, onChange } = this.props;
                     let clickResult = onClick(evt, {
-                        data: data, 
-                        setData: eventContext.setData, 
+                        data: data,
+                        setData: eventContext.setData,
                         setError: eventContext.setError
                     });
-                    if(!clickResult){
+                    if (!clickResult) {
                         clickResult = Promise.resolve();
                     }
                     clickResult.then(() => {
@@ -102,20 +117,24 @@ let construct = (template) => {
                 } else {
                     let additional: any = {};
                     let tagContext = context[each.id];
+                    let propsSpread = {
+                        ...each.props,
+                        ...this.additionalContextProps(tagContext)(data)
+                    };
                     if (each.tagName == "reactselect") {
                         if (each.options) { additional.options = each.options; }
                         else if (each.groupedOptions) { additional.groupedOptions = each.groupedOptions; }
 
                         let elemName = each.props?.name ?? "";
                         elementDoms.push(
-                            <Tag data={data} {...each.props} {...additional} error={error[elemName]} value={data[elemName]} key={key}
+                            <Tag data={data} {...propsSpread} {...additional} error={error[elemName]} value={data[elemName]} key={key}
                                 validation={tagContext?.validation ?? {}}
                                 onChange={this.reactSelectOnChange(each)} />
                         );
                     } else if (each.tagName == "reactselectasync") {
                         let elemName = each.props?.name ?? "";
                         elementDoms.push(
-                            <Tag data={data} {...each.props} {...additional} error={error[elemName]} value={data[elemName]} key={key}
+                            <Tag data={data} {...propsSpread} {...additional} error={error[elemName]} value={data[elemName]} key={key}
                                 validation={tagContext?.validation ?? {}}
                                 loadOptions={tagContext?.select?.loadOptions}
                                 selectedLabel={data[each.props.labelfield]}
@@ -127,21 +146,21 @@ let construct = (template) => {
 
                         let elemName = each.props?.name ?? "";
                         elementDoms.push(
-                            <Tag data={data} {...each.props} {...additional} error={error[elemName]} value={data[elemName]}
+                            <Tag data={data} {...propsSpread} {...additional} error={error[elemName]} value={data[elemName]}
                                 validation={tagContext?.validation ?? {}}
                                 key={key}
                                 onChange={onChange} />
                         );
                     } else if (each.tagName == "button") {
                         elementDoms.push(
-                            <Tag data={data} {...each.props} {...additional}
+                            <Tag data={data} {...propsSpread} {...additional}
                                 key={key} onClick={this.buttonOnClick(each, tagContext)} />
                         );
                     } else if (each.tagName == "reactdatepicker") {
                         let elemName = each.props?.name ?? "";
                         let converter = tagContext.converter;
                         elementDoms.push(
-                            <Tag data={data} {...each.props} {...additional} error={error[elemName]} value={converter.fromSource(data[elemName])}
+                            <Tag data={data} {...propsSpread} {...additional} error={error[elemName]} value={converter.fromSource(data[elemName])}
                                 originalValue={data[elemName]}
                                 validation={tagContext?.validation ?? {}}
                                 key={key} onChange={this.reactDatepickerOnChange(each, tagContext)} />
@@ -149,7 +168,7 @@ let construct = (template) => {
                     } else {
                         let elemName = each.props?.name ?? "";
                         elementDoms.push(
-                            <Tag data={data} {...each.props} {...additional} error={error[elemName]} value={data[elemName]}
+                            <Tag data={data} {...propsSpread} {...additional} error={error[elemName]} value={data[elemName]}
                                 validation={tagContext?.validation ?? {}}
                                 key={key} onChange={onChange} />
                         );

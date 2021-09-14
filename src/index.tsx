@@ -94,7 +94,14 @@ let fromTemplate = (template, option?: any) => {
                         elemMap: elemMap,
                         context: context,
                         data: () => toJS(DummyState.data),
-                        validateData: () => dataValidator.validate(toJS(DummyState.data))
+                        validateData: () => {
+                            let validationResult = dataValidator.validate(toJS(DummyState.data));
+                            DummyState.error = {
+                                ...DummyState.error,
+                                ...validationResult.object()
+                            };
+                            return validationResult;
+                        }
                     };
                 });
             }
