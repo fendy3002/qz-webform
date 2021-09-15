@@ -34,7 +34,7 @@ let construct = (template) => {
                 }
                 if (context.readonly) {
                     result.readonly = context.readonly(data);
-                } 
+                }
                 return result;
             };
         });
@@ -124,6 +124,7 @@ let construct = (template) => {
                     if (each.tagName == "reactselect") {
                         if (each.options) { additional.options = each.options; }
                         else if (each.groupedOptions) { additional.groupedOptions = each.groupedOptions; }
+                        else { additional.options = []; }
 
                         let elemName = each.props?.name ?? "";
                         elementDoms.push(
@@ -143,6 +144,7 @@ let construct = (template) => {
                     } else if (each.tagName == "select") {
                         if (each.options) { additional.options = each.options; }
                         else if (each.groupedOptions) { additional.groupedOptions = each.groupedOptions; }
+                        else { additional.options = []; }
 
                         let elemName = each.props?.name ?? "";
                         elementDoms.push(

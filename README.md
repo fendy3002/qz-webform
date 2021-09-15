@@ -1,8 +1,34 @@
 # qz-webform
 
-An effort to unify common components appearance and usability across both react and html (javascript).
+Template your HTML components. Make it more consistent across applications, easier to configure and easier to redesign. Also to unify common components appearance and usability across both react and html (javascript). 
 
-Define components template with react, define your xml / html structure then use it on both react and html page with autogrid. Try at [fendy3002.github.io/qz-webform/](https://fendy3002.github.io/qz-webform/). This consist of three important parts: Template, Structure and API.
+Define your HTML elements like this:
+```html
+<div id="qzwebform">
+    <Text name="name" label="Name (Text)" minLength="3" required></Text>
+    <Text name="city" label="City (Text)" readOnly></Text>
+    <Text name="province"></Text>
+    <Textarea name="address" label="Address (Textarea, uppercase)" required uppercase></Textarea>
+    <Checkbox name="hasJob" label="Has Job?"></Checkbox>
+    <RowBreak></RowBreak>
+    <Text id="companyName" name="companyName" label="Company Name" required></Text>
+    <Text id="jobTitle" name="jobTitle" label="Job Title"></Text>
+    <Select name="nationality" label="Nationality (Select)" required>
+        <option>-- SELECT ONE --</option>
+        <option value="us">United States of America</option>
+        <option value="gb">United Kingdom of Great Britain and Northern Ireland</option>
+        <option value="de">Germany</option>
+        <option value="fr">France</option>
+        <option value="my">Malaysia</option>
+        <option value="id">Indonesia</option>
+    </Select>
+</div>
+```
+
+And get this:
+![Preview](/preview.png)
+
+Try at [fendy3002.github.io/qz-webform/](https://fendy3002.github.io/qz-webform/). This library consist of three important parts: Template, Structure and API.
 
 # Installation and usage
 
