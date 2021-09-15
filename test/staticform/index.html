@@ -9,7 +9,7 @@
 <body>
     <style>
         /* input group label z-index */
-        .input-group > .form-control:focus ~ label{
+        .input-group>.form-control:focus~label {
             z-index: 3;
         }
     </style>
@@ -149,7 +149,8 @@
                 }
             });
         let _validateData = null;
-        QzWebFormInstance.then(({ validateData }) => _validateData = validateData);
+        let _data = null;
+        QzWebFormInstance.then(({ validateData, data }) => { _validateData = validateData; _data = data; });
     </script>
 </body>
 
