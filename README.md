@@ -55,6 +55,7 @@ The tags supported at the moment:
 * select
 * reactselect
 * reactselectasync
+* reactdatepicker
 * button
 * cell
 * row

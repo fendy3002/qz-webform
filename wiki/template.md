@@ -9,6 +9,7 @@ A key-value consist of XML or HTML tags that want to be rendered. Currently thes
 * select
 * reactselect
 * reactselectasync
+* reactdatepicker
 
 Currently these are the supported layouting components:
 

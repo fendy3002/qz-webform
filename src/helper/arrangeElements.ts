@@ -1,24 +1,3 @@
-
-const groupAsRow = (elements) => {
-    return {
-        tagName: "row",
-        children: elements
-    };
-};
-const groupAsColumn = (elements) => {
-    return {
-        tagName: "column",
-        children: elements.map(elem => {
-            return {
-                ...elem,
-                props: {
-                    ...elem.props,
-                    columnWidth: 50
-                }
-            };
-        }),
-    };
-};
 // exceptions:
 // fullcolumn
 // rowbreak
@@ -27,7 +6,30 @@ const arrangeElements = (elements, options?: any) => {
         let result = [];
         let rowIndex = 0;
         let colIndex = 0;
+        let colCount = 2;
         let rowBuffer = [];
+
+
+        const groupAsRow = (elements) => {
+            return {
+                tagName: "row",
+                children: elements
+            };
+        };
+        const groupAsColumn = (elements) => {
+            return {
+                tagName: "column",
+                children: elements.map(elem => {
+                    return {
+                        ...elem,
+                        props: {
+                            ...elem.props,
+                            columnWidth: Math.floor(100 / colCount)
+                        }
+                    };
+                }),
+            };
+        };
         let pushRow = () => {
             if (rowBuffer.length > 0) {
                 result.push(
@@ -66,7 +68,7 @@ const arrangeElements = (elements, options?: any) => {
             }
 
             rowBuffer.push(each);
-            if (colIndex == 1) {
+            if (colIndex == colCount - 1) {
                 pushRow();
             } else {
                 colIndex++;
