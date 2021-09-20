@@ -1,12 +1,22 @@
 import * as React from 'react';
 import * as mobxReact from 'mobx-react';
+import { toJS } from 'mobx';
 let { observer, inject } = mobxReact;
 import WebFormConstruct from './WebForm';
 import inputValidatorConstruct from '../validator/inputValidator';
 
-let construct = ({ template, structure, context, language }) => {
+let construct = ({ template, structure, context, language, staticOnChange }) => {
     const WebForm = WebFormConstruct(template);
     const inputValidator = inputValidatorConstruct(context, language);
+
+    let componentOnChange = staticOnChange ? ((newData, prev) => {
+        let result = staticOnChange(newData, {
+            ...prev,
+            data: toJS(prev.data),
+            error: toJS(prev.error)
+        });
+        return result ?? newData;
+    }) : ((newData) => newData);
     class StaticWebForm extends React.Component<any, any> {
         constructor(prop) {
             super(prop);
@@ -24,7 +34,7 @@ let construct = ({ template, structure, context, language }) => {
             if (dataset?.["tagname"] == "reactselectasync") {
                 const { labelfield } = evt.currentTarget ?? evt.target;
                 onChange((prev) => {
-                    return {
+                    return componentOnChange({
                         ...prev,
                         data: {
                             ...prev.data,
@@ -35,11 +45,11 @@ let construct = ({ template, structure, context, language }) => {
                             ...prev.error,
                             ...validateResult.error
                         }
-                    };
+                    }, prev);
                 });
             } else if (dataset?.["tagname"] == "button") {
                 onChange((prev) => {
-                    return {
+                    return componentOnChange({
                         ...prev,
                         data: {
                             ...prev.data,
@@ -49,11 +59,11 @@ let construct = ({ template, structure, context, language }) => {
                             ...prev.error,
                             ...validateResult.value.error
                         }
-                    };
+                    }, prev);
                 });
             } else {
                 onChange((prev) => {
-                    return {
+                    return componentOnChange({
                         ...prev,
                         data: {
                             ...prev.data,
@@ -63,7 +73,7 @@ let construct = ({ template, structure, context, language }) => {
                             ...prev.error,
                             ...validateResult.error
                         }
-                    };
+                    }, prev);
                 });
             }
         }

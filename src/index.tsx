@@ -45,6 +45,7 @@ let fromTemplate = (template, option?: any) => {
         autoValidation: true,
         readOnly: false,
         lang: enlang,
+        staticOnChange: false,
         ...(option ?? {}),
     };
     const elementStructure = (element) => {
@@ -80,7 +81,8 @@ let fromTemplate = (template, option?: any) => {
                         template,
                         structure: structure,
                         language: useOption.lang,
-                        context: context
+                        context: context,
+                        staticOnChange: useOption.staticOnChange
                     });
                     let dataValidator = dataValidatorConstruct(context, useOption.lang);
                     ReactDOM.render(
