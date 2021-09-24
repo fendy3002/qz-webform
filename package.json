@@ -1,6 +1,6 @@
 {
   "name": "@fendy3002/qz-webform",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
