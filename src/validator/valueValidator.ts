@@ -34,24 +34,28 @@ const construct = (lang) => {
             }
         }
         else if (tagName == "number") {
-            const validateMax = validation.max * 1;
-            const validateMin = validation.min * 1;
             if (!isNumeric(value)) {
                 result = {
                     name: name,
                     error: useLang.not_number
                 };
-            } else if (validateMax > 0
-                && value > validateMax) {
+            } else if (validation.max != null &&
+                validation.max != undefined &&
+                validation.max != "" &&
+                isNumeric(validation.max) &&
+                value > (validation.max * 1)) {
                 result = {
                     name: name,
-                    error: useLang.max_over.replace("{value}", validateMax)
+                    error: useLang.max_over.replace("{value}", (validation.max * 1))
                 };
-            } else if (validateMin > 0
-                && value < validateMin) {
+            } else if (validation.min != null &&
+                validation.min != undefined &&
+                validation.min != "" &&
+                isNumeric(validation.min) &&
+                value < (validation.min * 1)) {
                 result = {
                     name: name,
-                    error: useLang.min_lower.replace("{value}", validateMin)
+                    error: useLang.min_lower.replace("{value}", (validation.min * 1))
                 };
             }
         }
