@@ -167,6 +167,17 @@ let construct = (template) => {
                                 validation={tagContext?.validation ?? {}}
                                 key={key} onChange={this.reactDatepickerOnChange(each, tagContext)} />
                         );
+                    } else if (each.tagName == "file") {
+                        let elemName = each.props?.name ?? "";
+                        let urlField = each.props?.urlfield ?? "";
+                        let labelField = each.props?.labelfield ?? "";
+
+                        elementDoms.push(
+                            <Tag data={data} {...propsSpread} {...additional} error={error[elemName]} url={data[urlField]}
+                                linkLabel={data[labelField]}
+                                validation={tagContext?.validation ?? {}}
+                                key={key} onChange={onChange} />
+                        );
                     } else {
                         let elemName = each.props?.name ?? "";
                         elementDoms.push(
