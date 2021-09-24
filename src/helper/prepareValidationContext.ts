@@ -57,6 +57,15 @@ let prepare = (element, option) => {
                 ...modifyProp(element, propName)
             };
         });
+    } else if (element.tagName == "file") {
+        for (let propName of [
+            "required"
+        ]) {
+            result = {
+                ...result,
+                ...modifyProp(element, propName)
+            };
+        }
     }
     return result;
 };

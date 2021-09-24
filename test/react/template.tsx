@@ -264,6 +264,23 @@ export default {
             <input type="hidden" name={name} value={value ? dayjs(value).toISOString() : ""} />
         </div>;
     },
+    "file": ({ name, readonly, label, error, placeholder, dataset, validation,
+        clearable,
+        onChange }) => {
+        let requiredSign = validation.required ? <span className="text-danger">*</span> : <></>;
+        return <div className="">
+            {label &&
+                <label className="form-label">{label}&nbsp;{requiredSign}</label>
+            }
+            <input type="file" className={"form-control form-control-sm rounded-0 " + (error ? "is-invalid" : "")} name={name}
+                placeholder={placeholder} {...dataset} onChange={onChange} />
+            {error &&
+                <div className="invalid-feedback">
+                    {error}
+                </div>
+            }
+        </div>;
+    },
     "button": ({ onClick, text, type }) => {
         return <button className={"btn rounded-0 btn-" + type} onClick={onClick}>{text}</button>;
     },

@@ -83,6 +83,14 @@ const construct = (lang) => {
                 };
             }
         }
+        else if (tagName == "file") {
+            if (validation.required && !value) {
+                result = {
+                    name: name,
+                    error: useLang.required
+                };
+            }
+        }
         return result;
     }
     return {

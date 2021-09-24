@@ -27,6 +27,9 @@ const construct = (context: any, lang?: any) => {
                 value = value.toLowerCase();
             }
         }
+        if (tagName == "file") {
+            value = currentTarget.files.length > 0 ? currentTarget.files[0] : null;
+        }
         let validationValue = value;
         if (tagName == "reactselectasync") {
             validationValue = value?.value;
