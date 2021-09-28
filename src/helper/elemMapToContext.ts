@@ -38,8 +38,12 @@ let elemMapToContext = (elemMap, option) => {
                 } else if (element.props.sourcetype == "timestamp") {
                     converter = {
                         fromSource: (sourceValue: Date | string | number) => {
-                            return sourceValue ? dayjs(sourceValue).toDate() : null;
-                        },
+                            if (!sourceValue) { return null; }
+                            if (typeof sourceValue == "string") {
+                                sourceValue = parseInt(sourceValue);
+                            }
+                            return dayjs(sourceValue).toDate();
+                        },  
                         toSource: (sourceValue: Date): any => {
                             return sourceValue ? dayjs(sourceValue).valueOf() : "";
                         },

@@ -68,6 +68,8 @@
                 </ReactDatepicker>
                 <ReactDatepicker name="birthIsoNull" label="Birth Date (ISO - NULL)" required sourceType="iso"
                     clearable></ReactDatepicker>
+                <ReactDatepicker name="graduateTs" label="Graduate Date (Timestamp from String)" required sourceType="timestamp">
+                    </ReactDatepicker>
                 <Text name="note"></Text>
                 <FullColumn>
                     <Text name="fullcolumntext"></Text>
@@ -101,6 +103,7 @@
             birthTs: 1627689600000,
             birthIso: '2021-01-01T00:00:00z',
             birthDate: new Date(2021, 01, 01),
+            graduateTs: "1627689600000"
         };
 
         let QzWebFormInstance = QzWebForm.render(qzWebForm, data,
