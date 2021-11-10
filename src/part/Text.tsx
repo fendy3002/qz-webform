@@ -2,8 +2,8 @@ import * as React from 'react';
 import { useLanguage } from '../hooks/useLanguage';
 import * as types from '../types';
 
-let validation = ({ Element, data, value, languageCode }: types.ValidationProps) => {
-    const Language = useLanguage(languageCode);
+let validation = ({ Element, data, value }: types.Part.ValidationProps) => {
+    const Language = useLanguage();
     if (Element.validation?.required && (value == null || value == "")) {
         return Language["text"]?.["required"].replace("{field}", Element.name);
     } else if (Element.validation?.minlength && (value ?? "").length < Element.validation?.minlength) {
@@ -17,12 +17,12 @@ let validation = ({ Element, data, value, languageCode }: types.ValidationProps)
     }
     return "";
 };
-const HOC = ({ Element, Component, onChange, data, languageCode, ...props }: types.ComponentProps) => {
+const HOC = ({ Element, Component, onChange, data, ...props }: types.Part.HOCProps) => {
     let componentOnChange = (evt) => {
         let value = evt.currentTarget.value;
-        if (Element.conversion?.uppercase) {
+        if (Element.props.uppercase) {
             value = value.toUpperCase();
-        } else if (Element.conversion?.lowercase) {
+        } else if (Element.props.lowercase) {
             value = value.toLowerCase();
         }
 
@@ -32,7 +32,7 @@ const HOC = ({ Element, Component, onChange, data, languageCode, ...props }: typ
             },
             error: {
                 [Element.name]: validation({
-                    Element, data, value, languageCode
+                    Element, data, value
                 }) ?? ""
             }
         });
@@ -48,7 +48,7 @@ const HOC = ({ Element, Component, onChange, data, languageCode, ...props }: typ
 
     return <Component {...propsToPass}></Component>;
 };
-let Part = {
+let Part: types.Part.Part = {
     HOC,
     validation
 };
