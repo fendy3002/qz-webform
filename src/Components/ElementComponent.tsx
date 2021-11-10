@@ -1,5 +1,7 @@
 import * as React from 'react';
 import * as types from '../types';
+import { useParts } from '../hooks/useParts';
+import { useTemplate } from '../hooks/useTemplate';
 
 export interface Props {
     Element: types.Element,
@@ -16,6 +18,8 @@ const calculateBoolean = (handler: boolean | ((data: any) => boolean), data) => 
 };
 const ElementComponent = (props: Props) => {
     const { Element, data } = props;
+    const parts = useParts();
+    const template = useTemplate();
 
     let ElementProps: types.Component.ElementProps = {
         props: Element.props,
@@ -30,7 +34,11 @@ const ElementComponent = (props: Props) => {
         name: Element.name,
         children: Element.children,
     };
-
+    let Tag = parts[Element.tagName].HOC;
+    return <Tag onChange={() => { }} Element={ElementProps}
+        Component={template[Element.tagName]}
+        data={data}
+    ></Tag>
 };
 
 export { ElementComponent };

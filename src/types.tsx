@@ -43,12 +43,12 @@ export namespace Component {
 };
 export namespace Part {
     export interface Part {
-        HOC: React.FunctionComponent<HOCProps> | React.Component<HOCProps, void>,
+        HOC: React.ComponentType<HOCProps>,
         validation: (props: ValidationProps) => string
     };
     export interface HOCProps {
         Element: Component.ElementProps,
-        Component: react.ComponentClass,
+        Component: react.ComponentType<any>,
         data: any,
         onChange?: (props: {
             data: any,
