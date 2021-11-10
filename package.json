@@ -17,6 +17,7 @@
   "repository": "git@github.com:fendy3002/qz-webform.git",
   "author": "Fendy Heryanto <fendy.heryanto@valista-indonesia.com>",
   "dependencies": {
+    "@types/lodash": "^4.14.176",
     "@types/node": "^14.14.35",
     "@types/react": "^17.0.19",
     "buffer": "^6.0.3",

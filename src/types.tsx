@@ -14,6 +14,9 @@ export interface Element {
         hidden?: boolean | ((data: any) => boolean),
         [key: string]: any,
     },
+    conversion?: {
+        [key: string]: boolean | ((data: any) => boolean),
+    },
     context?: {
         [id: string]: any
     }
@@ -32,13 +35,22 @@ export interface ElementComponentProps {
         hidden: boolean,
         [key: string]: any,
     },
+    conversion?: {
+        [key: string]: boolean,
+    },
     context?: {
         [id: string]: any
+    }
+};
+export interface LanguagePack {
+    [tagName: string]: {
+        [validationKey: string]: string
     }
 };
 export interface ComponentProps {
     Element: ElementComponentProps,
     Component: react.ComponentClass,
+    Language: LanguagePack,
     data: any,
     onChange?: (props: {
         data: any,
@@ -46,4 +58,10 @@ export interface ComponentProps {
             [key: string]: string
         }
     }) => void,
+};
+export interface ValidationProps {
+    Element: ElementComponentProps,
+    Language: LanguagePack
+    data: any,
+    value: any,
 };
