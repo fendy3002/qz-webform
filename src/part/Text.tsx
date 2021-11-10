@@ -1,7 +1,9 @@
 import * as React from 'react';
+import { useLanguage } from '../hooks/useLanguage';
 import * as types from '../types';
 
-let validation = ({ Element, data, value, Language }: types.ValidationProps) => {
+let validation = ({ Element, data, value, languageCode }: types.ValidationProps) => {
+    const Language = useLanguage(languageCode);
     if (Element.validation?.required && (value == null || value == "")) {
         return Language["text"]?.["required"].replace("{field}", Element.name);
     } else if (Element.validation?.minlength && (value ?? "").length < Element.validation?.minlength) {
@@ -15,7 +17,7 @@ let validation = ({ Element, data, value, Language }: types.ValidationProps) => 
     }
     return "";
 };
-const HOC = ({ Element, Component, onChange, data, Language, ...props }: types.ComponentProps) => {
+const HOC = ({ Element, Component, onChange, data, languageCode, ...props }: types.ComponentProps) => {
     let componentOnChange = (evt) => {
         let value = evt.currentTarget.value;
         if (Element.conversion?.uppercase) {
@@ -30,7 +32,7 @@ const HOC = ({ Element, Component, onChange, data, Language, ...props }: types.C
             },
             error: {
                 [Element.name]: validation({
-                    Element, data, value, Language
+                    Element, data, value, languageCode
                 }) ?? ""
             }
         });

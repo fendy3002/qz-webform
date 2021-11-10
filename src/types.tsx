@@ -50,7 +50,7 @@ export interface LanguagePack {
 export interface ComponentProps {
     Element: ElementComponentProps,
     Component: react.ComponentClass,
-    Language: LanguagePack,
+    languageCode: string,
     data: any,
     onChange?: (props: {
         data: any,
@@ -61,7 +61,7 @@ export interface ComponentProps {
 };
 export interface ValidationProps {
     Element: ElementComponentProps,
-    Language: LanguagePack
+    languageCode: string,
     data: any,
     value: any,
 };
