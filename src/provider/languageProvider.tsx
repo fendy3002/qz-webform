@@ -3,15 +3,15 @@ import { LanguageContext } from '../context/LanguageContext';
 import * as lo from 'lodash';
 import * as predefinedLang from '../lang';
 export default (props) => {
-    let { children, ...lang } = props;
+    let { children, languageCode, ...lang } = props;
     lang = lo.merge(lang, predefinedLang);
-    let languageCode = "en";
+    let providedLanguageCode = languageCode ?? "en";
     let setLanguageCode = (newCode: string) => {
-        languageCode = newCode;
+        providedLanguageCode = newCode;
     };
 
     return <LanguageContext.Provider value={{
-        languageCode,
+        languageCode: providedLanguageCode,
         setLanguageCode,
         language: lang
     }}>{children}</LanguageContext.Provider>;

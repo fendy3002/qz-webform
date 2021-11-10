@@ -39,7 +39,6 @@ export namespace Component {
             [id: string]: any
         }
     };
-
 };
 export namespace Part {
     export interface Part {

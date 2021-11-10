@@ -5,8 +5,14 @@ import { useTemplate } from '../hooks/useTemplate';
 
 export interface Props {
     Element: types.Element,
-    data: any
-}
+    data: any,
+    onChange?: (props: {
+        data: any,
+        error: {
+            [key: string]: string
+        }
+    }) => void,
+};
 const calculateBoolean = (handler: boolean | ((data: any) => boolean), data) => {
     if (typeof (handler) == "boolean") {
         return handler;
@@ -17,7 +23,7 @@ const calculateBoolean = (handler: boolean | ((data: any) => boolean), data) => 
     }
 };
 const ElementComponent = (props: Props) => {
-    const { Element, data } = props;
+    const { Element, data, onChange } = props;
     const parts = useParts();
     const template = useTemplate();
 
@@ -35,10 +41,18 @@ const ElementComponent = (props: Props) => {
         children: Element.children,
     };
     let Tag = parts[Element.tagName].HOC;
-    return <Tag onChange={() => { }} Element={ElementProps}
+    let children = [];
+    if (Element.children && Element.children.length > 0) {
+        for (let child of Element.children) {
+            children.push(
+                <ElementComponent Element={child} onChange={onChange} data={data}></ElementComponent>
+            );
+        }
+    }
+    return <Tag Element={ElementProps}
         Component={template[Element.tagName]}
-        data={data}
-    ></Tag>
+        data={data} onChange={onChange}
+    >{children}</Tag>;
 };
 
 export { ElementComponent };
