@@ -11,7 +11,10 @@ export class homeStore {
             {
                 tagName: "text",
                 props: {},
-                name: "Name"
+                name: "Name",
+                validation: {
+                    required: true
+                }
             }, {
                 tagName: "textarea",
                 props: {},

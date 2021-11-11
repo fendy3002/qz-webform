@@ -40,6 +40,13 @@ const ElementComponent = (props: Props) => {
         name: Element.name,
         children: Element.children,
     };
+
+    ElementProps.props = {
+        ...ElementProps.props,
+        required: ElementProps.validation.required,
+        readonly: ElementProps.validation.readonly,
+        hidden: ElementProps.validation.hidden,
+    };
     let Tag = parts[Element.tagName].Logic;
     let children = [];
     if (Element.children && Element.children.length > 0) {

@@ -9,8 +9,8 @@ export interface Element {
     },
     children?: Element[],
     validation?: {
-        required: boolean | ((data: any) => boolean),
-        readonly: boolean | ((data: any) => boolean),
+        required?: boolean | ((data: any) => boolean),
+        readonly?: boolean | ((data: any) => boolean),
         editable?: boolean,
         hidden?: boolean | ((data: any) => boolean),
         [key: string]: any,
