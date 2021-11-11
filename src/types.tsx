@@ -68,3 +68,14 @@ export interface LanguagePack {
         [validationKey: string]: string
     }
 };
+
+export namespace ElementBuilder {
+    export interface AutoGridSetting {
+        columnCount?: number,
+        rowTagName?: string,
+        columnTagName?: string,
+        fullColumnTagName?: string,
+        rowBreakTagName?: string,
+        cellTagName?: string
+    };
+}

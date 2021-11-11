@@ -28,7 +28,7 @@ export const WebForm = (props: PropsType) => {
     let { Elements, Template, Parts, data, error, Language, LanguageCode,
         onChange } = props;
     for (let element of Elements) {
-
+        
     }
     return <TemplateContext.Provider value={{ template: Template }}>
         <PartsProvider parts={Parts}>
