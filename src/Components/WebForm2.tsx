@@ -1,6 +1,7 @@
 import * as React from 'react';
 import PartsProvider from '../provider/partsProvider';
 import LanguageProvider from '../provider/languageProvider';
+import { ElementComponent } from './ElementComponent';
 import * as types from '../types';
 export interface PropsType {
     Elements: types.Element[],
@@ -24,14 +25,13 @@ export interface PropsType {
     }) => void,
 };
 export const WebForm = (props: PropsType) => {
-    let { Elements, Template, Parts, data, error, Language, LanguageCode,
+    let { Elements, Parts, data, error, Language, LanguageCode,
         onChange } = props;
-    for (let element of Elements) {
-
-    }
     return <PartsProvider parts={Parts}>
         <LanguageProvider lang={Language} languageCode={LanguageCode}>
-
+            {Elements.map(k => {
+                return <ElementComponent Element={k} onChange={onChange} data={data} error={error}></ElementComponent>
+            })}
         </LanguageProvider>
     </PartsProvider>;
 };

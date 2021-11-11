@@ -100,10 +100,10 @@ const setId = (elements: types.Element[], setting: types.ElementBuilder.ElementB
     } = {};
     let elemIndex = 0;
     for (let each of elements) {
-        if (setting.autoLabel) {
+        if (setting?.autoLabel ?? true) {
             each.props.label = each.props.label ?? each.name;
         }
-        if (setting.autoPlaceholder) {
+        if (setting?.autoPlaceholder ?? true) {
             each.props.placeholder = each.props.placeholder ?? each.props.label ?? each.name;
         }
         if (!each.id) {
@@ -126,7 +126,7 @@ const setId = (elements: types.Element[], setting: types.ElementBuilder.ElementB
     };
 }
 class ElementBuilder {
-    constructor(elements: types.Element[], setting: types.ElementBuilder.ElementBuilderSetting) {
+    constructor(elements: types.Element[], setting?: types.ElementBuilder.ElementBuilderSetting) {
         this.elements = elements;
         this.setting = setting;
         [
@@ -147,6 +147,7 @@ class ElementBuilder {
             fullColumnTagName: "fullcolumn",
             cellTagName: "cell"
         };
+        return this;
     }
     build(initialData: any) {
         let resultElements = this.elements;
@@ -170,6 +171,6 @@ class ElementBuilder {
         };
     }
 };
-export const elementBuilder = (elements: types.Element[], setting: types.ElementBuilder.ElementBuilderSetting) => {
+export const elementBuilder = (elements: types.Element[], setting?: types.ElementBuilder.ElementBuilderSetting) => {
     return new ElementBuilder(elements, setting);
 };

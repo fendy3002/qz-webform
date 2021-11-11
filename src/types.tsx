@@ -51,6 +51,9 @@ export namespace Part {
         Logic?: React.ComponentType<LogicProps>,
         validation?: (props: ValidationProps) => string
     };
+    export interface CustomPartSet {
+        [tagName: string]: CustomPart
+    };
     export interface LogicProps {
         Element: Component.ElementProps,
         Component: react.ComponentType<any>,

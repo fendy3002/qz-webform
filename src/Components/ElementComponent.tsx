@@ -5,6 +5,7 @@ import { useParts } from '../hooks/useParts';
 export interface Props {
     Element: types.Element,
     data: any,
+    error: any,
     onChange?: (props: {
         data: any,
         error: {
@@ -22,7 +23,7 @@ const calculateBoolean = (handler: boolean | ((data: any) => boolean), data) => 
     }
 };
 const ElementComponent = (props: Props) => {
-    const { Element, data, onChange } = props;
+    const { Element, data, error, onChange } = props;
     const parts = useParts();
 
     let ElementProps: types.Component.ElementProps = {
@@ -43,7 +44,7 @@ const ElementComponent = (props: Props) => {
     if (Element.children && Element.children.length > 0) {
         for (let child of Element.children) {
             children.push(
-                <ElementComponent Element={child} onChange={onChange} data={data}></ElementComponent>
+                <ElementComponent Element={child} onChange={onChange} data={data} error={error}></ElementComponent>
             );
         }
     }
