@@ -42,12 +42,19 @@ export namespace Component {
 };
 export namespace Part {
     export interface Part {
-        HOC: React.ComponentType<HOCProps>,
+        Component: React.ComponentType<any>,
+        Logic: React.ComponentType<LogicProps>,
         validation: (props: ValidationProps) => string
     };
-    export interface HOCProps {
+    export interface CustomPart {
+        Component?: React.ComponentType<any>,
+        Logic?: React.ComponentType<LogicProps>,
+        validation?: (props: ValidationProps) => string
+    };
+    export interface LogicProps {
         Element: Component.ElementProps,
         Component: react.ComponentType<any>,
+        children: any,
         data: any,
         onChange?: (props: {
             data: any,
@@ -70,6 +77,10 @@ export interface LanguagePack {
 };
 
 export namespace ElementBuilder {
+    export interface ElementBuilderSetting {
+        autoLabel?: boolean,
+        autoPlaceholder?: boolean,
+    };
     export interface AutoGridSetting {
         columnCount?: number,
         rowTagName?: string,

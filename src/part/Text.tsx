@@ -17,7 +17,7 @@ let validation = ({ Element, data, value }: types.Part.ValidationProps) => {
     }
     return "";
 };
-const HOC = ({ Element, Component, onChange, data, ...props }: types.Part.HOCProps) => {
+const Logic = ({ Element, Component, onChange, data, ...props }: types.Part.LogicProps) => {
     let componentOnChange = (evt) => {
         let value = evt.currentTarget.value;
         if (Element.props.uppercase) {
@@ -38,20 +38,22 @@ const HOC = ({ Element, Component, onChange, data, ...props }: types.Part.HOCPro
         });
     };
     let propsToPass = {
-        required: Element.validation?.required,
-        readonly: Element.validation?.readonly,
-        hidden: Element.validation?.hidden,
         value: data[Element.name],
+
         ...Element.props,
         onChange: componentOnChange,
     };
 
     return <Component {...propsToPass}></Component>;
 };
+const Component = ({ name, label, value, onChange }) => {
+    return <input name={name} value={value} onChange={onChange} />;
+};
 let Part: types.Part.Part = {
-    HOC,
+    Component,
+    Logic,
     validation
 };
 export {
-    Part as Text
+    Part as text
 };

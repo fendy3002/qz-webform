@@ -94,9 +94,41 @@ const prepareData = (elements: types.Element[], value) => {
     }
     return result;
 };
+const setId = (elements: types.Element[], setting: types.ElementBuilder.ElementBuilderSetting, idPrefix = "") => {
+    let elemMap: {
+        [id: string]: types.Element[]
+    } = {};
+    let elemIndex = 0;
+    for (let each of elements) {
+        if (setting.autoLabel) {
+            each.props.label = each.props.label ?? each.name;
+        }
+        if (setting.autoPlaceholder) {
+            each.props.placeholder = each.props.placeholder ?? each.props.label ?? each.name;
+        }
+        if (!each.id) {
+            each.id = each.tagName + "_" + [idPrefix, elemIndex.toString()].filter(k => k).join("_");
+            elemIndex++;
+        }
+        elemMap[each.id] = elemMap[each.id] ?? [];
+        if (each.children && each.children.length > 0) {
+            let childrenResult = setId(each.children, setting, [idPrefix, elemIndex.toString()].filter(k => k).join("_"));
+            elemMap = {
+                ...elemMap,
+                ...childrenResult.elemMap
+            };
+            each.children = childrenResult.elements;
+        }
+    }
+    return {
+        elemMap,
+        elements
+    };
+}
 class ElementBuilder {
-    constructor(elements: types.Element[]) {
+    constructor(elements: types.Element[], setting: types.ElementBuilder.ElementBuilderSetting) {
         this.elements = elements;
+        this.setting = setting;
         [
             "withAutoGrid"
         ].forEach(k => {
@@ -104,6 +136,7 @@ class ElementBuilder {
         })
     }
     elements: types.Element[] = null;
+    setting: types.ElementBuilder.ElementBuilderSetting = null;
     autoGridSetting: types.ElementBuilder.AutoGridSetting = null;
     withAutoGrid(setting?: types.ElementBuilder.AutoGridSetting) {
         this.autoGridSetting = setting ?? {
@@ -117,15 +150,26 @@ class ElementBuilder {
     }
     build(initialData: any) {
         let resultElements = this.elements;
+        for (let each of resultElements) {
+            each.props = {
+                ...each.props,
+                required: each.validation?.required,
+                readonly: each.validation?.readonly,
+                hidden: each.validation?.hidden,
+            };
+        }
         if (this.autoGridSetting) {
             resultElements = arrangeGrid(resultElements, this.autoGridSetting);
         }
+        let setIdResult = setId(resultElements, this.setting);
+        resultElements = setIdResult.elements;
+
         return {
             Elements: resultElements,
             data: prepareData(this.elements, initialData),
         };
     }
 };
-export const elementBuilder = (elements: types.Element[]) => {
-    return new ElementBuilder(elements);
+export const elementBuilder = (elements: types.Element[], setting: types.ElementBuilder.ElementBuilderSetting) => {
+    return new ElementBuilder(elements, setting);
 };
