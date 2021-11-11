@@ -45,6 +45,13 @@ const arrangeGrid = (elements: types.Element[], setting: types.ElementBuilder.Au
                 pushRow();
                 continue;
             }
+            if (each.tagName == (setting.hrTagName ?? "hr")) {
+                pushRow();
+                result.push({
+                    ...each
+                });
+                continue;
+            }
             if (each.tagName == (setting.fullColumnTagName ?? "fullcolumn")) {
                 pushRow();
                 result.push({

@@ -1,6 +1,6 @@
 import { observable, toJS, makeAutoObservable, makeObservable } from 'mobx';
 import { elementBuilder } from '../../src/helper/elementBuilder';
-import { FullColumn, RowBreak } from '../../src/helper/builderTools';
+import { FullColumn, RowBreak, HR } from '../../src/helper/builderTools';
 
 export class homeStore {
     constructor() {
@@ -17,11 +17,13 @@ export class homeStore {
                 validation: {
                     required: true
                 }
-            }, RowBreak(), {
+            }, RowBreak(),
+            {
                 tagName: "checkbox",
                 props: {},
                 name: "HasJob"
-            }, {
+            },
+            {
                 tagName: "select",
                 props: {},
                 name: "Country",
@@ -34,7 +36,9 @@ export class homeStore {
                         value: "us"
                     }]
                 }
-            }, FullColumn({
+            },
+            HR(),
+            FullColumn({
                 tagName: "textarea",
                 props: {},
                 name: "Address"

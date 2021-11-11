@@ -92,6 +92,7 @@ export namespace ElementBuilder {
         columnCount?: number,
         rowTagName?: string,
         columnTagName?: string,
+        hrTagName?: string,
         fullColumnTagName?: string,
         rowBreakTagName?: string,
         cellTagName?: string

@@ -12,6 +12,12 @@ export const RowBreak = () => {
         props: {},
     };
 };
+export const HR = () => {
+    return {
+        tagName: "hr",
+        props: {},
+    };
+};
 export const Cell = (children: types.Element[]) => {
     return {
         tagName: "cell",
