@@ -59,6 +59,9 @@ export namespace Part {
         Component: react.ComponentType<any>,
         children: any,
         data: any,
+        error: {
+            [key: string]: string
+        },
         onChange?: (props: {
             data: any,
             error: {

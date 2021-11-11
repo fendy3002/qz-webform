@@ -16,7 +16,7 @@ let validation = ({ Element, data, Language, value }: types.Part.ValidationProps
     }
     return "";
 };
-const Logic = ({ Element, Component, onChange, data, ...props }: types.Part.LogicProps) => {
+const Logic = ({ Element, Component, onChange, data, error, ...props }: types.Part.LogicProps) => {
     const Language = useLanguage();
     let componentOnChange = (evt) => {
         let value = evt.currentTarget.value;
@@ -39,6 +39,7 @@ const Logic = ({ Element, Component, onChange, data, ...props }: types.Part.Logi
     };
     let propsToPass = {
         value: data[Element.name],
+        error: error[Element.name],
 
         ...Element.props,
         onChange: componentOnChange,

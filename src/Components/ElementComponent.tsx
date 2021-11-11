@@ -59,7 +59,7 @@ const ElementComponent = (props: Props) => {
     }
     return <Tag Element={ElementProps}
         Component={parts[Element.tagName].Component}
-        data={data} onChange={onChange}
+        data={data} error={error} onChange={onChange}
     >{children}</Tag>;
 };
 
