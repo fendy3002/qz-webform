@@ -70,6 +70,7 @@ export namespace Part {
         Element: Component.ElementProps,
         data: any,
         value: any,
+        Language: LanguagePack
     };
 };
 

@@ -25,10 +25,7 @@ const calculateBoolean = (handler: boolean | ((data: any) => boolean), data) => 
 };
 const ElementComponent = (props: Props) => {
     const parts = useParts();
-    // const { parts } = React.useContext(PartsContext);
     const { Element, data, error, onChange } = props;
-
-    return <></>;
 
     let ElementProps: types.Component.ElementProps = {
         props: Element.props,
