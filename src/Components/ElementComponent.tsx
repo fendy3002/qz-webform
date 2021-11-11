@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as types from '../types';
+import { PartsContext } from '../context/PartsContext';
 import { useParts } from '../hooks/useParts';
 
 export interface Props {
@@ -23,8 +24,11 @@ const calculateBoolean = (handler: boolean | ((data: any) => boolean), data) => 
     }
 };
 const ElementComponent = (props: Props) => {
-    const { Element, data, error, onChange } = props;
     const parts = useParts();
+    // const { parts } = React.useContext(PartsContext);
+    const { Element, data, error, onChange } = props;
+
+    return <></>;
 
     let ElementProps: types.Component.ElementProps = {
         props: Element.props,
@@ -44,7 +48,8 @@ const ElementComponent = (props: Props) => {
     if (Element.children && Element.children.length > 0) {
         for (let child of Element.children) {
             children.push(
-                <ElementComponent Element={child} onChange={onChange} data={data} error={error}></ElementComponent>
+                <ElementComponent key={child.id} Element={child}
+                    onChange={onChange} data={data} error={error}></ElementComponent>
             );
         }
     }

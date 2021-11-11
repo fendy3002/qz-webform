@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "prepublish": "yarn build"
+    "prepublish": "yarn build",
+    "webpack": "webpack --mode=development --config webpack.dev.js --watch"
   },
   "files": [
     "dist/**/*",

@@ -5,9 +5,6 @@ import { ElementComponent } from './ElementComponent';
 import * as types from '../types';
 export interface PropsType {
     Elements: types.Element[],
-    Template: {
-        [tagName: string]: React.ComponentType<any>
-    },
     Parts?: {
         [tagName: string]: types.Part.Part
     },
@@ -30,7 +27,7 @@ export const WebForm = (props: PropsType) => {
     return <PartsProvider parts={Parts}>
         <LanguageProvider lang={Language} languageCode={LanguageCode}>
             {Elements.map(k => {
-                return <ElementComponent Element={k} onChange={onChange} data={data} error={error}></ElementComponent>
+                return <ElementComponent key={k.id} Element={k} onChange={onChange} data={data} error={error}></ElementComponent>
             })}
         </LanguageProvider>
     </PartsProvider>;

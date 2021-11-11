@@ -9,12 +9,14 @@ const arrangeGrid = (elements: types.Element[], setting: types.ElementBuilder.Au
         const groupAsRow = (elements) => {
             return {
                 tagName: setting.rowTagName ?? "row",
+                props: {},
                 children: elements
             };
         };
         const groupAsColumn = (elements) => {
             return {
                 tagName: setting.columnTagName ?? "column",
+                props: {},
                 children: elements.map(elem => {
                     return {
                         ...elem,

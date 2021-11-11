@@ -1,8 +1,11 @@
 import { observable, toJS, makeObservable } from 'mobx';
-import { elementBuilder } from '../../src/helper/elementBuilder';
+import { elementBuilder } from 'qz-webform';
 export class homeStore {
     constructor() {
-        makeObservable(this);
+        makeObservable(this, {
+            data: observable,
+            error: observable
+        });
         let builtElement = elementBuilder([
             {
                 tagName: "text",
@@ -13,12 +16,10 @@ export class homeStore {
         this.Elements = builtElement.Elements;
         this.data = builtElement.data;
     }
-    @observable
-    data = {};
-    @observable
-    error = {};
+    data = observable({});
+    error = observable({});
 
-    Elements = [];
+    Elements: any[] = [];
     onChange({ data, error }) {
         this.data = data;
         this.error = error;

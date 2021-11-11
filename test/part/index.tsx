@@ -1,4 +1,4 @@
-import * as types from '../../src/types';
+import { types } from 'qz-webform';
 let customPartSet: types.Part.CustomPartSet = {
     "text": {
         Component: ({ name, readonly, value, label, error, placeholder, dataset, validation, hidden,

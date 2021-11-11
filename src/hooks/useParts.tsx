@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { PartsContext } from '../context/PartsContext';
 
-let useParts = () => {
+function useParts() {
     const { parts } = useContext(PartsContext);
     return parts;
 };
