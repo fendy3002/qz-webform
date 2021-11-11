@@ -1,5 +1,5 @@
 import { observable, toJS, makeObservable } from 'mobx';
-import { elementBuilder } from 'qz-webform';
+import { elementBuilder } from '../../src/helper/elementBuilder';
 export class homeStore {
     constructor() {
         makeObservable(this, {
