@@ -1,6 +1,8 @@
+export { checkbox } from './Checkbox';
+export { number } from './Number';
+export { select } from './Select';
 export { text } from './Text';
 export { textarea } from './TextArea';
-export { select } from './Select';
 
 export { column } from './Column';
 export { row } from './Row';
