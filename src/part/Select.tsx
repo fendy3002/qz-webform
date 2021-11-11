@@ -2,14 +2,14 @@ import * as React from 'react';
 import { useLanguage } from '../hooks/useLanguage';
 import * as types from '../types';
 
-let validation = ({ Element, data, value }: types.Part.ValidationProps) => {
-    const Language = useLanguage();
+let validation = ({ Element, data, Language, value }: types.Part.ValidationProps) => {
     if (Element.validation?.required && (value == null || value == "")) {
         return Language["select"]?.["required"].replace("{field}", Element.name);
     }
     return "";
 };
 const Logic = ({ Element, Component, onChange, data, ...props }: types.Part.LogicProps) => {
+    const Language = useLanguage();
     let componentOnChange = (evt) => {
         let value = evt.currentTarget.value;
         return onChange({
@@ -18,7 +18,7 @@ const Logic = ({ Element, Component, onChange, data, ...props }: types.Part.Logi
             },
             error: {
                 [Element.name]: validation({
-                    Element, data, value
+                    Element, data, value, Language
                 }) ?? ""
             }
         });

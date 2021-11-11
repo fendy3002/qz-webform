@@ -1,23 +1,31 @@
-import { observable, toJS, makeObservable } from 'mobx';
+import { observable, toJS, makeAutoObservable, makeObservable } from 'mobx';
 import { elementBuilder } from '../../src/helper/elementBuilder';
 export class homeStore {
     constructor() {
-        makeObservable(this, {
-            data: observable,
-            error: observable
-        });
+        // makeObservable(this, {
+        //     data: observable,
+        //     error: observable
+        // });
+        makeAutoObservable(this);
         let builtElement = elementBuilder([
             {
                 tagName: "text",
                 props: {},
                 name: "Name"
             }
-        ]).withAutoGrid().build(this.data);
+        ]).withAutoGrid().build(toJS(this.data));
+        console.log("builtElement.data", builtElement.data);
         this.Elements = builtElement.Elements;
         this.data = builtElement.data;
+
+        [
+            "onChange"
+        ].forEach(handler => {
+            this[handler] = this[handler].bind(this);
+        });
     }
-    data = observable({});
-    error = observable({});
+    data = {};
+    error = {};
 
     Elements: any[] = [];
     onChange({ data, error }) {

@@ -81,8 +81,8 @@ const arrangeGrid = (elements: types.Element[], setting: types.ElementBuilder.Au
 const prepareData = (elements: types.Element[], value) => {
     let result: any = value;
     for (let each of elements) {
-        if (each.props?.name) {
-            result[each.props.name] = value[each.props.name] ?? "";
+        if (each.name) {
+            result[each.name] = value[each.name] ?? "";
             if (each.props.labelfield) {
                 result[each.props.labelfield] = value[each.props.labelfield] ?? "";
             }
