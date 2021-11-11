@@ -12,9 +12,12 @@ export class homeStore {
                 tagName: "text",
                 props: {},
                 name: "Name"
+            }, {
+                tagName: "textarea",
+                props: {},
+                name: "Address"
             }
         ]).withAutoGrid().build(toJS(this.data));
-        console.log("builtElement.data", builtElement.data);
         this.Elements = builtElement.Elements;
         this.data = builtElement.data;
 
@@ -29,7 +32,13 @@ export class homeStore {
 
     Elements: any[] = [];
     onChange({ data, error }) {
-        this.data = data;
-        this.error = error;
+        this.data = {
+            ...this.data,
+            ...data
+        };
+        this.error = {
+            ...this.error,
+            ...error
+        };
     }
 };

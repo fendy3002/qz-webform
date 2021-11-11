@@ -47,7 +47,7 @@ const Logic = ({ Element, Component, onChange, data, ...props }: types.Part.Logi
     return <Component {...propsToPass}></Component>;
 };
 const Component = ({ name, label, value, onChange }) => {
-    return <textarea name={name} onChange={onChange}>{value}</textarea>;
+    return <textarea name={name} onChange={onChange} value={value}></textarea>;
 };
 let Part: types.Part.Part = {
     Component,
