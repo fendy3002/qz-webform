@@ -1,5 +1,7 @@
 import { observable, toJS, makeAutoObservable, makeObservable } from 'mobx';
 import { elementBuilder } from '../../src/helper/elementBuilder';
+import { FullColumn, RowBreak } from '../../src/helper/builderTools';
+
 export class homeStore {
     constructor() {
         // makeObservable(this, {
@@ -15,11 +17,28 @@ export class homeStore {
                 validation: {
                     required: true
                 }
+            }, RowBreak(), {
+                tagName: "checkbox",
+                props: {},
+                name: "HasJob"
             }, {
+                tagName: "select",
+                props: {},
+                name: "Country",
+                context: {
+                    options: [{
+                        label: "Indonesia",
+                        value: "id"
+                    }, {
+                        label: "United States",
+                        value: "us"
+                    }]
+                }
+            }, FullColumn({
                 tagName: "textarea",
                 props: {},
                 name: "Address"
-            }
+            }),
         ]).withAutoGrid().build(toJS(this.data));
         this.Elements = builtElement.Elements;
         this.data = builtElement.data;
@@ -43,5 +62,7 @@ export class homeStore {
             ...this.error,
             ...error
         };
+
+        console.log(toJS(this.data), toJS(this.error))
     }
 };

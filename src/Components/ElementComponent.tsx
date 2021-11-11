@@ -39,6 +39,7 @@ const ElementComponent = (props: Props) => {
         id: Element.id,
         name: Element.name,
         children: Element.children,
+        context: Element.context
     };
 
     ElementProps.props = {
