@@ -18,14 +18,16 @@ export interface WebFormProps {
             [key: string]: string
         }
     }) => void,
+    readonly?: boolean
 };
 export const WebForm = (props: WebFormProps) => {
-    let { Elements, Parts, data, error, Language, LanguageCode,
+    let { Elements, Parts, data, error, readonly, Language, LanguageCode,
         onChange } = props;
     return <PartsProvider {...Parts}>
         <LanguageProvider lang={Language} languageCode={LanguageCode}>
             {Elements.map(k => {
-                return <ElementComponent key={k.id} Element={k} onChange={onChange} data={data} error={error}></ElementComponent>
+                return <ElementComponent key={k.id} readonly={readonly}
+                    Element={k} onChange={onChange} data={data} error={error}></ElementComponent>
             })}
         </LanguageProvider>
     </PartsProvider>;

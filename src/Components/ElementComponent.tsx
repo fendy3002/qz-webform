@@ -13,6 +13,7 @@ export interface ElementComponentProps {
             [key: string]: string
         }
     }) => void,
+    readonly?: boolean
 };
 const calculateBoolean = (handler: boolean | ((data: any) => boolean), data) => {
     if (typeof (handler) == "boolean") {
@@ -25,7 +26,7 @@ const calculateBoolean = (handler: boolean | ((data: any) => boolean), data) => 
 };
 const ElementComponent = (props: ElementComponentProps) => {
     const parts = useParts();
-    const { Element, data, error, onChange } = props;
+    const { Element, data, error, readonly, onChange } = props;
 
     let ElementProps: types.Component.ElementProps = {
         props: Element.props,
@@ -33,7 +34,7 @@ const ElementComponent = (props: ElementComponentProps) => {
         validation: {
             ...Element.validation,
             required: calculateBoolean(Element.validation?.required ?? false, data),
-            readonly: calculateBoolean(Element.validation?.readonly ?? false, data),
+            readonly: calculateBoolean(Element.validation?.readonly ?? false, data) || (readonly ?? false),
             hidden: calculateBoolean(Element.validation?.hidden ?? false, data),
         },
         id: Element.id,
@@ -53,7 +54,7 @@ const ElementComponent = (props: ElementComponentProps) => {
     if (Element.children && Element.children.length > 0) {
         for (let child of Element.children) {
             children.push(
-                <ElementComponent key={child.id} Element={child}
+                <ElementComponent key={child.id} Element={child} readonly={readonly}
                     onChange={onChange} data={data} error={error}></ElementComponent>
             );
         }
