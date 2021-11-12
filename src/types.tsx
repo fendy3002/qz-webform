@@ -82,7 +82,9 @@ export interface LanguagePack {
         [validationKey: string]: string
     }
 };
-
+export interface LanguageCodePack {
+    [languageCode: string]: LanguagePack
+};
 export namespace ElementBuilder {
     export interface ElementBuilderSetting {
         autoLabel?: boolean,

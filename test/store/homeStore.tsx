@@ -1,7 +1,8 @@
 import { observable, toJS, makeAutoObservable, makeObservable } from 'mobx';
 import { elementBuilder } from '../../src/helper/elementBuilder';
 import { FullColumn, RowBreak, HR } from '../../src/helper/builderTools';
-import part from '../part';
+import { dataValidator } from '../../src/helper/dataValidator';
+import parts from '../part';
 
 export class homeStore {
     constructor() {
@@ -49,7 +50,8 @@ export class homeStore {
         this.data = builtElement.data;
 
         [
-            "onChange"
+            "onChange",
+            "onSubmit"
         ].forEach(handler => {
             this[handler] = this[handler].bind(this);
         });
@@ -69,5 +71,12 @@ export class homeStore {
         };
 
         console.log(toJS(this.data), toJS(this.error))
+    }
+    onSubmit() {
+        let validateResult = dataValidator(parts)(this.Elements, this.data);
+        this.error = {
+            ...this.error,
+            ...validateResult.object()
+        };
     }
 };

@@ -11,10 +11,10 @@ const calculateBoolean = (handler: boolean | ((data: any) => boolean), data) => 
         return handler(data);
     }
 };
-export const dataValidator = (customParts?: types.Part.CustomPartSet, customLanguage?: types.LanguagePack) => {
+export const dataValidator = (customParts?: types.Part.CustomPartSet, customLanguage?: types.LanguageCodePack) => {
     let parts = merge({}, predefinedPart, customParts);
-    let language = merge({}, predefinedLanguage, customLanguage);
-    let innerValidate = (elements: types.Element[], data: any) => {
+    let language = merge({}, predefinedLanguage, customLanguage ?? {});
+    let innerValidate = (elements: types.Element[], data: any, languageCode?: string) => {
         let validationResult: {
             name: string,
             error: string
@@ -23,14 +23,15 @@ export const dataValidator = (customParts?: types.Part.CustomPartSet, customLang
             let elementProps: types.Component.ElementProps = {
                 ...each,
                 validation: {
-                    hidden: calculateBoolean(each.validation.hidden, data),
-                    readonly: calculateBoolean(each.validation.readonly, data),
-                    required: calculateBoolean(each.validation.required, data),
+                    ...each.validation,
+                    hidden: calculateBoolean(each.validation?.hidden, data),
+                    readonly: calculateBoolean(each.validation?.readonly, data),
+                    required: calculateBoolean(each.validation?.required, data),
                 }
-            }
+            };
             let valueResult = parts[each.tagName].validation({
                 Element: elementProps,
-                Language: language,
+                Language: language[languageCode ?? "en"],
                 data: data,
                 value: data[each.name]
             });
