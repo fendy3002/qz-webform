@@ -44,12 +44,12 @@ export namespace Part {
     export interface Part {
         Component: React.ComponentType<any>,
         Logic: React.ComponentType<LogicProps>,
-        validation: (props: ValidationProps) => string
+        validation: (props: ValidationProps) => { [elemName: string]: string }
     };
     export interface CustomPart {
         Component?: React.ComponentType<any>,
         Logic?: React.ComponentType<LogicProps>,
-        validation?: (props: ValidationProps) => string
+        validation?: (props: ValidationProps) => { [elemName: string]: string }
     };
     export interface CustomPartSet {
         [tagName: string]: CustomPart

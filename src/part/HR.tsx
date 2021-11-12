@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as types from '../types';
 
 let validation = ({ Element, data, value }: types.Part.ValidationProps) => {
-    return "";
+    return null;
 };
 const Logic = ({ Element, Component, onChange, data, children, ...props }: types.Part.LogicProps) => {
     return <Component>{children}</Component>;

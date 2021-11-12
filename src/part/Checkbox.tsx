@@ -3,7 +3,7 @@ import { useLanguage } from '../hooks/useLanguage';
 import * as types from '../types';
 
 let validation = ({ Element, data, Language, value }: types.Part.ValidationProps) => {
-    return "";
+    return null;
 };
 const Logic = ({ Element, Component, onChange, data, error, ...props }: types.Part.LogicProps) => {
     let componentOnChange = (evt) => {

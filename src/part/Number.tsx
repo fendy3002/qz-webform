@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useLanguage } from '../hooks/useLanguage';
+import { makeError, makeNoError } from '../helper/makeError';
 import * as types from '../types';
 
 const isNumeric = (value) => {
@@ -7,24 +8,32 @@ const isNumeric = (value) => {
 };
 let validation = ({ Element, data, Language, value }: types.Part.ValidationProps) => {
     if (Element.validation?.required && (value == null || value == "")) {
-        return Language["number"]?.["required"].replace("{field}", Element.name);
+        return makeError(Element.name,
+            Language["number"]?.["required"].replace("{field}", Element.name)
+        );
     }
     if (value) {
         if (!isNumeric(value)) {
-            return Language["number"]?.["format"].replace("{field}", Element.name);
+            return makeError(Element.name,
+                Language["number"]?.["format"].replace("{field}", Element.name)
+            );
         }
         else if (Element.validation?.min && parseFloat(value) < Element.validation?.min) {
-            return Language["number"]?.["min"]
-                .replace("{field}", Element.name)
-                .replace("{min}", Element.validation?.min);
+            return makeError(Element.name,
+                Language["number"]?.["min"]
+                    .replace("{field}", Element.name)
+                    .replace("{min}", Element.validation?.min)
+            );
         } else if (Element.validation?.max && parseFloat(value) > Element.validation?.max) {
-            return Language["number"]?.["max"]
-                .replace("{field}", Element.name)
-                .replace("{max}", Element.validation?.max);
+            return makeError(Element.name,
+                Language["number"]?.["max"]
+                    .replace("{field}", Element.name)
+                    .replace("{max}", Element.validation?.max)
+            );
         }
     }
 
-    return "";
+    return makeNoError(Element.name);
 };
 const Logic = ({ Element, Component, onChange, data, error, ...props }: types.Part.LogicProps) => {
     const Language = useLanguage();
@@ -35,9 +44,9 @@ const Logic = ({ Element, Component, onChange, data, error, ...props }: types.Pa
                 [Element.name]: value
             },
             error: {
-                [Element.name]: validation({
+                ...(validation({
                     Element, data, value, Language
-                }) ?? ""
+                }) ?? {})
             }
         });
     };

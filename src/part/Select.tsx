@@ -1,12 +1,15 @@
 import * as React from 'react';
 import { useLanguage } from '../hooks/useLanguage';
+import { makeError, makeNoError } from '../helper/makeError';
 import * as types from '../types';
 
 let validation = ({ Element, data, Language, value }: types.Part.ValidationProps) => {
     if (Element.validation?.required && (value == null || value == "")) {
-        return Language["select"]?.["required"].replace("{field}", Element.name);
+        return makeError(Element.name,
+            Language["select"]?.["required"].replace("{field}", Element.name)
+        );
     }
-    return "";
+    return makeNoError(Element.name);
 };
 const Logic = ({ Element, Component, onChange, data, ...props }: types.Part.LogicProps) => {
     const Language = useLanguage();
@@ -17,9 +20,9 @@ const Logic = ({ Element, Component, onChange, data, ...props }: types.Part.Logi
                 [Element.name]: value
             },
             error: {
-                [Element.name]: validation({
+                ...(validation({
                     Element, data, value, Language
-                }) ?? ""
+                }) ?? {})
             }
         });
     };
