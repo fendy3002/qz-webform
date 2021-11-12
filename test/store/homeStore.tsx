@@ -1,7 +1,7 @@
 import { observable, toJS, makeAutoObservable, makeObservable } from 'mobx';
-import { elementBuilder } from '../../src/helper/elementBuilder';
-import { FullColumn, RowBreak, HR } from '../../src/helper/builderTools';
-import { dataValidator } from '../../src/helper/dataValidator';
+import { elementBuilder } from '../../src/builder/elementBuilder';
+import { FullColumn, RowBreak, HR } from '../../src/builder/tools';
+import { dataValidator } from '../../src/validator/dataValidator';
 import parts from '../part';
 
 export class homeStore {
