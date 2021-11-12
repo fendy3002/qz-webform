@@ -3,7 +3,7 @@ import PartsProvider from '../provider/partsProvider';
 import LanguageProvider from '../provider/languageProvider';
 import { ElementComponent } from './ElementComponent';
 import * as types from '../types';
-export interface PropsType {
+export interface WebFormProps {
     Elements: types.Element[],
     Parts?: types.Part.CustomPartSet,
     Language?: {
@@ -19,7 +19,7 @@ export interface PropsType {
         }
     }) => void,
 };
-export const WebForm = (props: PropsType) => {
+export const WebForm = (props: WebFormProps) => {
     let { Elements, Parts, data, error, Language, LanguageCode,
         onChange } = props;
     return <PartsProvider {...Parts}>

@@ -126,6 +126,13 @@
 // };
 
 export * as types from './types';
-export { elementBuilder } from './helper/elementBuilder';
-export { ElementComponent } from './Components/ElementComponent';
-export { WebForm } from './Components/WebForm2';
+export * from './builder/elementBuilder';
+export * from './builder/tools';
+export * from './Components/ElementComponent';
+export * from './Components/WebForm';
+export * from './Components/StaticWebForm';
+export * from './context/LanguageContext';
+export * from './context/PartsContext';
+export * from './provider/languageProvider';
+export * from './provider/partsProvider';
+export * from './validator/dataValidator';

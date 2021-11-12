@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import { inject, observer } from 'mobx-react';
-import { WebForm } from '../../src/Components/WebForm';
+import { WebForm } from '../../src';
 import part from '../part';
 
 const Home: NextPage = ({ homeStore }) => {

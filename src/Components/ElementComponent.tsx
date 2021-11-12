@@ -3,7 +3,7 @@ import * as types from '../types';
 import { PartsContext } from '../context/PartsContext';
 import { useParts } from '../hooks/useParts';
 
-export interface Props {
+export interface ElementComponentProps {
     Element: types.Element,
     data: any,
     error: any,
@@ -23,7 +23,7 @@ const calculateBoolean = (handler: boolean | ((data: any) => boolean), data) => 
         return handler(data);
     }
 };
-const ElementComponent = (props: Props) => {
+const ElementComponent = (props: ElementComponentProps) => {
     const parts = useParts();
     const { Element, data, error, onChange } = props;
 

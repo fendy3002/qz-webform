@@ -5,13 +5,13 @@ let { observer, inject } = mobxReact;
 import { WebForm } from './WebForm';
 import * as types from '../types';
 
-export interface Props {
+export interface StaticWebFormProps {
     elements: types.Element[],
     customParts?: types.Part.CustomPartSet,
     customLanguage?: types.LanguageCodePack,
     languageCode?: string
 };
-let constructor = (props: Props) => {
+let constructor = (props: StaticWebFormProps) => {
     class StaticWebFormComponent extends React.Component<any, any> {
         constructor(prop) {
             super(prop);

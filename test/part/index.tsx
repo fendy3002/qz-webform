@@ -1,4 +1,4 @@
-import * as types from '../../src/types';
+import { types } from '../../src';
 let customPartSet: types.Part.CustomPartSet = {
     "text": {
         Component: ({ name, readonly, value, label, error, placeholder, required, hidden,
@@ -69,7 +69,7 @@ let customPartSet: types.Part.CustomPartSet = {
         Component: ({ name, readonly, value, label, error, placeholder, onChange }) => {
             return <div className="form-check form-switch">
                 <label className="form-check-label" >
-                    <input className="form-check-input" type="checkbox" name={name} checked={value} onChange={onChange}/>
+                    <input className="form-check-input" type="checkbox" name={name} checked={value} onChange={onChange} />
                     {label}
                 </label>
             </div>;
