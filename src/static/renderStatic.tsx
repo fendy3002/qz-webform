@@ -1,14 +1,40 @@
-import * as types from '../types';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import * as MobxReact from 'mobx-react';
+import staticDummyState from './DummyState';
 
+import * as types from '../types';
+import { xml2Element } from './xml2Element';
+import { elementBuilder } from '../builder/elementBuilder';
+import { StaticWebForm } from '../Components/StaticWebForm';
 const renderEngine = ({
     parts,
     language,
     languageCode,
     customParser,
-    context
+    context,
+    xmlString
 }) => {
-    const render = (initialValue) => {
-        
+    const render = (targetElement: any, initialData?: any) => {
+        return xml2Element({
+            context: context,
+            customParser: customParser,
+            xmlString: xmlString
+        }).then(elements => {
+            let buildResult = elementBuilder(elements).build(initialData);
+            let DummyState = new staticDummyState(buildResult.data);
+            ReactDOM.render(
+                <MobxReact.Provider store={DummyState}>
+                    <StaticWebForm
+                        Elements={buildResult.Elements}
+                        Parts={parts}
+                        Language={language}
+                        LanguageCode={languageCode}
+                    ></StaticWebForm>
+                </MobxReact.Provider>,
+                targetElement
+            );
+        });
     };
     return {
         render
@@ -63,11 +89,26 @@ class StaticRenderBuilder {
         };
         return this;
     }
-    fromXml(xmlCode: string) {
-
+    fromXml(xml: string) {
+        return renderEngine({
+            context: this.context,
+            customParser: this.customParser,
+            parts: this.parts,
+            language: this.language,
+            languageCode: this.languageCode,
+            xmlString: xml
+        });
     }
     fromElement(element) {
         let xml = element.innerHTML;
+        return renderEngine({
+            context: this.context,
+            customParser: this.customParser,
+            parts: this.parts,
+            language: this.language,
+            languageCode: this.languageCode,
+            xmlString: xml
+        });
     }
 };
 export const renderStatic = () => {

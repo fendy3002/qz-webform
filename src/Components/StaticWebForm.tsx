@@ -6,10 +6,10 @@ import { WebForm } from './WebForm';
 import * as types from '../types';
 
 export interface StaticWebFormProps {
-    elements: types.Element[],
-    customParts?: types.Part.CustomPartSet,
-    customLanguage?: types.LanguageCodePack,
-    languageCode?: string
+    Elements: types.Element[],
+    Parts?: types.Part.CustomPartSet,
+    Language?: types.LanguageCodePack,
+    LanguageCode?: string
 };
 let constructor = (props: StaticWebFormProps) => {
     class StaticWebFormComponent extends React.Component<any, any> {
@@ -19,12 +19,12 @@ let constructor = (props: StaticWebFormProps) => {
         render() {
             let store = this.props.store;
             let { data, error } = store;
-            return <WebForm Elements={props.elements}
+            return <WebForm Elements={props.Elements}
                 data={data}
                 error={error}
-                Parts={props.customParts}
-                Language={props.customLanguage}
-                LanguageCode={props.languageCode}
+                Parts={props.Parts}
+                Language={props.Language}
+                LanguageCode={props.LanguageCode}
                 onChange={store.onChange} />
         }
     };
