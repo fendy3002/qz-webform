@@ -100,3 +100,14 @@ export namespace ElementBuilder {
         cellTagName?: string
     };
 }
+
+export namespace Static {
+    export interface CustomParser {
+        [tagName: string]: (props: {
+            Element: Element,
+            xml: any,
+        }, tools: {
+            lowercasePropName: (prop: any) => any
+        }) => Element
+    }
+}
