@@ -4,9 +4,11 @@ const renderEngine = ({
     parts,
     language,
     languageCode,
+    customParser,
+    context
 }) => {
     const render = (initialValue) => {
-
+        
     };
     return {
         render
@@ -29,6 +31,8 @@ class StaticRenderBuilder {
     language: types.LanguageCodePack = null;
     languageCode: string = "en";
     customParser: types.Static.CustomParser = null;
+    context: types.Static.Context = {};
+
     withParts(parts: types.Part.CustomPartSet) {
         this.parts = parts;
         return this;
@@ -43,6 +47,20 @@ class StaticRenderBuilder {
     }
     withCustomParser(customParser: types.Static.CustomParser) {
         this.customParser = customParser;
+        return this;
+    }
+    withContext(context: types.Static.Context) {
+        this.context = {
+            ...this.context,
+            ...context
+        };
+        return this;
+    }
+    addContext(id: string, context: any) {
+        this.context = {
+            ...this.context,
+            [id]: context
+        };
         return this;
     }
     fromXml(xmlCode: string) {

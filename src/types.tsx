@@ -103,11 +103,17 @@ export namespace ElementBuilder {
 
 export namespace Static {
     export interface CustomParser {
-        [tagName: string]: (props: {
+        (props: {
             Element: Element,
             xml: any,
         }, tools: {
             lowercasePropName: (prop: any) => any
-        }) => Element
+        }): Element
     }
+    export interface CustomParserSet {
+        [tagName: string]: CustomParser
+    }
+    export interface Context {
+        [id: string]: any
+    };
 }
