@@ -1,6 +1,7 @@
 import { observable, toJS, makeAutoObservable, makeObservable } from 'mobx';
 import { elementBuilder } from '../../src/helper/elementBuilder';
 import { FullColumn, RowBreak, HR } from '../../src/helper/builderTools';
+import part from '../part';
 
 export class homeStore {
     constructor() {

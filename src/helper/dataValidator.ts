@@ -1,3 +1,6 @@
+import { merge } from 'lodash';
+import * as predefinedLanguage from '../lang';
+import * as predefinedPart from '../part';
 import * as types from '../types';
 const calculateBoolean = (handler: boolean | ((data: any) => boolean), data) => {
     if (typeof (handler) == "boolean") {
@@ -8,8 +11,10 @@ const calculateBoolean = (handler: boolean | ((data: any) => boolean), data) => 
         return handler(data);
     }
 };
-export const dataValidator = (elements: types.Element[], parts: types.Part.CustomPartSet, language: types.LanguagePack) =>
-    (data: any) => {
+export const dataValidator = (customParts?: types.Part.CustomPartSet, customLanguage?: types.LanguagePack) => {
+    let parts = merge({}, predefinedPart, customParts);
+    let language = merge({}, predefinedLanguage, customLanguage);
+    let innerValidate = (elements: types.Element[], data: any) => {
         let validationResult: {
             name: string,
             error: string
@@ -39,7 +44,17 @@ export const dataValidator = (elements: types.Element[], parts: types.Part.Custo
                     }
                 }
             }
+            if (each.children && each.children.length > 0) {
+                validationResult = [
+                    ...validationResult,
+                    ...innerValidate(each.children, data)
+                ];
+            }
         }
+        return validationResult;
+    };
+    let validate = (elements: types.Element[], data: any) => {
+        let validationResult = innerValidate(elements, data);
         return {
             hasError: validationResult.length > 0,
             array: () => validationResult,
@@ -52,3 +67,5 @@ export const dataValidator = (elements: types.Element[], parts: types.Part.Custo
             }
         };
     };
+    return validate;
+};

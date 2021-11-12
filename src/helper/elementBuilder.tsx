@@ -1,3 +1,4 @@
+import { dataValidator } from './dataValidator';
 import * as types from '../types';
 const arrangeGrid = (elements: types.Element[], setting: types.ElementBuilder.AutoGridSetting) => {
     let innerArrange = (elements: types.Element[]) => {
@@ -174,9 +175,10 @@ class ElementBuilder {
         let setIdResult = setId(resultElements, this.setting);
         resultElements = setIdResult.elements;
 
+        let data = prepareData(this.elements, initialData);
         return {
             Elements: resultElements,
-            data: prepareData(this.elements, initialData),
+            data: data,
         };
     }
 };
