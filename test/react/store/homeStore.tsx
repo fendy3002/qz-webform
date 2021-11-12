@@ -3,7 +3,7 @@ import {
     elementBuilder,
     FullColumn, RowBreak, HR,
     dataValidator
-} from '../../src';
+} from '../../../src';
 import parts from '../part';
 
 export class homeStore {

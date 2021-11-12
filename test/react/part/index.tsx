@@ -1,4 +1,4 @@
-import { types } from '../../src';
+import { types } from '../../../src';
 let customPartSet: types.Part.CustomPartSet = {
     "text": {
         Component: ({ name, readonly, value, label, error, placeholder, required, hidden,
