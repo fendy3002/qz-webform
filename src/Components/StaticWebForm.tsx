@@ -2,93 +2,36 @@ import * as React from 'react';
 import * as mobxReact from 'mobx-react';
 import { toJS } from 'mobx';
 let { observer, inject } = mobxReact;
-import WebFormConstruct from './WebForm';
-import inputValidatorConstruct from '../validator/inputValidator';
+import { WebForm } from './WebForm';
+import * as types from '../types';
 
-let construct = ({ template, structure, context, language, staticOnChange }) => {
-    const WebForm = WebFormConstruct(template);
-    const inputValidator = inputValidatorConstruct(context, language);
-
-    let componentOnChange = staticOnChange ? ((newData, prev) => {
-        let result = staticOnChange(newData, {
-            ...prev,
-            data: toJS(prev.data),
-            error: toJS(prev.error)
-        });
-        return result ?? newData;
-    }) : ((newData) => newData);
-    class StaticWebForm extends React.Component<any, any> {
+export interface Props {
+    elements: types.Element[],
+    customParts?: types.Part.CustomPartSet,
+    customLanguage?: types.LanguageCodePack,
+    languageCode?: string
+};
+let constructor = (props: Props) => {
+    class StaticWebFormComponent extends React.Component<any, any> {
         constructor(prop) {
             super(prop);
-            [
-                "onChange",
-            ].forEach((handler) => {
-                this[handler] = this[handler].bind(this);
-            });
-        }
-        onChange(evt) {
-            let store = this.props.store;
-            let { onChange } = store;
-            const { name, value, dataset } = evt.currentTarget ?? evt.target ?? {};
-            let validateResult = inputValidator.validate(evt);
-            if (dataset?.["tagname"] == "reactselectasync") {
-                const { labelfield } = evt.currentTarget ?? evt.target;
-                onChange((prev) => {
-                    return componentOnChange({
-                        ...prev,
-                        data: {
-                            ...prev.data,
-                            [name]: validateResult.value?.value,
-                            [labelfield]: validateResult.value?.label
-                        },
-                        error: {
-                            ...prev.error,
-                            ...validateResult.error
-                        }
-                    }, prev);
-                });
-            } else if (dataset?.["tagname"] == "button") {
-                onChange((prev) => {
-                    return componentOnChange({
-                        ...prev,
-                        data: {
-                            ...prev.data,
-                            ...validateResult.value.data,
-                        },
-                        error: {
-                            ...prev.error,
-                            ...validateResult.value.error
-                        }
-                    }, prev);
-                });
-            } else {
-                onChange((prev) => {
-                    return componentOnChange({
-                        ...prev,
-                        data: {
-                            ...prev.data,
-                            [name]: validateResult.value,
-                        },
-                        error: {
-                            ...prev.error,
-                            ...validateResult.error
-                        }
-                    }, prev);
-                });
-            }
         }
         render() {
             let store = this.props.store;
             let { data, error } = store;
-            return <WebForm structure={structure}
+            return <WebForm Elements={props.elements}
                 data={data}
                 error={error}
-                context={context}
-                onChange={this.onChange} />
+                Parts={props.customParts}
+                Language={props.customLanguage}
+                LanguageCode={props.languageCode}
+                onChange={store.onChange} />
         }
     };
     return inject("store")(
-        observer(StaticWebForm)
+        observer(StaticWebFormComponent)
     ) as any;
-}
-export default construct;
+};
+export {
+    constructor as StaticWebForm
+};
