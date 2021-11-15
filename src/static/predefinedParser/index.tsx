@@ -70,6 +70,5 @@ export const cell: types.Static.CustomParser = (props, tools) => {
         ...Element,
         children: xml.$$?.map(k => tools.parseChild(k)),
     };
-    console.log(result)
     return result;
 };
