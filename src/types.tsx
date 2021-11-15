@@ -107,6 +107,7 @@ export namespace Static {
             Element: Element,
             xml: any,
         }, tools: {
+            parseChild: (xml: any) => Element,
             lowercasePropName: (prop: any) => any
         }): Element
     }

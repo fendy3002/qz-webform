@@ -32,11 +32,13 @@ export class homeStore {
             },
             {
                 tagName: "button",
-                props: {},
+                props: {
+                    label: "Toggle Readonly",
+                    type: "primary"
+                },
                 validation: {
                     editable: true
                 },
-                name: "readonly",
                 context: {
                     onClick: (evt, { data, onChange }) => {
                         onChange({

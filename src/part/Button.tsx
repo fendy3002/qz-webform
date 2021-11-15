@@ -9,7 +9,7 @@ const Logic = ({ Element, Component, onChange, data, children, ...props }: types
         ...Element.props,
         data,
         onChange,
-        onClick: Element.context?.onClick
+        onClick: (evt) => Element.context?.onClick(evt, { data, onChange })
     };
 
     return <Component {...propsToPass}>{children}</Component>;
@@ -18,7 +18,7 @@ const Component = ({ onClick, data, onChange, readonly, label }) => {
     if (readonly) {
         return <button disabled={true}>{label}</button>;
     } else {
-        return <button onClick={(evt) => onClick(evt, { data, onChange })}>{label}</button>;
+        return <button onClick={onClick}>{label}</button>;
     }
 };
 let Part: types.Part.Part = {

@@ -116,7 +116,12 @@ let customPartSet: types.Part.CustomPartSet = {
                 </div>;
             }
         },
-    }
+    },
+    "button": {
+        Component: ({ onClick, label, type }) => {
+            return <button className={"btn rounded-0 btn-" + type} onClick={onClick}>{label}</button>;
+        }
+    },
 };
 
 export default customPartSet;

@@ -24,27 +24,37 @@ export interface xml2ElementProps {
 export const xml2Element = (props: xml2ElementProps) => {
     let xmlString = `<root>${props.xmlString.trim()}</root>`;
     let customParser = merge({}, props.customParser, predefinedParser);
+
+    const innerParse = (each) => {
+        let lowerCasedStructure = lowercasePropName(each.$);
+        let element: types.Element = {
+            tagName: each['#name'].toLowerCase(),
+            id: lowerCasedStructure["id"],
+            name: lowerCasedStructure["name"],
+            props: lowerCasedStructure,
+            context: props.context[lowerCasedStructure["id"]],
+            validation: {}
+        };
+        element = customParser[element.tagName]?.({
+            Element: element,
+            xml: {
+                ...each,
+                $: {
+                    lowerCasedStructure
+                }
+            },
+        }, {
+            lowercasePropName: lowercasePropName,
+            parseChild: innerParse,
+        }) ?? element;
+        return element;
+    };
     return xmlParser.parseStringPromise(xmlString).then(xml => {
         let formStructure = xml?.root.$$;
 
         let result: types.Element[] = [];
         for (let each of formStructure) {
-            let lowerCasedStructure = lowercasePropName(each.$);
-            let element: types.Element = {
-                tagName: each['#name'].toLowerCase(),
-                id: lowerCasedStructure["id"],
-                name: lowerCasedStructure["name"],
-                props: lowerCasedStructure,
-                context: props.context[lowerCasedStructure["id"]],
-                validation: {}
-            };
-            element = customParser[element.tagName]?.({
-                Element: element,
-                xml: lowerCasedStructure,
-            }, {
-                lowercasePropName: lowercasePropName,
-            }) ?? element;
-            result.push(element);
+            result.push(innerParse(each));
         }
 
         return result;

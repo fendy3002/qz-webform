@@ -64,3 +64,12 @@ export const select: types.Static.CustomParser = (props, tools) => {
     merge({}, result, inputParser(props, tools));
     return result;
 };
+export const cell: types.Static.CustomParser = (props, tools) => {
+    let { Element, xml } = props
+    let result = {
+        ...Element,
+        children: xml.$$?.map(k => tools.parseChild(k)),
+    };
+    console.log(result)
+    return result;
+};

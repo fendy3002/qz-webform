@@ -31,7 +31,7 @@ const renderEngine = ({
                 LanguageCode: languageCode,
                 Parts: parts,
                 readonly: readonly
-            })
+            });
             ReactDOM.render(
                 <ErrorBoundary>
                     <MobxReact.Provider store={DummyState}>

@@ -28,6 +28,10 @@
                 <Text id="jobTitle" name="jobTitle" label="Job Title"></Text>
                 <RowBreak></RowBreak>
                 <Number name="height" min="100" label="Height (Number)" required></Number>
+                <Cell>
+                    <Button id="incrementBtn" type="outline-secondary" label="+"></Button>
+                    <Button id="decrementBtn" type="outline-danger" label="-"></Button>
+                </Cell>
             </div>
             <div class="mb-2"></div>
             <div class="mb-4">
@@ -71,20 +75,20 @@
                 }
             },
             "incrementBtn": {
-                "onClick": (evt, { data, setData, setError }) => {
-                    setData((prev) => {
-                        return {
-                            height: (prev.height * 1) + 1
-                        };
+                "onClick": (evt, { data, onChange }) => {
+                    onChange({
+                        data: {
+                            height: parseInt(data.height) + 1
+                        }
                     });
                 }
             },
             "decrementBtn": {
-                "onClick": (evt, { data, setData, setError }) => {
-                    setData((prev) => {
-                        return {
-                            height: (prev.height * 1) - 1
-                        };
+                "onClick": (evt, { data, onChange }) => {
+                    onChange({data:
+                        {
+                            height: (data.height * 1) - 1
+                        }
                     });
                 }
             },
@@ -128,10 +132,7 @@
 
 
         /*
-        <Cell>
-                    <Button id="incrementBtn" type="outline-secondary" text="+"></Button>
-                    <Button id="decrementBtn" type="outline-danger" text="-"></Button>
-                </Cell>
+        
                 <RowBreak></RowBreak>
 
                 <Select name="nationality" label="Nationality (Select)" required>
