@@ -47,7 +47,7 @@ const textAndTextArea = (props, tools) => {
     return result;
 };
 export const text: types.Static.CustomParser = textAndTextArea;
-export const textArea: types.Static.CustomParser = textAndTextArea;
+export const textarea: types.Static.CustomParser = textAndTextArea;
 export const number: types.Static.CustomParser = (props, tools) => {
     let { Element, xml } = props
     let result = {

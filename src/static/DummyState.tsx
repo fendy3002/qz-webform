@@ -13,9 +13,8 @@ export default class DummyState {
     data: any = observable({});
     error: any = observable({});
 
-    onChange(handler) {
-        let result = handler({ data: this.data, error: this.error });
-        this.data = { ...result.data };
-        this.error = { ...result.error };
+    onChange({ data, error }) {
+        this.data = { ...this.data, ...data };
+        this.error = { ...this.error, ...error };
     };
 };
