@@ -1,7 +1,7 @@
 import * as types from '../../types';
 import { merge } from 'lodash';
 
-const inputParser: types.Static.CustomParser = (props, tools) => {
+export const inputParser: types.Static.CustomParser = (props, tools) => {
     let { Element, xml } = props;
     let result: any = {
         validation: {}

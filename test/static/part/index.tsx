@@ -1,5 +1,7 @@
 import * as React from 'react';
+import { reactdatepicker } from './reactdatepicker';
 import { types } from '../../../src';
+
 let customPartSet: types.Part.CustomPartSet = {
     "text": {
         Component: ({ name, readonly, value, label, error, placeholder, required, hidden,
@@ -114,6 +116,7 @@ let customPartSet: types.Part.CustomPartSet = {
             return <button className={"btn rounded-0 btn-" + type} onClick={onClick}>{label}</button>;
         }
     },
+    reactdatepicker
 };
 
 export default customPartSet;

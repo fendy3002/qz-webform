@@ -62,7 +62,7 @@ class StaticRenderBuilder {
     parts: types.Part.CustomPartSet = null;
     language: types.LanguageCodePack = null;
     languageCode: string = "en";
-    customParser: types.Static.CustomParser = null;
+    customParser: types.Static.CustomParserSet = null;
     context: types.Static.Context = {};
 
     withParts(parts: types.Part.CustomPartSet) {
@@ -77,7 +77,7 @@ class StaticRenderBuilder {
         this.languageCode = languageCode;
         return this;
     }
-    withCustomParser(customParser: types.Static.CustomParser) {
+    withCustomParser(customParser: types.Static.CustomParserSet) {
         this.customParser = customParser;
         return this;
     }

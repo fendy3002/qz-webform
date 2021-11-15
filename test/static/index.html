@@ -46,6 +46,17 @@
                     <option value="my">Malaysia</option>
                     <option value="us">United States</option>
                 </Select>
+                
+                <ReactDatepicker name="birthTs" label="Birth Date (Timestamp)" required sourceType="timestamp">
+                </ReactDatepicker>
+                <ReactDatepicker name="birthIso" label="Birth Date (ISO)" required sourceType="iso"></ReactDatepicker>
+                <ReactDatepicker name="birthDate" label="Birth Date (Date)" required sourceType="date">
+                </ReactDatepicker>
+                <ReactDatepicker name="birthIsoNull" label="Birth Date (ISO - NULL)" required sourceType="iso"
+                    clearable></ReactDatepicker>
+                <ReactDatepicker name="graduateTs" label="Graduate Date (Timestamp from String)" required
+                    sourceType="timestamp">
+                </ReactDatepicker>
             </div>
             <div class="mb-2"></div>
             <div class="mb-4">
@@ -163,16 +174,6 @@
                 <ReactSelectAsync id="selectasync" name="userKey" labelField="userName"
                     label="User (React Select Async)">
                 </ReactSelectAsync>
-                <ReactDatepicker name="birthTs" label="Birth Date (Timestamp)" required sourceType="timestamp">
-                </ReactDatepicker>
-                <ReactDatepicker name="birthIso" label="Birth Date (ISO)" required sourceType="iso"></ReactDatepicker>
-                <ReactDatepicker name="birthDate" label="Birth Date (Date)" required sourceType="date">
-                </ReactDatepicker>
-                <ReactDatepicker name="birthIsoNull" label="Birth Date (ISO - NULL)" required sourceType="iso"
-                    clearable></ReactDatepicker>
-                <ReactDatepicker name="graduateTs" label="Graduate Date (Timestamp from String)" required
-                    sourceType="timestamp">
-                </ReactDatepicker>
                 <Text name="note"></Text>
                 <FullColumn>
                     <Text name="fullcolumntext"></Text>
