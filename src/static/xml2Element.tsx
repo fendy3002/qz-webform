@@ -1,4 +1,6 @@
 import { Parser } from 'xml2js';
+import { merge } from 'lodash';
+import * as predefinedParser from './predefinedParser';
 import * as types from '../types';
 let xmlParser = new Parser({
     explicitArray: true,
@@ -19,7 +21,9 @@ export interface xml2ElementProps {
     customParser: types.Static.CustomParserSet
 };
 export const xml2Element = (props: xml2ElementProps) => {
-    return xmlParser.parseStringPromise(props.xmlString).then(xml => {
+    let xmlString = `<root>${props.xmlString.trim()}</root>`;
+    let customParser = merge({}, props.customParser, predefinedParser);
+    return xmlParser.parseStringPromise(xmlString).then(xml => {
         let formStructure = xml?.root.$$;
 
         let result: types.Element[] = [];
@@ -32,7 +36,7 @@ export const xml2Element = (props: xml2ElementProps) => {
                 props: {},
                 context: props.context[lowerCasedStructure["id"]]
             };
-            element = props.customParser[element.tagName]?.({
+            element = customParser[element.tagName]?.({
                 Element: element,
                 xml: lowerCasedStructure,
             }, {

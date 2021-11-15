@@ -9,7 +9,8 @@ export interface StaticWebFormProps {
     Elements: types.Element[],
     Parts?: types.Part.CustomPartSet,
     Language?: types.LanguageCodePack,
-    LanguageCode?: string
+    LanguageCode?: string,
+    readonly?: boolean
 };
 let constructor = (props: StaticWebFormProps) => {
     class StaticWebFormComponent extends React.Component<any, any> {
@@ -22,10 +23,11 @@ let constructor = (props: StaticWebFormProps) => {
             return <WebForm Elements={props.Elements}
                 data={data}
                 error={error}
+                readonly={props.readonly ?? false}
                 Parts={props.Parts}
                 Language={props.Language}
                 LanguageCode={props.LanguageCode}
-                onChange={store.onChange} />
+                onChange={store.onChange} />;
         }
     };
     return inject("store")(

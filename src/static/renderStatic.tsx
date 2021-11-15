@@ -51,8 +51,8 @@ class StaticRenderBuilder {
         ].forEach(handler => {
             this[handler] = this[handler].bind(this);
         });
-
     }
+    readonly: boolean = null;
     parts: types.Part.CustomPartSet = null;
     language: types.LanguageCodePack = null;
     languageCode: string = "en";
@@ -87,6 +87,12 @@ class StaticRenderBuilder {
             ...this.context,
             [id]: context
         };
+        return this;
+    }
+    withSetting(props: {
+        readonly?: boolean
+    }) {
+        this.readonly = props.readonly ?? this.readonly;
         return this;
     }
     fromXml(xml: string) {

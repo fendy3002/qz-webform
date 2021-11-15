@@ -68,8 +68,9 @@
                 </ReactDatepicker>
                 <ReactDatepicker name="birthIsoNull" label="Birth Date (ISO - NULL)" required sourceType="iso"
                     clearable></ReactDatepicker>
-                <ReactDatepicker name="graduateTs" label="Graduate Date (Timestamp from String)" required sourceType="timestamp">
-                    </ReactDatepicker>
+                <ReactDatepicker name="graduateTs" label="Graduate Date (Timestamp from String)" required
+                    sourceType="timestamp">
+                </ReactDatepicker>
                 <Text name="note"></Text>
                 <FullColumn>
                     <Text name="fullcolumntext"></Text>
@@ -106,63 +107,74 @@
             graduateTs: "1627689600000"
         };
 
-        let QzWebFormInstance = QzWebForm.render(qzWebForm, data,
-            {
-                readOnly: false,
-                additionalContext: {
-                    "companyName": {
-                        "hidden": (data) => {
-                            return !data.hasJob;
-                        }
-                    },
-                    "jobTitle": {
-                        "hidden": (data) => {
-                            return !data.hasJob;
-                        }
-                    },
-                    "incrementBtn": {
-                        "button": {
-                            "onClick": (evt, { data, setData, setError }) => {
-                                setData((prev) => {
-                                    return {
-                                        height: (prev.height * 1) + 1
-                                    };
-                                });
-                            }
-                        }
-                    },
-                    "decrementBtn": {
-                        "button": {
-                            "onClick": (evt, { data, setData, setError }) => {
-                                setData((prev) => {
-                                    return {
-                                        height: (prev.height * 1) - 1
-                                    };
-                                });
-                            }
-                        }
-                    },
-                    // selectasync is the id
-                    "selectasync": {
-                        "select": {
-                            loadOptions: (inputValue, callback) => {
-                                setTimeout(() => {
-                                    callback([
-                                        { value: "001", label: "USER001" },
-                                        { value: "002", label: "USER002" },
-                                    ]);
-                                }, 1000);
-                            }
-                        }
-                    }
+        let QzWebFormInstance = QzWebForm().withSetting({
+            readonly: false
+        }).withContext({
+            "companyName": {
+                "hidden": (data) => {
+                    return !data.hasJob;
                 }
-            });
-        let _validateData = null;
-        let _data = null;
-        QzWebFormInstance.then(({ validateData, data }) => { _validateData = validateData; _data = data; });
-        document.getElementById("btnValidate").addEventListener("click", (evt) => {
-            _validateData();
-        });
+            },
+            "jobTitle": {
+                "hidden": (data) => {
+                    return !data.hasJob;
+                }
+            },
+            "incrementBtn": {
+                "onClick": (evt, { data, setData, setError }) => {
+                    setData((prev) => {
+                        return {
+                            height: (prev.height * 1) + 1
+                        };
+                    });
+                }
+            },
+            "decrementBtn": {
+                "onClick": (evt, { data, setData, setError }) => {
+                    setData((prev) => {
+                        return {
+                            height: (prev.height * 1) - 1
+                        };
+                    });
+                }
+            },
+            // selectasync is the id
+            "selectasync": {
+                loadOptions: (inputValue, callback) => {
+                    setTimeout(() => {
+                        callback([
+                            { value: "001", label: "USER001" },
+                            { value: "002", label: "USER002" },
+                        ]);
+                    }, 1000);
+                }
+            }
+        }).fromElement(qzWebForm).render(qzWebForm, data);
+        QzWebFormInstance.then((props) => console.log(props));
+
+
+        // let QzWebFormInstance = QzWebForm.render(qzWebForm, data,
+        //     {
+        //         readOnly: false,
+        //         additionalContext: {
+        //             "companyName": {
+        //                 "hidden": (data) => {
+        //                     return !data.hasJob;
+        //                 }
+        //             },
+        //             "jobTitle": {
+        //                 "hidden": (data) => {
+        //                     return !data.hasJob;
+        //                 }
+        //             },
+        //         }
+        //     });
+        // let _validateData = null;
+        // let _data = null;
+        // QzWebFormInstance.then(({ validateData, data }) => { _validateData = validateData; _data = data; });
+        // document.getElementById("btnValidate").addEventListener("click", (evt) => {
+        //     _validateData();
+        // });
     </script>
 </body>
 

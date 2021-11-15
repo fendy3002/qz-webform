@@ -4,7 +4,7 @@ const common = require('./webpack.common.js');
 
 let entryOutput = [{
     entry: {
-        "webform": path.resolve(__dirname, "react/index.tsx"),
+        "webform": path.resolve(__dirname, "webform.tsx"),
     },
     output: {
         path: path.resolve(__dirname, 'js'),

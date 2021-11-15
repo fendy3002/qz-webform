@@ -34,7 +34,8 @@ const ElementComponent = (props: ElementComponentProps) => {
         validation: {
             ...Element.validation,
             required: calculateBoolean(Element.validation?.required ?? false, data),
-            readonly: calculateBoolean(Element.validation?.readonly ?? false, data) || (readonly ?? false),
+            readonly: (calculateBoolean(Element.validation?.readonly ?? false, data) || (readonly ?? false)) &&
+                !calculateBoolean(Element.validation?.editable ?? false, data),
             hidden: calculateBoolean(Element.validation?.hidden ?? false, data),
         },
         id: Element.id,

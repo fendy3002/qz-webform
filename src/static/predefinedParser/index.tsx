@@ -1,19 +1,34 @@
 import * as types from '../../types';
 import { merge } from 'lodash';
 
-const inputParser = (props, tools) => {
-    let { Element, xml } = props
+const inputParser: types.Static.CustomParser = (props, tools) => {
+    let { Element, xml } = props;
     let result: any = {
         validation: {}
     };
     if (xml.hasOwnProperty("readonly")) {
         result.validation.readonly = true;
     }
-    if (!xml.hasOwnProperty("editable")) {
+    if (xml.hasOwnProperty("required")) {
+        result.validation.required = true;
+    }
+    if (xml.hasOwnProperty("editable")) {
         result.validation.editable = true;
     }
-    if (!xml.hasOwnProperty("hidden")) {
+    if (xml.hasOwnProperty("hidden")) {
         result.validation.hidden = true;
+    }
+    if (Element.context?.readonly) {
+        Element.validation.readonly = Element.context.readonly;
+    }
+    if (Element.context?.hidden) {
+        Element.validation.hidden = Element.context.hidden;
+    }
+    if (Element.context?.required) {
+        Element.validation.required = Element.context.required;
+    }
+    if (Element.context?.editable) {
+        Element.validation.editable = Element.context.editable;
     }
     return result;
 };
