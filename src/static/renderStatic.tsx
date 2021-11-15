@@ -23,7 +23,7 @@ const renderEngine = ({
             customParser: customParser,
             xmlString: xmlString
         }).then(elements => {
-            let buildResult = elementBuilder(elements).build(initialData);
+            let buildResult = elementBuilder(elements).withAutoGrid().build(initialData);
             let DummyState = new staticDummyState(buildResult.data);
             let StaticWebFormInstance = StaticWebForm({
                 Elements: buildResult.Elements,
