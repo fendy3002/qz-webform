@@ -6,16 +6,16 @@ const inputParser: types.Static.CustomParser = (props, tools) => {
     let result: any = {
         validation: {}
     };
-    if (xml.hasOwnProperty("readonly")) {
+    if (Element.props.hasOwnProperty("readonly")) {
         result.validation.readonly = true;
     }
-    if (xml.hasOwnProperty("required")) {
+    if (Element.props.hasOwnProperty("required")) {
         result.validation.required = true;
     }
-    if (xml.hasOwnProperty("editable")) {
+    if (Element.props.hasOwnProperty("editable")) {
         result.validation.editable = true;
     }
-    if (xml.hasOwnProperty("hidden")) {
+    if (Element.props.hasOwnProperty("hidden")) {
         result.validation.hidden = true;
     }
     if (Element.context?.readonly) {
@@ -37,11 +37,11 @@ const textAndTextArea = (props, tools) => {
     let result = {
         ...Element
     };
-    merge({}, result, inputParser(props, tools));
-    if (xml.hasOwnProperty("uppercase")) {
+    result = merge({}, result, inputParser(props, tools));
+    if (result.props.hasOwnProperty("uppercase")) {
         result.props.uppercase = true;
     }
-    if (xml.hasOwnProperty("lowercase")) {
+    if (result.props.hasOwnProperty("lowercase")) {
         result.props.lowercase = true;
     }
     return result;

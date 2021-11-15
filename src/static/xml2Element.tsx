@@ -9,6 +9,7 @@ let xmlParser = new Parser({
 });
 
 let lowercasePropName = (prop) => {
+    if (!prop) { return {}; }
     let result: any = {};
     for (let key of Object.keys(prop)) {
         result[key.toLowerCase()] = prop[key];
@@ -28,13 +29,14 @@ export const xml2Element = (props: xml2ElementProps) => {
 
         let result: types.Element[] = [];
         for (let each of formStructure) {
-            let lowerCasedStructure = lowercasePropName(each);
+            let lowerCasedStructure = lowercasePropName(each.$);
             let element: types.Element = {
                 tagName: each['#name'].toLowerCase(),
                 id: lowerCasedStructure["id"],
                 name: lowerCasedStructure["name"],
-                props: {},
-                context: props.context[lowerCasedStructure["id"]]
+                props: lowerCasedStructure,
+                context: props.context[lowerCasedStructure["id"]],
+                validation: {}
             };
             element = customParser[element.tagName]?.({
                 Element: element,
