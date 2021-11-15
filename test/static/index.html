@@ -129,7 +129,12 @@
                 }
             }
         }).fromElement(qzWebForm).render(qzWebForm, data);
-        QzWebFormInstance.then((props) => console.log(props));
+        let _validateData = null;
+        let _data = null;
+        QzWebFormInstance.then((props) => { _validateData = props.validateData; _data = props.data; });
+        document.getElementById("btnValidate").addEventListener("click", (evt) => {
+            _validateData();
+        });
 
 
         // let QzWebFormInstance = QzWebForm.render(qzWebForm, data,
@@ -148,12 +153,6 @@
         //             },
         //         }
         //     });
-        // let _validateData = null;
-        // let _data = null;
-        // QzWebFormInstance.then(({ validateData, data }) => { _validateData = validateData; _data = data; });
-        // document.getElementById("btnValidate").addEventListener("click", (evt) => {
-        //     _validateData();
-        // });
 
 
         /*

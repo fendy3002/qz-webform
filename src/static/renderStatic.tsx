@@ -8,6 +8,7 @@ import { xml2Element } from './xml2Element';
 import { elementBuilder } from '../builder/elementBuilder';
 import { StaticWebForm } from '../Components/StaticWebForm';
 import { ErrorBoundary } from '../Components/ErrorBoundary';
+import { dataValidator } from '../validator/dataValidator';
 const renderEngine = ({
     parts,
     language,
@@ -40,6 +41,19 @@ const renderEngine = ({
                 </ErrorBoundary>,
                 targetElement
             );
+
+            return {
+                data: () => buildResult.data,
+                validateData: () => {
+                    let validationResult = dataValidator(parts, language)(buildResult.Elements, buildResult.data)
+                    DummyState.error = {
+                        ...DummyState.error,
+                        ...validationResult.object()
+                    };
+                    return validationResult;
+                }
+
+            };
         });
     };
     return {

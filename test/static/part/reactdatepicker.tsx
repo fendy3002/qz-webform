@@ -33,10 +33,9 @@ const ReactDatepickerCustomInput = React.forwardRef((props: any, ref) => {
 
 export const reactdatepicker: types.Part.CustomPart = {
     validation: ({ Element, data, Language, value }: types.Part.ValidationProps) => {
-        console.log(Element.validation?.required, value)
         if (Element.validation?.required && (value == null || value == "")) {
             return makeError(Element.name,
-                Language["text"]?.["required"].replace("{field}", Element.label)
+                Language["text"]?.["required"].replace("{field}", Element.props.label)
             );
         }
         return makeNoError(Element.name);
@@ -98,7 +97,6 @@ export const reactdatepicker: types.Part.CustomPart = {
     },
     Component: ({ name, readonly, value, originalValue, label, error, placeholder, required,
         clearable, onChange }) => {
-            console.log(error);
         if (readonly) {
             return <div className="form-floating">
                 <input type="text" className={"form-control rounded-0 "}
