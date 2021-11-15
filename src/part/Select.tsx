@@ -6,7 +6,7 @@ import * as types from '../types';
 let validation = ({ Element, data, Language, value }: types.Part.ValidationProps) => {
     if (Element.validation?.required && (value == null || value == "")) {
         return makeError(Element.name,
-            Language["select"]?.["required"].replace("{field}", Element.name)
+            Language["select"]?.["required"].replace("{field}", Element.props.label)
         );
     }
     return makeNoError(Element.name);

@@ -2,12 +2,12 @@ import * as React from 'react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import * as dayjs from 'dayjs';
-import { useLanguage, types } from '../../../src';
+import { useLanguage, makeError, makeNoError, types } from '../../../src';
 
 const ReactDatepickerCustomInput = React.forwardRef((props: any, ref) => {
-    let { value, label, required, placeholder, isClearable,
+    let { value, label, isRequired, placeholder, isClearable,
         onChange, onClick } = props;
-    let requiredSign = required ? <span className="text-danger">*</span> : <></>;
+    let requiredSign = isRequired ? <span className="text-danger">*</span> : <></>;
     let clearOnClick = (evt) => {
         return onChange({
             target: {
@@ -33,7 +33,13 @@ const ReactDatepickerCustomInput = React.forwardRef((props: any, ref) => {
 
 export const reactdatepicker: types.Part.CustomPart = {
     validation: ({ Element, data, Language, value }: types.Part.ValidationProps) => {
-        return null;
+        console.log(Element.validation?.required, value)
+        if (Element.validation?.required && (value == null || value == "")) {
+            return makeError(Element.name,
+                Language["text"]?.["required"].replace("{field}", Element.label)
+            );
+        }
+        return makeNoError(Element.name);
     },
     Logic: ({ Element, Component, onChange, data, error, ...props }: types.Part.LogicProps) => {
         const Language = useLanguage();
@@ -92,6 +98,7 @@ export const reactdatepicker: types.Part.CustomPart = {
     },
     Component: ({ name, readonly, value, originalValue, label, error, placeholder, required,
         clearable, onChange }) => {
+            console.log(error);
         if (readonly) {
             return <div className="form-floating">
                 <input type="text" className={"form-control rounded-0 "}
@@ -109,7 +116,7 @@ export const reactdatepicker: types.Part.CustomPart = {
                 placeholderText={placeholder}
                 customInput={<ReactDatepickerCustomInput
                     isClearable={clearable}
-                    label={label} required={required} />}
+                    label={label} isRequired={required} />}
                 onChange={onChange} />
             {error &&
                 <div className="invalid-feedback">

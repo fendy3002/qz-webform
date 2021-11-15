@@ -6,18 +6,18 @@ import * as types from '../types';
 let validation = ({ Element, data, Language, value }: types.Part.ValidationProps) => {
     if (Element.validation?.required && (value == null || value == "")) {
         return makeError(Element.name,
-            Language["text"]?.["required"].replace("{field}", Element.name)
+            Language["text"]?.["required"].replace("{field}", Element.props.label)
         );
     } else if (Element.validation?.minlength && (value ?? "").length < Element.validation?.minlength) {
         return makeError(Element.name,
             Language["text"]?.["minlength"]
-                .replace("{field}", Element.name)
+                .replace("{field}", Element.props.label)
                 .replace("{minlength}", Element.validation?.minlength)
         );
     } else if (Element.validation?.maxlength && (value ?? "").length > Element.validation?.maxlength) {
         return makeError(Element.name,
             Language["text"]?.["maxlength"]
-                .replace("{field}", Element.name)
+                .replace("{field}", Element.props.label)
                 .replace("{maxlength}", Element.validation?.maxlength));
     }
     return makeNoError(Element.name);

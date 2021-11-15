@@ -9,25 +9,25 @@ const isNumeric = (value) => {
 let validation = ({ Element, data, Language, value }: types.Part.ValidationProps) => {
     if (Element.validation?.required && (value == null || value == "")) {
         return makeError(Element.name,
-            Language["number"]?.["required"].replace("{field}", Element.name)
+            Language["number"]?.["required"].replace("{field}", Element.props.label)
         );
     }
     if (value) {
         if (!isNumeric(value)) {
             return makeError(Element.name,
-                Language["number"]?.["format"].replace("{field}", Element.name)
+                Language["number"]?.["format"].replace("{field}", Element.props.label)
             );
         }
         else if (Element.validation?.min && parseFloat(value) < Element.validation?.min) {
             return makeError(Element.name,
                 Language["number"]?.["min"]
-                    .replace("{field}", Element.name)
+                    .replace("{field}", Element.props.label)
                     .replace("{min}", Element.validation?.min)
             );
         } else if (Element.validation?.max && parseFloat(value) > Element.validation?.max) {
             return makeError(Element.name,
                 Language["number"]?.["max"]
-                    .replace("{field}", Element.name)
+                    .replace("{field}", Element.props.label)
                     .replace("{max}", Element.validation?.max)
             );
         }
