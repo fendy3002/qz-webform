@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { types } from '../../../src';
 let customPartSet: types.Part.CustomPartSet = {
     "text": {

@@ -28,56 +28,7 @@
                 <Text id="jobTitle" name="jobTitle" label="Job Title"></Text>
                 <RowBreak></RowBreak>
                 <Number name="height" min="100" label="Height (Number)" required></Number>
-                <Cell>
-                    <Button id="incrementBtn" type="outline-secondary" text="+"></Button>
-                    <Button id="decrementBtn" type="outline-danger" text="-"></Button>
-                </Cell>
-                <RowBreak></RowBreak>
-
-                <Select name="nationality" label="Nationality (Select)" required>
-                    <option>-- SELECT ONE --</option>
-                    <option value="id">Indonesia</option>
-                    <option value="my">Malaysia</option>
-                    <option value="us">United States</option>
-                </Select>
-                <Select name="nationality" label="Nationality (Select)" readOnly>
-                    <option>-- SELECT ONE --</option>
-                    <option value="id">Indonesia</option>
-                    <option value="my">Malaysia</option>
-                    <option value="us">United States</option>
-                </Select>
-                <ReactSelect name="nationality" label="Nationality (React Select)" required>
-                    <option>-- SELECT ONE --</option>
-                    <option value="id">Indonesia</option>
-                    <option value="my">Malaysia</option>
-                    <option value="us">United States</option>
-                </ReactSelect>
-                <ReactSelect name="nationality" label="Nationality (React Select)" readOnly>
-                    <option>-- SELECT ONE --</option>
-                    <option value="id">Indonesia</option>
-                    <option value="my">Malaysia</option>
-                    <option value="us">United States</option>
-                </ReactSelect>
-                <ReactSelectAsync id="selectasync" name="userKey" labelField="userName"
-                    label="User (React Select Async)">
-                </ReactSelectAsync>
-                <ReactDatepicker name="birthTs" label="Birth Date (Timestamp)" required sourceType="timestamp">
-                </ReactDatepicker>
-                <ReactDatepicker name="birthIso" label="Birth Date (ISO)" required sourceType="iso"></ReactDatepicker>
-                <ReactDatepicker name="birthDate" label="Birth Date (Date)" required sourceType="date">
-                </ReactDatepicker>
-                <ReactDatepicker name="birthIsoNull" label="Birth Date (ISO - NULL)" required sourceType="iso"
-                    clearable></ReactDatepicker>
-                <ReactDatepicker name="graduateTs" label="Graduate Date (Timestamp from String)" required
-                    sourceType="timestamp">
-                </ReactDatepicker>
-                <Text name="note"></Text>
-                <FullColumn>
-                    <Text name="fullcolumntext"></Text>
-                </FullColumn>
-                <Text name="text"></Text>
-                <File name="myFile" label="File"></File>
-                <File name="myFileRequired" label="File (required)" required></File>
+                
             </div>
             <div class="mb-2"></div>
             <div class="mb-4">
@@ -175,6 +126,60 @@
         // document.getElementById("btnValidate").addEventListener("click", (evt) => {
         //     _validateData();
         // });
+
+
+        /*
+        <Cell>
+                    <Button id="incrementBtn" type="outline-secondary" text="+"></Button>
+                    <Button id="decrementBtn" type="outline-danger" text="-"></Button>
+                </Cell>
+                <RowBreak></RowBreak>
+
+                <Select name="nationality" label="Nationality (Select)" required>
+                    <option>-- SELECT ONE --</option>
+                    <option value="id">Indonesia</option>
+                    <option value="my">Malaysia</option>
+                    <option value="us">United States</option>
+                </Select>
+                <Select name="nationality" label="Nationality (Select)" readOnly>
+                    <option>-- SELECT ONE --</option>
+                    <option value="id">Indonesia</option>
+                    <option value="my">Malaysia</option>
+                    <option value="us">United States</option>
+                </Select>
+                <ReactSelect name="nationality" label="Nationality (React Select)" required>
+                    <option>-- SELECT ONE --</option>
+                    <option value="id">Indonesia</option>
+                    <option value="my">Malaysia</option>
+                    <option value="us">United States</option>
+                </ReactSelect>
+                <ReactSelect name="nationality" label="Nationality (React Select)" readOnly>
+                    <option>-- SELECT ONE --</option>
+                    <option value="id">Indonesia</option>
+                    <option value="my">Malaysia</option>
+                    <option value="us">United States</option>
+                </ReactSelect>
+                <ReactSelectAsync id="selectasync" name="userKey" labelField="userName"
+                    label="User (React Select Async)">
+                </ReactSelectAsync>
+                <ReactDatepicker name="birthTs" label="Birth Date (Timestamp)" required sourceType="timestamp">
+                </ReactDatepicker>
+                <ReactDatepicker name="birthIso" label="Birth Date (ISO)" required sourceType="iso"></ReactDatepicker>
+                <ReactDatepicker name="birthDate" label="Birth Date (Date)" required sourceType="date">
+                </ReactDatepicker>
+                <ReactDatepicker name="birthIsoNull" label="Birth Date (ISO - NULL)" required sourceType="iso"
+                    clearable></ReactDatepicker>
+                <ReactDatepicker name="graduateTs" label="Graduate Date (Timestamp from String)" required
+                    sourceType="timestamp">
+                </ReactDatepicker>
+                <Text name="note"></Text>
+                <FullColumn>
+                    <Text name="fullcolumntext"></Text>
+                </FullColumn>
+                <Text name="text"></Text>
+                <File name="myFile" label="File"></File>
+                <File name="myFileRequired" label="File (required)" required></File>
+        */
     </script>
 </body>
 

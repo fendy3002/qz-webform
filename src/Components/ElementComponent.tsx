@@ -50,7 +50,11 @@ const ElementComponent = (props: ElementComponentProps) => {
         readonly: ElementProps.validation.readonly,
         hidden: ElementProps.validation.hidden,
     };
-    let Tag = parts[Element.tagName].Logic;
+    let tagPart = parts[Element.tagName];
+    if (!tagPart) {
+        throw new Error(`Parts for tag "${Element.tagName}" not found`);
+    }
+    let Tag = tagPart.Logic;
     let children = [];
     if (Element.children && Element.children.length > 0) {
         for (let child of Element.children) {
@@ -61,7 +65,7 @@ const ElementComponent = (props: ElementComponentProps) => {
         }
     }
     return <Tag Element={ElementProps}
-        Component={parts[Element.tagName].Component}
+        Component={tagPart.Component}
         data={data} error={error} onChange={onChange}
     >{children}</Tag>;
 };

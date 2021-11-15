@@ -7,13 +7,15 @@ import * as types from '../types';
 import { xml2Element } from './xml2Element';
 import { elementBuilder } from '../builder/elementBuilder';
 import { StaticWebForm } from '../Components/StaticWebForm';
+import { ErrorBoundary } from '../Components/ErrorBoundary';
 const renderEngine = ({
     parts,
     language,
     languageCode,
     customParser,
     context,
-    xmlString
+    xmlString,
+    readonly
 }) => {
     const render = (targetElement: any, initialData?: any) => {
         return xml2Element({
@@ -23,15 +25,19 @@ const renderEngine = ({
         }).then(elements => {
             let buildResult = elementBuilder(elements).build(initialData);
             let DummyState = new staticDummyState(buildResult.data);
+            let StaticWebFormInstance = StaticWebForm({
+                Elements: buildResult.Elements,
+                Language: language,
+                LanguageCode: languageCode,
+                Parts: parts,
+                readonly: readonly
+            })
             ReactDOM.render(
-                <MobxReact.Provider store={DummyState}>
-                    <StaticWebForm
-                        Elements={buildResult.Elements}
-                        Parts={parts}
-                        Language={language}
-                        LanguageCode={languageCode}
-                    ></StaticWebForm>
-                </MobxReact.Provider>,
+                <ErrorBoundary>
+                    <MobxReact.Provider store={DummyState}>
+                        <StaticWebFormInstance></StaticWebFormInstance>
+                    </MobxReact.Provider>
+                </ErrorBoundary>,
                 targetElement
             );
         });
@@ -102,6 +108,7 @@ class StaticRenderBuilder {
             parts: this.parts,
             language: this.language,
             languageCode: this.languageCode,
+            readonly: this.readonly,
             xmlString: xml
         });
     }
@@ -113,6 +120,7 @@ class StaticRenderBuilder {
             parts: this.parts,
             language: this.language,
             languageCode: this.languageCode,
+            readonly: this.readonly,
             xmlString: xml
         });
     }
