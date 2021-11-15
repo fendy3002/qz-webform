@@ -11,7 +11,7 @@ let validation = ({ Element, data, Language, value }: types.Part.ValidationProps
     }
     return makeNoError(Element.name);
 };
-const Logic = ({ Element, Component, onChange, data, ...props }: types.Part.LogicProps) => {
+const Logic = ({ Element, Component, onChange, data, error, ...props }: types.Part.LogicProps) => {
     const Language = useLanguage();
     let componentOnChange = (evt) => {
         let value = evt.currentTarget.value;
@@ -30,15 +30,21 @@ const Logic = ({ Element, Component, onChange, data, ...props }: types.Part.Logi
         value: data[Element.name],
         options: Element.context.options,
         ...Element.props,
+        data,
+        error: error[Element.name],
         onChange: componentOnChange,
     };
 
     return <Component {...propsToPass}></Component>;
 };
-const Component = ({ name, label, value, options, onChange }) => {
-    return <select name={name} value={value} onChange={onChange}>
-        {options.map(k => <option value={k.value} key={k.value ?? k.label}>{k.label}</option>)}
-    </select>;
+const Component = ({ name, label, value, options, readonly, onChange }) => {
+    if (readonly) {
+        return <input readOnly={true} value={options.find(k => k.value == value).label} />;
+    } else {
+        return <select name={name} value={value} onChange={onChange}>
+            {options.map(k => <option value={k.value} key={k.value ?? k.label}>{k.label}</option>)}
+        </select>;
+    }
 };
 let Part: types.Part.Part = {
     Component,

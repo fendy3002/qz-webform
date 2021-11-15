@@ -32,6 +32,20 @@
                     <Button id="incrementBtn" type="outline-secondary" label="+"></Button>
                     <Button id="decrementBtn" type="outline-danger" label="-"></Button>
                 </Cell>
+                <RowBreak></RowBreak>
+
+                <Select name="nationality" label="Nationality (Select)" required>
+                    <option>-- SELECT ONE --</option>
+                    <option value="id">Indonesia</option>
+                    <option value="my">Malaysia</option>
+                    <option value="us">United States</option>
+                </Select>
+                <Select name="nationality" label="Nationality (Select)" readOnly>
+                    <option>-- SELECT ONE --</option>
+                    <option value="id">Indonesia</option>
+                    <option value="my">Malaysia</option>
+                    <option value="us">United States</option>
+                </Select>
             </div>
             <div class="mb-2"></div>
             <div class="mb-4">
@@ -133,20 +147,7 @@
 
         /*
         
-                <RowBreak></RowBreak>
-
-                <Select name="nationality" label="Nationality (Select)" required>
-                    <option>-- SELECT ONE --</option>
-                    <option value="id">Indonesia</option>
-                    <option value="my">Malaysia</option>
-                    <option value="us">United States</option>
-                </Select>
-                <Select name="nationality" label="Nationality (Select)" readOnly>
-                    <option>-- SELECT ONE --</option>
-                    <option value="id">Indonesia</option>
-                    <option value="my">Malaysia</option>
-                    <option value="us">United States</option>
-                </Select>
+                
                 <ReactSelect name="nationality" label="Nationality (React Select)" required>
                     <option>-- SELECT ONE --</option>
                     <option value="id">Indonesia</option>

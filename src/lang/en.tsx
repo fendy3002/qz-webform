@@ -14,5 +14,8 @@ export default {
         "format": "Field {field} is not a number",
         "max": "Maximum value for {field} is {max}",
         "min": "Minimum value for {field} is {min}",    
-    }
+    },
+    "select": {
+        "required": "Field {field} is required",
+    },
 };

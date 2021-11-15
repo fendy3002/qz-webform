@@ -53,15 +53,25 @@ export const number: types.Static.CustomParser = (props, tools) => {
     let result = {
         ...Element
     };
-    merge({}, result, inputParser(props, tools));
+    result = merge({}, result, inputParser(props, tools));
     return result;
 };
 export const select: types.Static.CustomParser = (props, tools) => {
     let { Element, xml } = props
+    let options = [];
+    for (let each of xml.$$) {
+        options.push({
+            value: each.$?.value ?? "",
+            label: each._
+        })
+    }
     let result = {
-        ...Element
+        ...Element,
+        context: {
+            options: options
+        }
     };
-    merge({}, result, inputParser(props, tools));
+    result = merge({}, result, inputParser(props, tools));
     return result;
 };
 export const cell: types.Static.CustomParser = (props, tools) => {

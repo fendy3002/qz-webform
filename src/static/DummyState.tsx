@@ -1,4 +1,4 @@
-import { observable, makeAutoObservable } from 'mobx';
+import { observable, toJS, makeAutoObservable } from 'mobx';
 export default class DummyState {
     constructor(defaultData) {
         [
@@ -16,5 +16,7 @@ export default class DummyState {
     onChange({ data, error }) {
         this.data = { ...this.data, ...data };
         this.error = { ...this.error, ...error };
+
+        //console.log("data, error", toJS(this.data), toJS(this.error))
     };
 };
