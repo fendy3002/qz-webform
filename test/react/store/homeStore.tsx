@@ -25,6 +25,31 @@ export class homeStore {
             {
                 tagName: "checkbox",
                 props: {},
+                validation: {
+                    editable: true
+                },
+                name: "readonly"
+            },
+            {
+                tagName: "button",
+                props: {},
+                validation: {
+                    editable: true
+                },
+                name: "readonly",
+                context: {
+                    onClick: (evt, { data, onChange }) => {
+                        onChange({
+                            data: {
+                                readonly: !data.readonly
+                            }
+                        })
+                    }
+                }
+            },
+            {
+                tagName: "checkbox",
+                props: {},
                 name: "HasJob"
             },
             {
@@ -58,7 +83,9 @@ export class homeStore {
             this[handler] = this[handler].bind(this);
         });
     }
-    data = {};
+    data = {
+        readonly: false
+    };
     error = {};
 
     Elements: any[] = [];

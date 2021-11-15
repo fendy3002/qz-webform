@@ -67,12 +67,21 @@ let customPartSet: types.Part.CustomPartSet = {
     },
     "checkbox": {
         Component: ({ name, readonly, value, label, error, placeholder, onChange }) => {
-            return <div className="form-check form-switch">
-                <label className="form-check-label" >
-                    <input className="form-check-input" type="checkbox" name={name} checked={value} onChange={onChange} />
-                    {label}
-                </label>
-            </div>;
+            if (readonly) {
+                return <div className="form-check form-switch">
+                    <label className="form-check-label" >
+                        <input className="form-check-input" type="checkbox" name={name} checked={value} disabled={true} />
+                        {label}
+                    </label>
+                </div>;
+            } else {
+                return <div className="form-check form-switch">
+                    <label className="form-check-label" >
+                        <input className="form-check-input" type="checkbox" name={name} checked={value} onChange={onChange} />
+                        {label}
+                    </label>
+                </div>;
+            }
         }
     },
     "select": {

@@ -9,7 +9,7 @@ const Home: NextPage = ({ homeStore }) => {
             Elements={homeStore.Elements} data={homeStore.data} error={homeStore.error}
             Parts={part}
             onChange={homeStore.onChange}
-            readonly={true}
+            readonly={homeStore.data.readonly ?? false}
         ></WebForm>
         <button type="button" className="btn btn-sm rounded-0 btn-primary" onClick={homeStore.onSubmit}>SUBMIT</button>
     </>);

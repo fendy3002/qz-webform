@@ -1,3 +1,4 @@
+export { button } from './Button';
 export { checkbox } from './Checkbox';
 export { number } from './Number';
 export { select } from './Select';
