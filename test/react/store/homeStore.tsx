@@ -173,6 +173,50 @@ export class homeStore {
                     readonly: true
                 }
             },
+            FullColumn({
+                tagName: "h",
+                props: {
+                    level: 2,
+                    text: "Number"
+                },
+            }),
+            {
+                tagName: "number",
+                props: {
+                    label: "Height"
+                },
+                name: "Height",
+            },
+            {
+                tagName: "number",
+                props: {
+                    label: "Height (required)"
+                },
+                name: "Height",
+                validation: {
+                    required: true
+                }
+            },
+            {
+                tagName: "number",
+                props: {
+                    label: "Height (min = 3)"
+                },
+                name: "Height",
+                validation: {
+                    min: 3
+                }
+            },
+            {
+                tagName: "number",
+                props: {
+                    label: "Height (readonly)"
+                },
+                name: "Height",
+                validation: {
+                    readonly: true
+                }
+            },
 
             FullColumn({
                 tagName: "h",

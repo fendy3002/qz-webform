@@ -46,6 +46,14 @@
                 <Textarea name="address" label="Address (readonly)" readonly></Textarea>
 
                 <FullColumn>
+                    <h level="2" text="Number"></h>
+                </FullColumn>
+                <Number name="height" label="Height"></Number>
+                <Number name="height" label="Height (required)" required></Number>
+                <Number name="height" label="Height (min = 3)" min="3"></Number>
+                <Number name="height" label="Height (readonly)" readonly></Number>
+                
+                <FullColumn>
                     <h level="2" text="Select"></h>
                 </FullColumn>
                 <Select name="country" label="Country">
@@ -73,13 +81,9 @@
                 <FullColumn>
                     <h level="2" text="ETC"></h>
                 </FullColumn>
-
-
-
                 <Checkbox name="hasJob" label="Has Job?"></Checkbox>
-                <RowBreak></RowBreak>
-                <Text id="companyName" name="companyName" label="Company Name" required></Text>
-                <Text id="jobTitle" name="jobTitle" label="Job Title"></Text>
+
+
                 <RowBreak></RowBreak>
                 <Number name="height" min="100" label="Height (Number)" required></Number>
                 <Cell>

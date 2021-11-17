@@ -54,6 +54,12 @@ export const number: types.Static.CustomParser = (props, tools) => {
         ...Element
     };
     result = merge({}, result, inputParser(props, tools));
+    if (result.props.min) {
+        result.validation.min = result.props.min;
+    }
+    if (result.props.max) {
+        result.validation.max = result.props.max;
+    }
     return result;
 };
 export const select: types.Static.CustomParser = (props, tools) => {
