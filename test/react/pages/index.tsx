@@ -5,12 +5,16 @@ import part from '../part';
 
 const Home: NextPage = ({ homeStore }) => {
     return (<>
-        <WebForm
-            Elements={homeStore.Elements} data={homeStore.data} error={homeStore.error}
-            Parts={part}
-            onChange={homeStore.onChange}
-            readonly={homeStore.data.readonly ?? false}
-        ></WebForm>
+        <div className="container">
+            <h1>QzWebForm - React</h1>
+            <hr></hr>
+            <WebForm
+                Elements={homeStore.Elements} data={homeStore.data} error={homeStore.error}
+                Parts={part}
+                onChange={homeStore.onChange}
+                readonly={homeStore.data.readonly ?? false}
+            ></WebForm>
+        </div>
     </>);
 }
 

@@ -67,7 +67,7 @@ class StaticRenderBuilder {
             "withLanguage",
             "withLanguageCode",
             "fromXml",
-            "fromElement",
+            "fromDOM",
         ].forEach(handler => {
             this[handler] = this[handler].bind(this);
         });
@@ -126,8 +126,8 @@ class StaticRenderBuilder {
             xmlString: xml
         });
     }
-    fromElement(element) {
-        let xml = element.innerHTML;
+    fromDOM(dom) {
+        let xml = dom.innerHTML;
         return renderEngine({
             context: this.context,
             customParser: this.customParser,

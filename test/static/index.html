@@ -128,7 +128,7 @@
                     }, 1000);
                 }
             }
-        }).fromElement(qzWebForm).render(qzWebForm, data);
+        }).fromDOM(qzWebForm).render(qzWebForm, data);
         let _validateData = null;
         let _data = null;
         QzWebFormInstance.then((props) => { _validateData = props.validateData; _data = props.data; });
