@@ -4,9 +4,11 @@ export { number } from './Number';
 export { select } from './Select';
 export { text } from './Text';
 export { textarea } from './TextArea';
+export { customcomponent } from './CustomComponent';
 
 export { column } from './Column';
 export { row } from './Row';
 export { fullcolumn } from './FullColumn';
 export { cell } from './Cell';
 export { hr } from './HR';
+export { h } from './H';

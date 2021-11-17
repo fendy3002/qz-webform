@@ -6,6 +6,20 @@ import {
 } from '../../../src';
 import parts from '../part';
 
+const fixedOption = [
+    {
+        label: "-- SELECT ONE --",
+        value: ""
+    },
+    {
+        label: "Indonesia",
+        value: "id"
+    }, {
+        label: "United States",
+        value: "us"
+    }
+];
+
 export class homeStore {
     constructor() {
         // makeObservable(this, {
@@ -14,14 +28,13 @@ export class homeStore {
         // });
         makeAutoObservable(this);
         let builtElement = elementBuilder([
-            {
-                tagName: "text",
-                props: {},
-                name: "Name",
-                validation: {
-                    required: true
-                }
-            }, RowBreak(),
+            FullColumn({
+                tagName: "h",
+                props: {
+                    level: 2,
+                    text: "ReadOnly Configuration"
+                },
+            }),
             {
                 tagName: "checkbox",
                 props: {},
@@ -48,32 +61,151 @@ export class homeStore {
                         })
                     }
                 }
+            }, RowBreak(),
+            FullColumn({
+                tagName: "h",
+                props: {
+                    level: 2,
+                    text: "Input text"
+                },
+            }),
+            {
+                tagName: "text",
+                props: {},
+                name: "Name",
             },
             {
-                tagName: "checkbox",
-                props: {},
-                name: "HasJob"
+                tagName: "text",
+                props: {
+                    uppercase: true,
+                    label: "Name (uppercase)"
+                },
+                name: "Name",
             },
+            {
+                tagName: "text",
+                props: {
+                    label: "Name (required)"
+                },
+                name: "Name",
+                validation: {
+                    required: true
+                }
+            },
+            {
+                tagName: "text",
+                props: {
+                    label: "Name (readonly)"
+                },
+                name: "Name",
+                validation: {
+                    readonly: true
+                }
+            },
+            {
+                tagName: "text",
+                props: {
+                    label: "Name (editable)"
+                },
+                name: "Name",
+                validation: {
+                    editable: true
+                }
+            },
+            FullColumn({
+                tagName: "h",
+                props: {
+                    level: 2,
+                    text: "Textarea"
+                },
+            }),
+            FullColumn({
+                tagName: "textarea",
+                props: {
+                    label: "Address (fullcolumn)"
+                },
+                name: "Address"
+            }),
+            {
+                tagName: "textarea",
+                props: {
+                    label: "Address"
+                },
+                name: "Address"
+            },
+            {
+                tagName: "textarea",
+                props: {
+                    label: "Address (uppercase)",
+                    uppercase: true
+                },
+                name: "Address"
+            },
+            {
+                tagName: "textarea",
+                props: {
+                    label: "Address (required)"
+                },
+                name: "Address",
+                validation: {
+                    required: true
+                }
+            },
+            {
+                tagName: "textarea",
+                props: {
+                    label: "Address (readonly)"
+                },
+                name: "Address",
+                validation: {
+                    readonly: true
+                }
+            },
+
+            FullColumn({
+                tagName: "h",
+                props: {
+                    level: 2,
+                    text: "Select"
+                },
+            }),
             {
                 tagName: "select",
                 props: {},
                 name: "Country",
                 context: {
-                    options: [{
-                        label: "Indonesia",
-                        value: "id"
-                    }, {
-                        label: "United States",
-                        value: "us"
-                    }]
+                    options: fixedOption
                 }
             },
-            HR(),
-            FullColumn({
-                tagName: "textarea",
+            {
+                tagName: "select",
+                props: {
+                    label: "Country (required)"
+                },
+                name: "Country",
+                context: {
+                    options: fixedOption
+                },
+                validation: { required: true }
+            },
+            {
+                tagName: "select",
+                props: {
+                    label: "Country (readonly)"
+                },
+                name: "Country",
+                context: {
+                    options: fixedOption
+                },
+                validation: { readonly: true }
+            },
+
+            {
+                tagName: "checkbox",
                 props: {},
-                name: "Address"
-            }),
+                name: "HasJob"
+            },
+            HR(),
         ]).withAutoGrid().build(toJS(this.data));
         this.Elements = builtElement.Elements;
         this.data = builtElement.data;
