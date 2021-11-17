@@ -10,7 +10,16 @@ export interface StaticWebFormProps {
     Parts?: types.Part.CustomPartSet,
     Language?: types.LanguageCodePack,
     LanguageCode?: string,
-    readonly?: boolean
+    readonly?: boolean | ((data: any) => boolean)
+};
+const calculateBoolean = (handler: boolean | ((data: any) => boolean), data) => {
+    if (typeof (handler) == "boolean") {
+        return handler;
+    } else if (!handler) {
+        return null;
+    } else {
+        return handler(data);
+    }
 };
 let constructor = (props: StaticWebFormProps) => {
     class StaticWebFormComponent extends React.Component<any, any> {
@@ -18,12 +27,13 @@ let constructor = (props: StaticWebFormProps) => {
             super(prop);
         }
         render() {
+
             let store = this.props.store;
             let { data, error } = store;
             return <WebForm Elements={props.Elements}
                 data={data}
                 error={error}
-                readonly={props.readonly ?? false}
+                readonly={calculateBoolean(props.readonly ?? false, data)}
                 Parts={props.Parts}
                 Language={props.Language}
                 LanguageCode={props.LanguageCode}

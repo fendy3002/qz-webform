@@ -18,10 +18,64 @@
             <h1>QzWebForm - Static (postback)</h1>
             <hr />
             <div id="qzwebform">
-                <Text name="name" label="Name (Text)" minLength="3" required></Text>
-                <Text name="city" label="City (Text)" readOnly></Text>
-                <Text name="province"></Text>
-                <Textarea name="address" label="Address (Textarea, uppercase)" required uppercase></Textarea>
+                <FullColumn>
+                    <h level="2" text="ReadOnly Configuration"></h>
+                </FullColumn>
+                <Checkbox name="readonly" editable></Checkbox>
+                <Button id="toggleReadonly" label="Toggle Readonly" type="primary" editable></Button>
+                
+                <FullColumn>
+                    <h level="2" text="Input Text"></h>
+                </FullColumn>
+                <Text name="name" label="Name"></Text>
+                <Text name="name" label="Name (uppercase)" uppercase></Text>
+                <Text name="name" label="Name (required)" required></Text>
+                <Text name="name" label="Name (readonly)" readonly></Text>
+                <Text name="name" label="Name (editable)" editable></Text>
+                <Text name="name" label="Name (minlength = 3)" minlength="3"></Text>
+
+                <FullColumn>
+                    <h level="2" text="Textarea"></h>
+                </FullColumn>
+                <FullColumn>
+                    <Textarea name="address" label="Address (fullcolumn)"></Textarea>
+                </FullColumn>
+                <Textarea name="address" label="Address"></Textarea>
+                <Textarea name="address" label="Address (uppercase)" uppercase></Textarea>
+                <Textarea name="address" label="Address (required)" required></Textarea>
+                <Textarea name="address" label="Address (readonly)" readonly></Textarea>
+
+                <FullColumn>
+                    <h level="2" text="Select"></h>
+                </FullColumn>
+                <Select name="country" label="Country">
+                    <option>-- SELECT ONE --</option>
+                    <option value="id">Indonesia</option>
+                    <option value="my">Malaysia</option>
+                    <option value="us">United States</option>
+                </Select>
+                <Select name="country" label="Country (required)" required>
+                    <option>-- SELECT ONE --</option>
+                    <option value="id">Indonesia</option>
+                    <option value="my">Malaysia</option>
+                    <option value="us">United States</option>
+                </Select>
+                <Select name="country" label="Country (readonly)" readonly>
+                    <option>-- SELECT ONE --</option>
+                    <option value="id">Indonesia</option>
+                    <option value="my">Malaysia</option>
+                    <option value="us">United States</option>
+                </Select>
+                <FullColumn>
+                    <h level="2" text="Custom"></h>
+                </FullColumn>
+                <custom id="customComponent"></custom>
+                <FullColumn>
+                    <h level="2" text="ETC"></h>
+                </FullColumn>
+
+
+
                 <Checkbox name="hasJob" label="Has Job?"></Checkbox>
                 <RowBreak></RowBreak>
                 <Text id="companyName" name="companyName" label="Company Name" required></Text>
@@ -34,12 +88,6 @@
                 </Cell>
                 <RowBreak></RowBreak>
 
-                <Select name="nationality" label="Nationality (Select)" required>
-                    <option>-- SELECT ONE --</option>
-                    <option value="id">Indonesia</option>
-                    <option value="my">Malaysia</option>
-                    <option value="us">United States</option>
-                </Select>
                 <Select name="nationality" label="Nationality (Select)" readOnly>
                     <option>-- SELECT ONE --</option>
                     <option value="id">Indonesia</option>
@@ -83,12 +131,25 @@
             birthTs: 1627689600000,
             birthIso: '2021-01-01T00:00:00z',
             birthDate: new Date(2021, 01, 01),
-            graduateTs: "1627689600000"
+            graduateTs: "1627689600000",
+            readonly: false
         };
 
         let QzWebFormInstance = QzWebForm().withSetting({
-            readonly: false
+            readonly: (data) => data.readonly
         }).withContext({
+            "toggleReadonly": {
+                "onClick": (evt, {data, onChange}) => {
+                    onChange({
+                        data: {
+                            readonly: !data.readonly
+                        }
+                    });
+                }
+            },
+            "customComponent": {
+                Component: () => "Only available at react since it needs JSX"
+            },
             "companyName": {
                 "hidden": (data) => {
                     return !data.hasJob;

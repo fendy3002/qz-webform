@@ -82,3 +82,11 @@ export const cell: types.Static.CustomParser = (props, tools) => {
     };
     return result;
 };
+export const fullcolumn: types.Static.CustomParser = (props, tools) => {
+    let { Element, xml } = props
+    let result = {
+        ...Element,
+        children: xml.$$?.map(k => tools.parseChild(k)),
+    };
+    return result;
+};

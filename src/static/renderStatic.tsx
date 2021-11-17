@@ -72,7 +72,7 @@ class StaticRenderBuilder {
             this[handler] = this[handler].bind(this);
         });
     }
-    readonly: boolean = null;
+    readonly: boolean | ((data: any) => boolean) = null;
     parts: types.Part.CustomPartSet = null;
     language: types.LanguageCodePack = null;
     languageCode: string = "en";
@@ -110,7 +110,7 @@ class StaticRenderBuilder {
         return this;
     }
     withSetting(props: {
-        readonly?: boolean
+        readonly?: boolean | ((data: any) => boolean)
     }) {
         this.readonly = props.readonly ?? this.readonly;
         return this;

@@ -67,7 +67,7 @@ export class homeStore {
                 tagName: "h",
                 props: {
                     level: 2,
-                    text: "Input text"
+                    text: "Input Text"
                 },
             }),
             {
@@ -111,6 +111,17 @@ export class homeStore {
                 name: "Name",
                 validation: {
                     editable: true
+                }
+            },
+            {
+                tagName: "text",
+                props: {
+                    label: "Name (minlength = 3)"
+                },
+                name: "Name",
+                validation: {
+                    editable: true,
+                    minlength: 3
                 }
             },
             FullColumn({
