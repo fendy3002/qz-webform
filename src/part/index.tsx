@@ -4,7 +4,7 @@ export { number } from './Number';
 export { select } from './Select';
 export { text } from './Text';
 export { textarea } from './TextArea';
-export { customcomponent } from './CustomComponent';
+export { custom } from './Custom';
 
 export { column } from './Column';
 export { row } from './Row';

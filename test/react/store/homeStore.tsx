@@ -1,7 +1,8 @@
 import { observable, toJS, makeAutoObservable, makeObservable } from 'mobx';
+import * as React from 'react';
 import {
     elementBuilder,
-    FullColumn, RowBreak, HR,
+    FullColumn, RowBreak, HR, Cell,
     dataValidator
 } from '../../../src';
 import parts from '../part';
@@ -199,13 +200,56 @@ export class homeStore {
                 },
                 validation: { readonly: true }
             },
+            FullColumn({
+                tagName: "h",
+                props: {
+                    level: 2,
+                    text: "Custom"
+                },
+            }),
+            FullColumn({
+                tagName: "custom",
+                props: {},
+                context: {
+                    Component: ({ data, error }) => (<>
+                        <code>This is the custom component, the data below is stringified data with error on the side</code>
+                        <div className="row">
+                            <div className="col-md-6">
+                                <pre><code>{JSON.stringify(data, null, 2)}</code></pre>
+                            </div>
+                            <div className="col-md-6">
+                                <pre><code>{JSON.stringify(error, null, 2)}</code></pre>
+                            </div>
+                        </div>
+                    </>)
+                },
+            }),
 
+            FullColumn({
+                tagName: "h",
+                props: {
+                    level: 2,
+                    text: "ETC"
+                },
+            }),
             {
                 tagName: "checkbox",
                 props: {},
                 name: "HasJob"
             },
             HR(),
+            Cell([{
+                tagName: "button",
+                props: {
+                    type: "primary",
+                    label: "Submit"
+                },
+                context: {
+                    onClick: (evt, { data, onChange }) => {
+                        this.onSubmit();
+                    }
+                }
+            }])
         ]).withAutoGrid().build(toJS(this.data));
         this.Elements = builtElement.Elements;
         this.data = builtElement.data;

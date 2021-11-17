@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { ElementComponent } from '../Components/ElementComponent';
 import * as types from '../types';
 
 let validation = ({ Element, data, value }: types.Part.ValidationProps) => {

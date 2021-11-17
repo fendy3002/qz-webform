@@ -11,7 +11,6 @@ const Home: NextPage = ({ homeStore }) => {
             onChange={homeStore.onChange}
             readonly={homeStore.data.readonly ?? false}
         ></WebForm>
-        <button type="button" className="btn btn-sm rounded-0 btn-primary" onClick={homeStore.onSubmit}>SUBMIT</button>
     </>);
 }
 
