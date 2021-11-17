@@ -259,6 +259,50 @@ export class homeStore {
                 tagName: "h",
                 props: {
                     level: 2,
+                    text: "Button"
+                },
+            }),
+            Cell([
+                {
+                    tagName: "button",
+                    props: {
+                        label: "+ height",
+                        type: "outline-primary"
+                    },
+                    context: {
+                        onClick: (evt, { data, onChange }) => {
+                            let currentHeight = parseFloat((data.Height ?? "") == "" ? "0" : data.Height);
+                            onChange({
+                                data: {
+                                    Height: (currentHeight + 1).toString()
+                                }
+                            })
+                        }
+                    },
+                },
+                {
+                    tagName: "button",
+                    props: {
+                        label: "- height",
+                        type: "outline-danger"
+                    },
+                    context: {
+                        onClick: (evt, { data, onChange }) => {
+                            let currentHeight = parseFloat((data.Height ?? "") == "" ? "0" : data.Height);
+                            onChange({
+                                data: {
+                                    Height: (currentHeight - 1).toString()
+                                }
+                            })
+                        }
+                    },
+                },
+            ]),
+
+            FullColumn({
+                tagName: "h",
+                props: {
+                    level: 2,
                     text: "Custom"
                 },
             }),
