@@ -298,6 +298,71 @@ export class homeStore {
                     },
                 },
             ]),
+            FullColumn({
+                tagName: "h",
+                props: {
+                    level: 2,
+                    text: "ReactDatepicker (custom part)"
+                },
+            }),
+            {
+                tagName: "reactdatepicker",
+                name: "birthTs",
+                props: {
+                    label: "Birth Date (Timestamp)",
+                    sourcetype: "timestamp"
+                },
+                validation: {
+                    required: true
+                }
+            },
+            {
+                tagName: "reactdatepicker",
+                name: "birthIso",
+                props: {
+                    label: "Birth Date (ISO)",
+                    sourcetype: "iso"
+                },
+                validation: {
+                    required: true
+                }
+            },
+            {
+                tagName: "reactdatepicker",
+                name: "birthIsoNull",
+                props: {
+                    label: "Birth Date (ISO - NULL)",
+                    sourcetype: "iso",
+                    clearable: true
+                },
+                validation: {
+                    required: true
+                }
+            },
+            {
+                tagName: "reactdatepicker",
+                name: "birthDate",
+                props: {
+                    label: "Birth Date (Date)",
+                    sourcetype: "date",
+                    clearable: true
+                },
+                validation: {
+                    required: true
+                }
+            },
+            {
+                tagName: "reactdatepicker",
+                name: "birthTsString",
+                props: {
+                    label: "Birth Date (Timestamp from string)",
+                    sourcetype: "timestamp",
+                    clearable: true
+                },
+                validation: {
+                    required: true
+                }
+            },
 
             FullColumn({
                 tagName: "h",
@@ -361,7 +426,11 @@ export class homeStore {
         });
     }
     data = {
-        readonly: false
+        readonly: false,
+        birthTs: 1627689600000,
+        birthIso: '2021-01-01T00:00:00Z',
+        birthDate: new Date(2021, 1, 1),
+        birthTsString: "1627689600000",
     };
     error = {};
 
