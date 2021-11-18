@@ -291,6 +291,48 @@ export class homeStore {
                 tagName: "h",
                 props: {
                     level: 2,
+                    text: "ReactSelectAsync (custom part)"
+                },
+            }),
+            {
+                tagName: "reactselectasync",
+                props: {
+                    label: "Country",
+                    labelfield: "CountryName",
+                },
+                name: "Country",
+                context: {
+                    loadOptions: (inputValue, callback) => {
+                        setTimeout(() => {
+                            callback(fixedOption);
+                        }, 1000);
+                    }
+                }
+            },
+            {
+                tagName: "reactselectasync",
+                props: {
+                    label: "Country (required)",
+                    labelfield: "CountryName",
+                },
+                name: "Country",
+                context: {
+                    loadOptions: (inputValue, callback) => {
+                        setTimeout(() => {
+                            callback(fixedOption);
+                        }, 1000);
+                    }
+                },
+                validation: {
+                    required: true
+                }
+            },
+
+
+            FullColumn({
+                tagName: "h",
+                props: {
+                    level: 2,
                     text: "Button"
                 },
             }),

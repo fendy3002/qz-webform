@@ -145,6 +145,7 @@ export const reactselectasync: types.Part.CustomPart = {
         };
         let propsToPass = {
             value: data[Element.name],
+            selectedLabel: data[Element.props.labelfield],
             ...Element.props,
             data,
             error: error[Element.name],
@@ -154,7 +155,7 @@ export const reactselectasync: types.Part.CustomPart = {
         return <Component {...propsToPass}></Component>;
     },
     "Component": ({ name, readonly, value, label, error, placeholder, dataset,
-        labelfield, selectedLabel, loadOptions, validation,
+        labelfield, selectedLabel, loadOptions, required,
         onChange }) => {
         if (readonly) {
             let selectText = selectedLabel;
@@ -168,7 +169,7 @@ export const reactselectasync: types.Part.CustomPart = {
                 }
             </div>;
         } else {
-            let requiredSign = validation.required ? <span className="text-danger">*</span> : <></>;
+            let requiredSign = required ? <span className="text-danger">*</span> : <></>;
             return <div className="form-floating">
                 <ReactSelectAsync
                     styles={{
