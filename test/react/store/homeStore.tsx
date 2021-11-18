@@ -255,6 +255,38 @@ export class homeStore {
                 },
                 validation: { readonly: true }
             },
+
+            FullColumn({
+                tagName: "h",
+                props: {
+                    level: 2,
+                    text: "ReactSelect (custom part)"
+                },
+            }),
+            {
+                tagName: "reactselect",
+                props: {
+                    label: "Country"
+                },
+                name: "Country",
+                context: {
+                    options: fixedOption
+                },
+            },
+            {
+                tagName: "reactselect",
+                props: {
+                    label: "Country (required)"
+                },
+                name: "Country",
+                context: {
+                    options: fixedOption
+                },
+                validation: {
+                    required: true
+                }
+            },
+
             FullColumn({
                 tagName: "h",
                 props: {

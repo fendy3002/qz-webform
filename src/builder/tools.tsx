@@ -25,5 +25,12 @@ export const Cell = (children: types.Element[]) => {
         children: children
     };
 };
-export const makeError = (name: string, error?: string) => { return { [name]: error }; }
-export const makeNoError = (name: string) => { return { [name]: "" }; }
+interface IMakeError {
+    (name: string, error?: string): { [key: string]: string }
+};
+export const makeError: IMakeError = (name: string, error?: string) => { return { [name]: error }; }
+
+interface IMakeNoError {
+    (name: string): { [key: string]: string }
+};
+export const makeNoError: IMakeNoError = (name: string) => { return { [name]: "" }; }
