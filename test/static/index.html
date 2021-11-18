@@ -23,7 +23,7 @@
                 </FullColumn>
                 <Checkbox name="readonly" editable></Checkbox>
                 <Button id="toggleReadonly" label="Toggle Readonly" type="primary" editable></Button>
-                
+
                 <FullColumn>
                     <h level="2" text="Input Text"></h>
                 </FullColumn>
@@ -52,7 +52,7 @@
                 <Number name="height" label="Height (required)" required></Number>
                 <Number name="height" label="Height (min = 3)" min="3"></Number>
                 <Number name="height" label="Height (readonly)" readonly></Number>
-                
+
                 <FullColumn>
                     <h level="2" text="Select"></h>
                 </FullColumn>
@@ -74,6 +74,30 @@
                     <option value="my">Malaysia</option>
                     <option value="us">United States</option>
                 </Select>
+
+                <FullColumn>
+                    <h level="2" text="ReactSelect (Custom Part)"></h>
+                </FullColumn>
+                <ReactSelect name="country" label="Country">
+                    <option>-- SELECT ONE --</option>
+                    <option value="id">Indonesia</option>
+                    <option value="my">Malaysia</option>
+                    <option value="us">United States</option>
+                </ReactSelect>
+                <ReactSelect name="country" label="Country (required)" required>
+                    <option>-- SELECT ONE --</option>
+                    <option value="id">Indonesia</option>
+                    <option value="my">Malaysia</option>
+                    <option value="us">United States</option>
+                </ReactSelect>
+
+                <FullColumn>
+                    <h level="2" text="ReactSelectAsync (Custom Part)"></h>
+                </FullColumn>
+                <ReactSelectAsync id="selectasync" name="country" labelField="countryName" label="Country">
+                </ReactSelectAsync>
+                <ReactSelectAsync id="selectasync2" name="country" labelField="countryName" label="Country (required)" required>
+                </ReactSelectAsync>
 
                 <FullColumn>
                     <h level="2" text="Button"></h>
@@ -139,7 +163,7 @@
             readonly: (data) => data.readonly
         }).withContext({
             "toggleReadonly": {
-                "onClick": (evt, {data, onChange}) => {
+                "onClick": (evt, { data, onChange }) => {
                     onChange({
                         data: {
                             readonly: !data.readonly
@@ -185,8 +209,36 @@
                 loadOptions: (inputValue, callback) => {
                     setTimeout(() => {
                         callback([
-                            { value: "001", label: "USER001" },
-                            { value: "002", label: "USER002" },
+                            {
+                                label: "-- SELECT ONE --",
+                                value: ""
+                            },
+                            {
+                                label: "Indonesia",
+                                value: "id"
+                            }, {
+                                label: "United States",
+                                value: "us"
+                            }
+                        ]);
+                    }, 1000);
+                }
+            },
+            "selectasync2": {
+                loadOptions: (inputValue, callback) => {
+                    setTimeout(() => {
+                        callback([
+                            {
+                                label: "-- SELECT ONE --",
+                                value: ""
+                            },
+                            {
+                                label: "Indonesia",
+                                value: "id"
+                            }, {
+                                label: "United States",
+                                value: "us"
+                            }
                         ]);
                     }, 1000);
                 }
@@ -219,20 +271,6 @@
 
 
         /*
-        
-                
-                <ReactSelect name="nationality" label="Nationality (React Select)" required>
-                    <option>-- SELECT ONE --</option>
-                    <option value="id">Indonesia</option>
-                    <option value="my">Malaysia</option>
-                    <option value="us">United States</option>
-                </ReactSelect>
-                <ReactSelect name="nationality" label="Nationality (React Select)" readOnly>
-                    <option>-- SELECT ONE --</option>
-                    <option value="id">Indonesia</option>
-                    <option value="my">Malaysia</option>
-                    <option value="us">United States</option>
-                </ReactSelect>
                 <ReactSelectAsync id="selectasync" name="userKey" labelField="userName"
                     label="User (React Select Async)">
                 </ReactSelectAsync>

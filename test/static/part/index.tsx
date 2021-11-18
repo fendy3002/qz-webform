@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { reactselect, reactselectasync } from './reactselect';
 import { reactdatepicker } from './reactdatepicker';
 import { types } from '../../../src';
 
@@ -116,7 +117,7 @@ let customPartSet: types.Part.CustomPartSet = {
             return <button className={"btn rounded-0 btn-" + type} onClick={onClick}>{label}</button>;
         }
     },
-    reactdatepicker
+    reactdatepicker, reactselect, reactselectasync
 };
 
 export default customPartSet;
