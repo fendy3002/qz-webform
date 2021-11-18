@@ -327,8 +327,7 @@ export class homeStore {
                     required: true
                 }
             },
-
-
+            
             FullColumn({
                 tagName: "h",
                 props: {
