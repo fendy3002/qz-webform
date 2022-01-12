@@ -1,5 +1,5 @@
 import * as React from 'react';
-export class ErrorBoundary extends React.Component {
+export class ErrorBoundary extends React.Component<{}, { hasError: boolean }> {
     constructor(props) {
         super(props);
         this.state = { hasError: false };
