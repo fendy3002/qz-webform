@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { CaseInput } from '../Components/CaseInput';
 import { useLanguage } from '../hooks/useLanguage';
 import { makeError, makeNoError } from '../builder/tools';
 import * as types from '../types';
@@ -26,12 +27,6 @@ const Logic = ({ Element, Component, onChange, data, error, ...props }: types.Pa
     const Language = useLanguage();
     let componentOnChange = (evt) => {
         let value = evt.currentTarget.value;
-        if (Element.props.uppercase) {
-            value = value.toUpperCase();
-        } else if (Element.props.lowercase) {
-            value = value.toLowerCase();
-        }
-
         return onChange({
             data: {
                 [Element.name]: value
@@ -53,8 +48,8 @@ const Logic = ({ Element, Component, onChange, data, error, ...props }: types.Pa
 
     return <Component {...propsToPass}></Component>;
 };
-const Component = ({ name, label, value, onChange }) => {
-    return <input name={name} value={value} onChange={onChange} />;
+const Component = ({ name, label, value, uppercase, lowercase, onChange }) => {
+    return <CaseInput name={name} value={value} onChange={onChange} uppercase={uppercase} lowercase={lowercase} />;
 };
 let Part: types.Part.Part = {
     Component,

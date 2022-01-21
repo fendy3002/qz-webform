@@ -67,7 +67,7 @@ export namespace Part {
             error: {
                 [key: string]: string
             }
-        }) => void,
+        }, autorunHandler ?: any) => void,
     };
     export interface ValidationProps {
         Element: Component.ElementProps,

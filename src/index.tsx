@@ -131,6 +131,7 @@ export * from './builder/tools';
 export * from './Components/ElementComponent';
 export * from './Components/WebForm';
 export * from './Components/StaticWebForm';
+export * from './Components/CaseInput';
 export * from './context/LanguageContext';
 export * from './context/PartsContext';
 export * from './hooks/useLanguage';
