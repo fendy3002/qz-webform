@@ -9,6 +9,7 @@ import { elementBuilder } from '../builder/elementBuilder';
 import { StaticWebForm } from '../Components/StaticWebForm';
 import { ErrorBoundary } from '../Components/ErrorBoundary';
 import { dataValidator } from '../validator/dataValidator';
+
 const renderEngine = ({
     parts,
     language,
@@ -18,7 +19,8 @@ const renderEngine = ({
     xmlString,
     readonly
 }) => {
-    const render = (targetElement: any, initialData?: any) => {
+    const render = (targetElement: HTMLElement, initialData?: any) => {
+        // parse the xmlString
         return xml2Element({
             context: context,
             customParser: customParser,
@@ -52,7 +54,6 @@ const renderEngine = ({
                     };
                     return validationResult;
                 }
-
             };
         });
     };

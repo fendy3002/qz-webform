@@ -1,6 +1,7 @@
 import * as types from '../../types';
 import { merge } from 'lodash';
 
+// the default input parser, for text, textarea, number
 export const inputParser: types.Static.CustomParser = (props, tools) => {
     let { Element, xml } = props;
     let result: any = {

@@ -22,11 +22,16 @@ export interface xml2ElementProps {
     customParser: types.Static.CustomParserSet
 };
 export const xml2Element = (props: xml2ElementProps) => {
+    // add root to xml string
     let xmlString = `<root>${props.xmlString.trim()}</root>`;
+    // merge custom parser with predefined parsers
     let customParser = merge({}, props.customParser, predefinedParser);
 
+    // recursively parse each xml structure
     const innerParse = (each) => {
+        // all prop fields is lowercased
         let lowerCasedStructure = lowercasePropName(each.$);
+        
         let element: types.Element = {
             tagName: each['#name'].toLowerCase(),
             id: lowerCasedStructure["id"],
@@ -35,6 +40,8 @@ export const xml2Element = (props: xml2ElementProps) => {
             context: props.context[lowerCasedStructure["id"]],
             validation: {}
         };
+        // if a customParser exists for an element, use it to parse
+        // if not, use the existing element object
         element = customParser[element.tagName]?.({
             Element: element,
             xml: {
@@ -50,6 +57,7 @@ export const xml2Element = (props: xml2ElementProps) => {
         return element;
     };
     return xmlParser.parseStringPromise(xmlString).then(xml => {
+        // the form structure, array of xml elements
         let formStructure = xml?.root.$$;
 
         let result: types.Element[] = [];
