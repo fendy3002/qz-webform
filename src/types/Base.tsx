@@ -1,7 +1,22 @@
+interface DataBooleanHandler {
+    (data: any): boolean
+}
+/**
+ * Element context
+ * @category types
+ * @subcategory Base
+ */
+export interface Context {
+    /**
+     * id of element
+     */
+    [id: string]: any
+};
+
 /**
  * Webform element type
- * @memberof types
- * @alias Element
+ * @category types
+ * @subcategory Base
  */
 export interface Element {
     /**
@@ -13,21 +28,43 @@ export interface Element {
      */
     name?: string,
     /**
-     * tagname
+     * html or component tagname, used in choosing part component
      */
     tagName: string,
+    /**
+     * props passed to html / xml component, or processed using parser
+     */
     props: {
         [key: string]: any,
     },
+    /**
+     * base Element children
+     */
     children?: Element[],
+    /**
+     * validation populated by parser
+     */
     validation?: {
-        required?: boolean | ((data: any) => boolean),
-        readonly?: boolean | ((data: any) => boolean),
+        /**
+         * whether component value is required
+         */
+        required?: boolean | DataBooleanHandler,
+        /**
+         * whether component is readonly
+         */
+        readonly?: boolean | DataBooleanHandler,
+        /**
+         * if true it'll override the readonly property as false
+         */
         editable?: boolean,
-        hidden?: boolean | ((data: any) => boolean),
+        /**
+         * whether component is hidden
+         */
+        hidden?: boolean | DataBooleanHandler,
         [key: string]: any,
     },
-    context?: {
-        [id: string]: any
-    }
+    /**
+     * context of element, provided by static context
+     */
+    context?: Context
 };

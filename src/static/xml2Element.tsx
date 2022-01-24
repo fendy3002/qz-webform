@@ -20,17 +20,12 @@ let lowercasePropName = (prop) => {
     }
     return result;
 };
-export interface xml2ElementProps {
-    xmlString: string,
-    context: types.Static.Context,
-    customParser: types.Static.CustomParserSet
-};
 /**
  * @namespace static.xml2Element
  * @param props 
  * @returns {Promise}
  */
-export const xml2Element = (props: xml2ElementProps) => {
+export const xml2Element = (props: types.Static.Xml2ElementProps) => {
     // add root to xml string
     let xmlString = `<root>${props.xmlString.trim()}</root>`;
     // merge custom parser with predefined parsers

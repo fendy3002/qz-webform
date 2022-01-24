@@ -109,7 +109,7 @@ class StaticRenderBuilder {
     language: types.Language.LanguageCodePack = null;
     languageCode: string = "en";
     customParser: types.Static.CustomParserSet = null;
-    context: types.Static.Context = {};
+    context: types.Context = {};
 
     /**
      * Set the custom parts
@@ -158,7 +158,7 @@ class StaticRenderBuilder {
      * @param context {Object}
      * @returns {Object} a {@link static.renderStatic.StaticRenderBuilder StaticRenderBuilder} instance
      */
-    withContext(context: types.Static.Context) {
+    withContext(context: types.Context) {
         this.context = {
             ...this.context,
             ...context
