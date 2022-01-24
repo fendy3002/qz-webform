@@ -10,6 +10,11 @@ import { StaticWebForm } from '../Components/StaticWebForm';
 import { ErrorBoundary } from '../Components/ErrorBoundary';
 import { dataValidator } from '../validator/dataValidator';
 
+/**
+ * A rendering engine instance, it is used internally
+ * @param param {Object} configuration related to webform rendering
+ * @returns the render handler
+ */
 const renderEngine = ({
     parts,
     language,
@@ -19,6 +24,12 @@ const renderEngine = ({
     xmlString,
     readonly
 }) => {
+    /**
+     * Render the webform and return utilities
+     * @param targetElement html dom element to be rendered
+     * @param initialData {Object} optional, initial data for webform content
+     * @returns {Object} utilities for further operation
+     */
     const render = (targetElement: HTMLElement, initialData?: any) => {
         // parse the xmlString
         return xml2Element({
@@ -45,7 +56,13 @@ const renderEngine = ({
             );
 
             return {
+                /**
+                 * @returns current data in webform
+                 */
                 data: () => buildResult.data,
+                /**
+                 * @returns validation result to current data in webform
+                 */
                 validateData: () => {
                     let validationResult = dataValidator(parts, language)(buildResult.Elements, buildResult.data)
                     DummyState.error = {
@@ -61,6 +78,9 @@ const renderEngine = ({
         render
     };
 };
+/**
+ * A class to hold information about static rendering options
+ */
 class StaticRenderBuilder {
     constructor() {
         [
@@ -116,6 +136,11 @@ class StaticRenderBuilder {
         this.readonly = props.readonly ?? this.readonly;
         return this;
     }
+    /**
+     * Render a static webform from xml string
+     * @param xml {String} xml string
+     * @returns a renderEngine object
+     */
     fromXml(xml: string) {
         return renderEngine({
             context: this.context,
@@ -127,6 +152,11 @@ class StaticRenderBuilder {
             xmlString: xml
         });
     }
+    /**
+     * Render a static webform from html dom element
+     * @param dom {Object} html dom element contains the elements to render
+     * @returns a renderEngine object
+     */
     fromDOM(dom) {
         let xml = dom.innerHTML;
         return renderEngine({
@@ -140,6 +170,10 @@ class StaticRenderBuilder {
         });
     }
 };
+/**
+ * A shorthand for create a new StaticRenderBuilder instance
+ * @returns a new StaticRenderBuilder instance
+ */
 export const renderStatic = () => {
     return new StaticRenderBuilder();
 }
