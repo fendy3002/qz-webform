@@ -3,6 +3,7 @@ import { reactselect, reactselectasync } from './reactselect';
 import { reactdatepicker } from './reactdatepicker';
 import { types, CaseInput } from '../../../src';
 
+let TextAreaCaseInput = React.forwardRef((props, ref) => <textarea {...props} ref={ref} />);
 let customPartSet: types.Part.CustomPartSet = {
     "text": {
         Component: ({ name, readonly, value, label, error, placeholder, required, hidden,
@@ -30,17 +31,19 @@ let customPartSet: types.Part.CustomPartSet = {
     },
     "textarea": {
         Component: ({ name, readonly, value, label, error, placeholder, required, hidden,
+            uppercase, lowercase,
             onChange }) => {
             let requiredSign = required ? <span className="text-danger">*</span> : <></>;
             let className = "form-control rounded-0 " + (error ? "is-invalid" : "");
 
             return <div className="form-floating ">
-                <textarea className={className} name={name}
+                <CaseInput className={className} name={name} inputComponent={TextAreaCaseInput}
                     value={value} readOnly={readonly} placeholder={placeholder}
                     style={{
                         height: "10em"
                     }}
-                    onChange={onChange}></textarea>
+                    uppercase={uppercase} lowercase={lowercase}
+                    onChange={onChange} />
                 {label &&
                     <label>{label}&nbsp;{requiredSign}</label>
                 }

@@ -1,6 +1,14 @@
 import * as React from 'react';
 
-export class CaseInput extends React.Component<any, any> {
+export interface CaseInputProp {
+    uppercase?: boolean,
+    lowercase?: boolean,
+    onChange?: (evt: any) => (void | any),
+    inputComponent?: React.ForwardRefExoticComponent<React.RefAttributes<unknown>>,
+    [key: string]: any
+}
+let BaseHTMLInput = React.forwardRef((props, ref) => <input {...props} ref={ref} />)
+export class CaseInput extends React.Component<CaseInputProp, any> {
     constructor(props) {
         super(props);
         this.onChange = this.onChange.bind(this);
@@ -26,7 +34,11 @@ export class CaseInput extends React.Component<any, any> {
         }
     }
     render() {
-        let {uppercase, lowercase, onChange, ...renderedProps} = this.props;
-        return <input {...renderedProps} onChange={this.onChange} ref={(ref) => this.inputRef = ref} />;
+        let { uppercase, lowercase, onChange, inputComponent, ...renderedProps } = this.props;
+        let InputComponent = this.props.inputComponent ?? BaseHTMLInput;
+        let InputComponentProps = {
+            onChange: this.onChange
+        };
+        return <InputComponent {...renderedProps} {...InputComponentProps} ref={(ref) => this.inputRef = ref} />;
     }
 }
