@@ -11,6 +11,10 @@ import { ErrorBoundary } from '../Components/ErrorBoundary';
 import { dataValidator } from '../validator/dataValidator';
 
 /**
+ * @module Static/renderStatic
+ */
+
+/**
  * A rendering engine instance, it is used internally
  * @param param {Object} configuration related to webform rendering
  * @returns the render handler
@@ -138,6 +142,7 @@ class StaticRenderBuilder {
     }
     /**
      * Render a static webform from xml string
+     * @category Static
      * @param xml {String} xml string
      * @returns a renderEngine object
      */
@@ -154,6 +159,7 @@ class StaticRenderBuilder {
     }
     /**
      * Render a static webform from html dom element
+     * @category Static
      * @param dom {Object} html dom element contains the elements to render
      * @returns a renderEngine object
      */
@@ -172,6 +178,7 @@ class StaticRenderBuilder {
 };
 /**
  * A shorthand for create a new StaticRenderBuilder instance
+ * @category Static
  * @returns a new StaticRenderBuilder instance
  */
 export const renderStatic = () => {

@@ -2,12 +2,18 @@ import { Parser } from 'xml2js';
 import { merge } from 'lodash';
 import * as predefinedParser from './predefinedParser';
 import * as types from '../types';
+
+/**
+ * @module Static/xml2Element
+ */
+
 let xmlParser = new Parser({
     explicitArray: true,
     explicitChildren: true,
     preserveChildrenOrder: true
 });
 /**
+ * @category Static
  * @param prop {Object} key-value object
  * @returns {Object} prop with all of it's prop name changed to lowercase
  */
@@ -27,7 +33,7 @@ export interface xml2ElementProps {
 /**
  * 
  * @param props 
- * @returns 
+ * @returns {Promise}
  */
 export const xml2Element = (props: xml2ElementProps) => {
     // add root to xml string

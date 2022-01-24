@@ -82,6 +82,11 @@ typings/
 .nuxt
 dist
 
+#jdsoc
+out
+#jdsoc custom
+docs
+
 # Gatsby files
 .cache/
 # Comment in the public line in if your project uses Gatsby and *not* Next.js
