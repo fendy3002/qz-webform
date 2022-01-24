@@ -7,7 +7,7 @@ export interface WebFormProps {
     Elements: types.Element[],
     Parts?: types.Part.CustomPartSet,
     Language?: {
-        [languageCode: string]: types.LanguagePack
+        [languageCode: string]: types.Language.LanguagePack
     },
     LanguageCode?: string,
     data: any,

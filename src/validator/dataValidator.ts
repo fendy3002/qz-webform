@@ -11,7 +11,7 @@ const calculateBoolean = (handler: boolean | ((data: any) => boolean), data) => 
         return handler(data);
     }
 };
-export const dataValidator = (customParts?: types.Part.CustomPartSet, customLanguage?: types.LanguageCodePack) => {
+export const dataValidator = (customParts?: types.Part.CustomPartSet, customLanguage?: types.Language.LanguageCodePack) => {
     let parts = merge({}, predefinedPart, customParts);
     let language = merge({}, predefinedLanguage, customLanguage ?? {});
     let innerValidate = (elements: types.Element[], data: any, languageCode?: string) => {

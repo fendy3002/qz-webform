@@ -106,7 +106,7 @@ class StaticRenderBuilder {
     }
     readonly: boolean | ((data: any) => boolean) = null;
     parts: types.Part.CustomPartSet = null;
-    language: types.LanguageCodePack = null;
+    language: types.Language.LanguageCodePack = null;
     languageCode: string = "en";
     customParser: types.Static.CustomParserSet = null;
     context: types.Static.Context = {};
@@ -128,7 +128,7 @@ class StaticRenderBuilder {
      * @param language {Object} 
      * @returns {Object} a {@link static.renderStatic.StaticRenderBuilder StaticRenderBuilder} instance
      */
-    withLanguage(language: types.LanguageCodePack) {
+    withLanguage(language: types.Language.LanguageCodePack) {
         this.language = language;
         return this;
     }
@@ -208,7 +208,6 @@ class StaticRenderBuilder {
     }
     /**
      * Render a static webform from html dom element
-     * @category Static
      * @param dom {Object} html dom element contains the elements to render
      * @returns a renderEngine object
      */

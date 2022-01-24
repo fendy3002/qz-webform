@@ -8,7 +8,7 @@ import * as types from '../types';
 export interface StaticWebFormProps {
     Elements: types.Element[],
     Parts?: types.Part.CustomPartSet,
-    Language?: types.LanguageCodePack,
+    Language?: types.Language.LanguageCodePack,
     LanguageCode?: string,
     readonly?: boolean | ((data: any) => boolean)
 };
