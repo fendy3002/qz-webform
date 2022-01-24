@@ -1,4 +1,7 @@
 import * as React from 'react';
+/**
+ * @module Components
+ */
 
 export interface CaseInputProp {
     uppercase?: boolean,
@@ -8,6 +11,9 @@ export interface CaseInputProp {
     [key: string]: any
 }
 let BaseHTMLInput = React.forwardRef((props, ref) => <input {...props} ref={ref} />)
+/**
+ * @class CaseInput, a react component to enable case-transforming input
+ */
 export class CaseInput extends React.Component<CaseInputProp, any> {
     constructor(props) {
         super(props);

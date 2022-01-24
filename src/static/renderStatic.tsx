@@ -11,12 +11,14 @@ import { ErrorBoundary } from '../Components/ErrorBoundary';
 import { dataValidator } from '../validator/dataValidator';
 
 /**
- * @module Static/renderStatic
+ * @namespace renderStatic
+ * @memberof static
  */
 
 /**
  * A rendering engine instance, it is used internally
  * @param param {Object} configuration related to webform rendering
+ * @memberof static.renderStatic
  * @returns the render handler
  */
 const renderEngine = ({
@@ -84,8 +86,13 @@ const renderEngine = ({
 };
 /**
  * A class to hold information about static rendering options
+ * @class
+ * @memberof static.renderStatic
  */
 class StaticRenderBuilder {
+    /**
+     * @constructor 
+     */
     constructor() {
         [
             "withParts",
@@ -104,22 +111,53 @@ class StaticRenderBuilder {
     customParser: types.Static.CustomParserSet = null;
     context: types.Static.Context = {};
 
+    /**
+     * Set the custom parts
+     * @function
+     * @param parts {Object} 
+     * @returns {Object} a {@link static.renderStatic.StaticRenderBuilder StaticRenderBuilder} instance
+     */
     withParts(parts: types.Part.CustomPartSet) {
         this.parts = parts;
         return this;
     }
+
+    /**
+     * Set the language pack
+     * @function
+     * @param language {Object} 
+     * @returns {Object} a {@link static.renderStatic.StaticRenderBuilder StaticRenderBuilder} instance
+     */
     withLanguage(language: types.LanguageCodePack) {
         this.language = language;
         return this;
     }
+    /**
+     * Set the language code
+     * @function
+     * @param languageCode {String} language code to refer to specific language code in language pack. Default "en"
+     * @returns {Object} a {@link static.renderStatic.StaticRenderBuilder StaticRenderBuilder} instance
+     */
     withLanguageCode(languageCode: string) {
         this.languageCode = languageCode;
         return this;
     }
+    /**
+     * Set custom parser
+     * @function
+     * @param customParser {Object}
+     * @returns {Object} a {@link static.renderStatic.StaticRenderBuilder StaticRenderBuilder} instance
+     */
     withCustomParser(customParser: types.Static.CustomParserSet) {
         this.customParser = customParser;
         return this;
     }
+    /**
+     * Set context
+     * @function
+     * @param context {Object}
+     * @returns {Object} a {@link static.renderStatic.StaticRenderBuilder StaticRenderBuilder} instance
+     */
     withContext(context: types.Static.Context) {
         this.context = {
             ...this.context,
@@ -127,6 +165,12 @@ class StaticRenderBuilder {
         };
         return this;
     }
+    /**
+     * Add a context to specific id
+     * @param id {String} element id this context refer to 
+     * @param context {Object} the context for element
+     * @returns {Object} a {@link static.renderStatic.StaticRenderBuilder StaticRenderBuilder} instance
+     */
     addContext(id: string, context: any) {
         this.context = {
             ...this.context,
@@ -134,6 +178,11 @@ class StaticRenderBuilder {
         };
         return this;
     }
+    /**
+     * Set the rendering setting
+     * @param props {Object} setting object
+     * @returns {Object} a {@link static.renderStatic.StaticRenderBuilder StaticRenderBuilder} instance
+     */
     withSetting(props: {
         readonly?: boolean | ((data: any) => boolean)
     }) {
@@ -142,7 +191,7 @@ class StaticRenderBuilder {
     }
     /**
      * Render a static webform from xml string
-     * @category Static
+     * @function
      * @param xml {String} xml string
      * @returns a renderEngine object
      */
@@ -177,9 +226,10 @@ class StaticRenderBuilder {
     }
 };
 /**
- * A shorthand for create a new StaticRenderBuilder instance
- * @category Static
- * @returns a new StaticRenderBuilder instance
+ * A shorthand for create a new {@link static.renderStatic.StaticRenderBuilder StaticRenderBuilder} instance
+ * @function renderStatic
+ * @memberof static.renderStatic#
+ * @returns {Object} a new {@link static.renderStatic.StaticRenderBuilder StaticRenderBuilder} instance
  */
 export const renderStatic = () => {
     return new StaticRenderBuilder();
