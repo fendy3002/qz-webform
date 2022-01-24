@@ -1,8 +1,7 @@
 import * as Base from './Base';
 
 /**
- * @category types
- * @subcategory Static
+ * 
  */
 export interface CustomParserTools {
     /**
@@ -22,8 +21,6 @@ export interface CustomParserTools {
 };
 /**
  * Parse xml and modify existing Element
- * @category types
- * @subcategory Static
  * @function
  * @param props {Object}
  * @param tools {@link CustomParserTools}
@@ -38,8 +35,6 @@ export interface CustomParser {
 
 /**
  * Set of Custom Parser defined by tagName
- * @category types
- * @subcategory Static
  */
 export interface CustomParserSet {
     /**
@@ -49,8 +44,6 @@ export interface CustomParserSet {
 }
 /**
  * 
- * @category types
- * @subcategory Static
  */
 export interface Xml2ElementProps {
     xmlString: string,

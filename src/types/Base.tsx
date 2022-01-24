@@ -3,8 +3,6 @@ interface DataBooleanHandler {
 }
 /**
  * Element context
- * @category types
- * @subcategory Base
  */
 export interface Context {
     /**
@@ -15,8 +13,6 @@ export interface Context {
 
 /**
  * Webform element type
- * @category types
- * @subcategory Base
  */
 export interface Element {
     /**

@@ -5,8 +5,8 @@
   "license": "MIT",
   "scripts": {
     "build": "yarn build:tsc && yarn build:jsdoc",
-    "build:tsc": "tsc",
-    "build:jsdoc": "jsdoc -c jsdoc.json -d docs src/**/* ./README.md",
+    "build:tsc": "rm -rf ./dist && tsc",
+    "build:jsdoc": "rm -rf ./docs && jsdoc -d docs dist/**/* ./README.md",
     "prepublish": "yarn build",
     "webpack": "webpack --mode=development --config webpack.dev.js --watch"
   },
@@ -37,7 +37,6 @@
     "xml2js": "^0.4.23"
   },
   "devDependencies": {
-    "better-docs": "^2.7.1",
     "jsdoc": "^3.6.9"
   }
 }

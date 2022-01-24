@@ -1,31 +1,23 @@
 import { Parser } from 'xml2js';
 import { merge } from 'lodash';
 import * as predefinedParser from './predefinedParser';
+import { lowercasePropName } from '../utils/lowercasePropName';
 import * as types from '../types';
 
-let xmlParser = new Parser({
-    explicitArray: true,
-    explicitChildren: true,
-    preserveChildrenOrder: true
-});
 /**
- * @param prop {Object} key-value object
- * @returns {Object} prop with all of it's prop name changed to lowercase
- */
-let lowercasePropName = (prop) => {
-    if (!prop) { return {}; }
-    let result: any = {};
-    for (let key of Object.keys(prop)) {
-        result[key.toLowerCase()] = prop[key];
-    }
-    return result;
-};
-/**
- * @namespace static.xml2Element
+ * 
+ * @memberof static
+ * @function
  * @param props 
  * @returns {Promise}
  */
 export const xml2Element = (props: types.Static.Xml2ElementProps) => {
+    let xmlParser = new Parser({
+        explicitArray: true,
+        explicitChildren: true,
+        preserveChildrenOrder: true
+    });
+
     // add root to xml string
     let xmlString = `<root>${props.xmlString.trim()}</root>`;
     // merge custom parser with predefined parsers
@@ -39,7 +31,7 @@ export const xml2Element = (props: types.Static.Xml2ElementProps) => {
     const innerParse = (each) => {
         // all prop fields is lowercased
         let lowerCasedStructure = lowercasePropName(each.$);
-        
+
         let element: types.Element = {
             tagName: each['#name'].toLowerCase(),
             id: lowerCasedStructure["id"],
