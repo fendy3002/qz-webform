@@ -7,7 +7,7 @@ export interface CaseInputProp {
     uppercase?: boolean,
     lowercase?: boolean,
     onChange?: (evt: any) => (void | any),
-    inputComponent?: React.ForwardRefExoticComponent<React.RefAttributes<unknown>>,
+    inputComponent?: React.ReactElement,
     [key: string]: any
 }
 let BaseHTMLInput = React.forwardRef((props, ref) => <input {...props} ref={ref} />)
@@ -42,10 +42,16 @@ export class CaseInput extends React.Component<CaseInputProp, any> {
     }
     render() {
         let { uppercase, lowercase, onChange, inputComponent, ...renderedProps } = this.props;
-        let InputComponent = this.props.inputComponent ?? BaseHTMLInput;
-        let InputComponentProps = {
-            onChange: this.onChange
-        };
-        return <InputComponent {...renderedProps} {...InputComponentProps} ref={this.inputRef} />;
+        let baseInputComponent = this.props.inputComponent ?? <BaseHTMLInput />;
+
+        const InputComponent = React.cloneElement(
+            baseInputComponent,
+            {
+                ref: this.inputRef,
+                onChange: this.onChange,
+                ...renderedProps
+            }
+        );
+        return InputComponent;
     }
 }

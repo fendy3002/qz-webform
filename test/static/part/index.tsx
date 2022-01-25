@@ -37,7 +37,7 @@ let customPartSet: types.Part.CustomPartSet = {
             let className = "form-control rounded-0 " + (error ? "is-invalid" : "");
 
             return <div className="form-floating ">
-                <CaseInput className={className} name={name} inputComponent={TextAreaCaseInput}
+                <CaseInput className={className} name={name} inputComponent={<TextAreaCaseInput />}
                     value={value} readOnly={readonly} placeholder={placeholder}
                     style={{
                         height: "10em"
