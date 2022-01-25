@@ -18,6 +18,7 @@ export class CaseInput extends React.Component<CaseInputProp, any> {
     constructor(props) {
         super(props);
         this.onChange = this.onChange.bind(this);
+        this.inputRef = React.createRef();
     }
     selectionStart = null;
     selectionEnd = null;
@@ -36,7 +37,7 @@ export class CaseInput extends React.Component<CaseInputProp, any> {
     }
     componentDidUpdate() {
         if (this.props.uppercase || this.props.lowercase) {
-            this.inputRef?.setSelectionRange(this.selectionStart, this.selectionEnd);
+            this.inputRef?.current.setSelectionRange(this.selectionStart, this.selectionEnd);
         }
     }
     render() {
@@ -45,6 +46,6 @@ export class CaseInput extends React.Component<CaseInputProp, any> {
         let InputComponentProps = {
             onChange: this.onChange
         };
-        return <InputComponent {...renderedProps} {...InputComponentProps} ref={(ref) => this.inputRef = ref} />;
+        return <InputComponent {...renderedProps} {...InputComponentProps} ref={this.inputRef} />;
     }
 }
