@@ -67,12 +67,12 @@ export const staticRenderer = ({
                 /**
                  * @returns current data in webform
                  */
-                data: () => buildResult.data,
+                data: () => DummyState.data,
                 /**
                  * @returns validation result to current data in webform
                  */
                 validateData: () => {
-                    let validationResult = dataValidator(parts, language)(buildResult.Elements, buildResult.data)
+                    let validationResult = dataValidator(parts, language)(buildResult.Elements, DummyState.data)
                     DummyState.error = {
                         ...DummyState.error,
                         ...validationResult.object()
