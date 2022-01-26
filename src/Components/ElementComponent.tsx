@@ -24,6 +24,7 @@ const calculateBoolean = (handler: boolean | ((data: any) => boolean), data) => 
         return handler(data);
     }
 };
+const DefaultLogic = ({ Component, Element }) => <Component {...Element.props} />;
 const ElementComponent = (props: ElementComponentProps) => {
     const parts = useParts();
     const { Element, data, error, readonly, onChange } = props;
@@ -54,7 +55,7 @@ const ElementComponent = (props: ElementComponentProps) => {
     if (!tagPart) {
         throw new Error(`Parts for tag "${Element.tagName}" not found`);
     }
-    let Tag = tagPart.Logic;
+    let Tag = tagPart.Logic ?? DefaultLogic;
     let children = [];
     if (Element.children && Element.children.length > 0) {
         for (let child of Element.children) {
